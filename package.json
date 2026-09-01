@@ -59,6 +59,7 @@
   },
   "scripts": {
     "dev": "vite --config vite.demo.config.ts",
+    "build:demo": "vite build --config vite.demo.config.ts",
     "build": "npm run typecheck && vite build && npm run build:types",
     "build:types": "vue-tsc -p tsconfig.build.json --declaration --emitDeclarationOnly",
     "typecheck": "vue-tsc --noEmit",
@@ -76,6 +77,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
+    "@mdi/font": "7.4.47",
     "@playwright/test": "^1.55.0",
     "@types/node": "^24.3.0",
     "@vitejs/plugin-vue2": "^2.3.3",

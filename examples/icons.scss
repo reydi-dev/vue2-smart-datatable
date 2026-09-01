@@ -1,0 +1,13 @@
+@import '@mdi/font/scss/variables';
+@import '@mdi/font/scss/functions';
+
+@font-face {
+  font-family: '#{$mdi-font-name}';
+  src: url('@mdi/font/fonts/materialdesignicons-webfont.woff2') format('woff2');
+  font-style: normal;
+  font-weight: normal;
+  font-display: block;
+}
+
+@import '@mdi/font/scss/core';
+@import '@mdi/font/scss/icons';
