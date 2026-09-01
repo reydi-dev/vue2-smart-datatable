@@ -1,6 +1,8 @@
 # Smart Data Table for Vue 2.7
 
-A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6. The project is currently private while its final npm name and license are confirmed.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6. The package remains private until its final npm name and release process are confirmed.
 
 ## Features
 
@@ -48,3 +50,9 @@ const normalizeResponse = (raw) => ({ items: raw.records, total: raw.count })
 See [`docs/api.md`](docs/api.md), [`docs/providers.md`](docs/providers.md), and [`docs/adapters.md`](docs/adapters.md).
 
 > Vue 2 and Vuetify 2 are end-of-life. This package intentionally targets applications that cannot migrate yet.
+
+## License
+
+Released under the [MIT License](LICENSE).
+
+Copyright © 2026 [Mohammad Reza Dehghani](https://github.com/reydi-dev).

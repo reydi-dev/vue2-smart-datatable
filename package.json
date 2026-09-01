@@ -1,11 +1,33 @@
 {
   "version": "0.1.0",
   "private": true,
+  "description": "A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6.",
+  "author": {
+    "name": "Mohammad Reza Dehghani",
+    "url": "https://github.com/reydi-dev"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reydi-dev/vue2-smart-datatable.git"
+  },
+  "homepage": "https://github.com/reydi-dev/vue2-smart-datatable#readme",
+  "bugs": {
+    "url": "https://github.com/reydi-dev/vue2-smart-datatable/issues"
+  },
+  "keywords": [
+    "vue",
+    "vue2",
+    "vuetify",
+    "data-table",
+    "datatable"
+  ],
   "type": "module",
   "files": [
     "dist",
     "README.md",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "LICENSE"
   ],
   "main": "./dist/smart-data-table.cjs",
   "module": "./dist/smart-data-table.js",
