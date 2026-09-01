@@ -1,0 +1,135 @@
+.sdt-root {
+  --sdt-border-color: rgba(0, 0, 0, 0.12);
+  --sdt-muted-color: rgba(0, 0, 0, 0.6);
+  position: relative;
+  width: 100%;
+}
+.sdt-toolbar {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  gap: 4px;
+}
+.sdt-toolbar__content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sdt-state {
+  min-height: 140px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+.sdt-filters {
+  margin-bottom: 12px;
+}
+.sdt-filters__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+.sdt-filter {
+  display: grid;
+  gap: 6px;
+}
+.sdt-sort-button,
+.sdt-cell__icon-button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.sdt-sort-button {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: inherit;
+  gap: 4px;
+  font-weight: 600;
+}
+.sdt-cell__icon-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.sdt-cell__copy-value {
+  overflow-wrap: anywhere;
+}
+.sdt-cell__link {
+  color: inherit;
+  text-decoration: underline;
+}
+.sdt-cell__expandable {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  white-space: pre-wrap;
+}
+.sdt-column--selection {
+  width: 48px;
+}
+.sdt-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 0;
+}
+.sdt-pagination__size {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sdt-pagination__size .v-input {
+  max-width: 90px;
+}
+.sdt-mobile__summary {
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-items: center;
+}
+.sdt-mobile__summary small {
+  display: block;
+  color: var(--sdt-muted-color);
+}
+.sdt-mobile__details {
+  display: grid;
+  grid-template-columns: minmax(100px, 1fr) 2fr;
+  gap: 8px 12px;
+  margin: 0;
+}
+.sdt-mobile__details dt {
+  color: var(--sdt-muted-color);
+}
+.sdt-mobile__details dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.sdt-mobile__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding-top: 12px;
+}
+.sdt-export-progress {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 5;
+}
+.sdt-root .v-data-table__wrapper {
+  scrollbar-width: thin;
+}
+@media (max-width: 600px) {
+  .sdt-toolbar {
+    flex-wrap: wrap;
+  }
+  .sdt-mobile__summary {
+    grid-template-columns: auto 1fr;
+  }
+}

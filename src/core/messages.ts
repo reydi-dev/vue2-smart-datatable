@@ -1,0 +1,39 @@
+import type { DataTableIcons, DataTableMessages } from '../types'
+
+export const defaultMessages: DataTableMessages = {
+  loading: 'Loading data…',
+  empty: 'No items to display',
+  error: 'Unable to load data',
+  retry: 'Retry',
+  rowsPerPage: 'Rows per page',
+  of: 'of',
+  filters: 'Filters',
+  clearFilters: 'Clear filters',
+  columns: 'Columns',
+  reset: 'Reset',
+  apply: 'Apply',
+  export: 'Export',
+  currentPage: 'Current page',
+  allRows: 'All rows',
+  copy: 'Copy',
+  copied: 'Copied',
+  expand: 'Show full text',
+  collapse: 'Hide full text',
+  actions: 'Actions',
+  selectAll: 'Select all rows on this page',
+}
+
+export const defaultIcons: DataTableIcons = {
+  sortAsc: 'mdi-arrow-up',
+  sortDesc: 'mdi-arrow-down',
+  filter: 'mdi-filter-variant',
+  columns: 'mdi-view-column',
+  export: 'mdi-download',
+  copy: 'mdi-content-copy',
+  expand: 'mdi-eye',
+  collapse: 'mdi-eye-off',
+  previous: 'mdi-chevron-left',
+  next: 'mdi-chevron-right',
+  actions: 'mdi-dots-vertical',
+  retry: 'mdi-refresh',
+}
