@@ -6,7 +6,12 @@ export default defineConfig({
   root: 'examples',
   base: process.env.SDT_DEMO_BASE || '/',
   plugins: [vue()],
-  resolve: { alias: { '@': resolve(__dirname, 'src') } },
+  resolve: {
+    alias: [
+      { find: '@', replacement: resolve(__dirname, 'src') },
+      { find: /^vue$/, replacement: resolve(__dirname, 'node_modules/vue/dist/vue.runtime.esm.js') },
+    ],
+  },
   server: { port: 4173 },
   css: {
     preprocessorOptions: {

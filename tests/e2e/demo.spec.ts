@@ -5,6 +5,8 @@ test('local and server demos render responsively', async ({ page }) => {
   await expect(page.getByText('Person 1', { exact: true })).toBeVisible()
   await page.getByRole('button', { name: 'Server' }).click()
   await expect(page.getByText('Normalized server data')).toBeVisible()
+  await expect(page.getByText('Person 1', { exact: true })).toBeVisible()
   await page.setViewportSize({ width: 390, height: 800 })
+  await page.reload()
   await expect(page.locator('.sdt-mobile')).toBeVisible()
 })
