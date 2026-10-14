@@ -3,7 +3,7 @@
 [![CI](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml/badge.svg)](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6. This GitHub repository is public; the package is not published to npm yet (`private: true` in `package.json`).
+A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6. The first npm release is `0.1.0-beta.1`; the API may change before `0.1.0`.
 
 [Live demo](https://reydi-dev.github.io/vue2-smart-datatable/) · [API](docs/api.md) · [Roadmap](docs/roadmap.md) · [Security](SECURITY.md)
 
@@ -17,20 +17,28 @@ A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6. This GitHub 
 - English/LTR defaults with configurable messages and RTL
 - Escaped text rendering; no raw HTML renderer
 
-## Try the demo locally
+## Install the beta
+
+In a Vue 2.7 application that already uses Vuetify 2.6:
 
 ```sh
-git clone https://github.com/reydi-dev/vue2-smart-datatable.git
-cd vue2-smart-datatable
-npm ci
-npm run dev
+npm install vue2-smart-datatable@beta
 ```
 
-Open the local URL printed by Vite. The [live demo](https://reydi-dev.github.io/vue2-smart-datatable/) shows this repository's full example with local data, a mock server provider, and mobile and RTL layouts.
+Initialize Vuetify and import both stylesheets once in your application entry point:
 
-## Minimal local example
+```ts
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+import 'vue2-smart-datatable/styles.css'
 
-To try a smaller table in this repository, replace `examples/App.vue` with the following. The existing `examples/main.ts` already initializes Vuetify and imports its CSS and the table styles.
+Vue.use(Vuetify)
+const vuetify = new Vuetify()
+// Pass vuetify to your root Vue instance: new Vue({ vuetify, ... })
+```
+
+Use the table in a component:
 
 ```vue
 <template>
@@ -43,8 +51,8 @@ To try a smaller table in this repository, replace `examples/App.vue` with the f
 
 <script lang="ts">
 import Vue from 'vue'
-import { SmartDataTable } from '@/index'
-import type { DataTableColumn } from '@/types'
+import { SmartDataTable } from 'vue2-smart-datatable'
+import type { DataTableColumn } from 'vue2-smart-datatable'
 
 type Row = { id: number; name: string }
 
@@ -65,11 +73,22 @@ export default Vue.extend({
 </script>
 ```
 
-The `@/` imports above are aliases configured for this repository. When the npm package is released, consumer applications will import the component and its `styles.css` from the published package. Vue 2.7 and Vuetify 2.6 must be installed in the host application, which must also create a Vuetify instance and import Vuetify CSS.
+Vue 2.7 and Vuetify 2.6 are peer dependencies. The host application must provide both. See the [API reference](docs/api.md) for provider mode, slots, events, and options.
+
+## Try the demo locally
+
+```sh
+git clone https://github.com/reydi-dev/vue2-smart-datatable.git
+cd vue2-smart-datatable
+npm ci
+npm run dev
+```
+
+Open the local URL printed by Vite. The [live demo](https://reydi-dev.github.io/vue2-smart-datatable/) shows this repository's full example with local data, a mock server provider, and mobile and RTL layouts.
 
 ### Vite apps using Vuetify 2
 
-When consuming a locally packed copy or a future npm release in a Vite app, make Vite resolve every `vue` import to the same Vue 2 runtime. Without this alias, Vuetify 2 can load a second Vue runtime and the app may render a blank page:
+When using Vuetify 2 in a Vite app, make Vite resolve every `vue` import to the same Vue 2 runtime. Without this alias, Vuetify 2 can load a second Vue runtime and the app may render a blank page:
 
 ```ts
 // vite.config.ts
@@ -85,7 +104,7 @@ export default defineConfig({
 })
 ```
 
-The host entry point also needs both stylesheets: `vuetify/dist/vuetify.min.css` and `vue2-smart-datatable/styles.css`. This Vite example assumes npm's `node_modules` layout; adapt the resolved path for other package managers.
+This Vite example assumes npm's `node_modules` layout; adapt the resolved path for other package managers.
 
 ## Development checks
 
