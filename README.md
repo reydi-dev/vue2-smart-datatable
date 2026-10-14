@@ -3,7 +3,7 @@
 [![CI](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml/badge.svg)](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6. The package remains private until its final npm name and release process are confirmed.
+A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6. This GitHub repository is public; the package is not published to npm yet (`private: true` in `package.json`).
 
 [Live demo](https://reydi-dev.github.io/vue2-smart-datatable/) · [API](docs/api.md) · [Roadmap](docs/roadmap.md) · [Security](SECURITY.md)
 
@@ -17,31 +17,63 @@ A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6. The package 
 - English/LTR defaults with configurable messages and RTL
 - Escaped text rendering; no raw HTML renderer
 
-## Development
+## Try the demo locally
 
 ```sh
-npm install
+git clone https://github.com/reydi-dev/vue2-smart-datatable.git
+cd vue2-smart-datatable
+npm ci
 npm run dev
+```
+
+Open the local URL printed by Vite. The [live demo](https://reydi-dev.github.io/vue2-smart-datatable/) shows this repository's full example with local data, a mock server provider, and mobile and RTL layouts.
+
+## Minimal local example
+
+To try a smaller table in this repository, replace `examples/App.vue` with the following. The existing `examples/main.ts` already initializes Vuetify and imports its CSS and the table styles.
+
+```vue
+<template>
+  <v-app>
+    <v-main>
+      <SmartDataTable v-model="selectedIds" :columns="columns" :items="rows" selectable />
+    </v-main>
+  </v-app>
+</template>
+
+<script lang="ts">
+import Vue from 'vue'
+import { SmartDataTable } from '@/index'
+import type { DataTableColumn } from '@/types'
+
+type Row = { id: number; name: string }
+
+export default Vue.extend({
+  components: { SmartDataTable },
+  data: () => ({
+    selectedIds: [] as number[],
+    columns: [
+      { key: 'id', label: 'ID', type: 'number', sortable: true },
+      { key: 'name', label: 'Name', filterable: true },
+    ] as DataTableColumn<Row>[],
+    rows: [
+      { id: 1, name: 'Ada' },
+      { id: 2, name: 'Lin' },
+    ] as Row[],
+  }),
+})
+</script>
+```
+
+The `@/` imports above are aliases configured for this repository. When the npm package is released, consumer applications will import the component and its `styles.css` from the published package. Vue 2.7 and Vuetify 2.6 must be installed in the host application, which must also create a Vuetify instance and import Vuetify CSS.
+
+## Development checks
+
+```sh
 npm run typecheck
 npm run test:unit
 npm run build
 npm run build:demo
-```
-
-The host application must install Vue 2.7, install Vuetify 2.6, create a Vuetify instance, and import both Vuetify CSS and this package's `styles.css`.
-
-## Minimal local example
-
-```vue
-<SmartDataTable
-  v-model="selectedIds"
-  :columns="[
-    { key: 'id', label: 'ID', type: 'number', sortable: true },
-    { key: 'name', label: 'Name', filterable: true },
-  ]"
-  :items="rows"
-  selectable
-/>
 ```
 
 ## Server example
