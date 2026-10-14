@@ -49,6 +49,9 @@ jobs:
       - name: Test distribution
         run: npm run test:dist
 
+      - name: Check npm package
+        run: npm pack --dry-run
+
   browser:
     name: Browser tests
     runs-on: ubuntu-latest

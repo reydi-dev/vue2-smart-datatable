@@ -67,12 +67,33 @@ export default Vue.extend({
 
 The `@/` imports above are aliases configured for this repository. When the npm package is released, consumer applications will import the component and its `styles.css` from the published package. Vue 2.7 and Vuetify 2.6 must be installed in the host application, which must also create a Vuetify instance and import Vuetify CSS.
 
+### Vite apps using Vuetify 2
+
+When consuming a locally packed copy or a future npm release in a Vite app, make Vite resolve every `vue` import to the same Vue 2 runtime. Without this alias, Vuetify 2 can load a second Vue runtime and the app may render a blank page:
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue2'
+import { resolve } from 'node:path'
+
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: [{ find: /^vue$/, replacement: resolve(__dirname, 'node_modules/vue/dist/vue.runtime.esm.js') }],
+  },
+})
+```
+
+The host entry point also needs both stylesheets: `vuetify/dist/vuetify.min.css` and `vue2-smart-datatable/styles.css`. This Vite example assumes npm's `node_modules` layout; adapt the resolved path for other package managers.
+
 ## Development checks
 
 ```sh
 npm run typecheck
 npm run test:unit
 npm run build
+npm pack --dry-run
 npm run build:demo
 ```
 
