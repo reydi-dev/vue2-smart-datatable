@@ -5,7 +5,11 @@
         @click.native="$emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
       >
         <slot name="mobile-summary" :row="row" :columns="summaryColumns" :row-index="index">
-          <div class="sdt-mobile__summary">
+          <div
+            class="sdt-mobile__summary"
+            :class="{ 'sdt-mobile__summary--selectable': selectable }"
+            :style="{ '--sdt-summary-count': summaryColumns.length }"
+          >
             <v-checkbox
               v-if="selectable"
               :input-value="selectedKeys.includes(rowKeyOf(row))"

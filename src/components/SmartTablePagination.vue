@@ -11,7 +11,9 @@
         @change="$emit('update:items-per-page', Number($event))"
       />
     </label>
-    <span>{{ page }} {{ messages.of }} {{ pageCount }}</span>
+    <span class="sdt-pagination__count" aria-live="polite"
+      >{{ firstItem }}–{{ lastItem }} {{ messages.of }} {{ total }}</span
+    >
     <v-btn icon :disabled="page <= 1" :aria-label="'Previous page'" @click="$emit('update:page', page - 1)"
       ><v-icon>{{ previousIcon }}</v-icon></v-btn
     >
@@ -38,6 +40,12 @@ export default Vue.extend({
   computed: {
     pageCount(): number {
       return Math.max(1, Math.ceil(this.total / this.itemsPerPage))
+    },
+    firstItem(): number {
+      return this.total === 0 ? 0 : Math.min(this.total, (this.page - 1) * this.itemsPerPage + 1)
+    },
+    lastItem(): number {
+      return Math.min(this.total, this.page * this.itemsPerPage)
     },
   },
 })
