@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-beta.2 - 2026-10-15
+
+- Fixed the filter panel crash when using the default filters.
+- Added a copyable server-side data provider example and expanded provider documentation.
+
 ## 0.1.0-beta.1 - 2026-10-14
 
 - New backend-neutral `SmartDataTable` implementation.
