@@ -3,7 +3,7 @@
     <template #default>
       <thead>
         <tr>
-          <th v-if="selectable" class="sdt-column--selection">
+          <th v-if="selectable" scope="col" class="sdt-column--selection">
             <v-checkbox
               :input-value="allPageSelected"
               :indeterminate="somePageSelected"
@@ -16,6 +16,14 @@
           <th
             v-for="column in columns"
             :key="column.key"
+            scope="col"
+            :aria-sort="
+              sort && sort.columnKey === column.key
+                ? sort.direction === 'asc'
+                  ? 'ascending'
+                  : 'descending'
+                : undefined
+            "
             :class="[column.headerClass, `text-${column.align || 'start'}`]"
             :style="columnStyle(column)"
           >
@@ -29,7 +37,7 @@
               <span v-else>{{ column.label }}</span>
             </slot>
           </th>
-          <th v-if="actions.length" class="text-center">{{ messages.actions }}</th>
+          <th v-if="actions.length" scope="col" class="text-center">{{ messages.actions }}</th>
         </tr>
       </thead>
       <tbody>
@@ -37,13 +45,15 @@
           v-for="(row, index) in rows"
           :key="String(rowKeyOf(row))"
           :class="rowClassValue(row, index)"
-          tabindex="0"
+          :tabindex="rowClickable ? 0 : undefined"
           @click="$emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
-          @keydown.enter="$emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
+          @keydown.enter.self="$emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
+          @keydown.space.self.prevent="$emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
         >
           <td v-if="selectable" class="sdt-column--selection" @click.stop>
             <v-checkbox
               :input-value="selectedKeys.includes(rowKeyOf(row))"
+              :aria-label="`${messages.selectRow || 'Select row'} ${index + 1}`"
               hide-details
               dense
               @change="$emit('select-row', { row, selected: Boolean($event) })"
@@ -122,6 +132,7 @@ export default Vue.extend({
     rowKeyOf: { type: Function, required: true },
     selectedKeys: { type: Array as () => RowKey[], required: true },
     selectable: Boolean,
+    rowClickable: Boolean,
     actions: { type: Array as () => RowAction[], default: () => [] },
     sort: { type: Object as () => SortState | null },
     dense: Boolean,

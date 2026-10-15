@@ -21,6 +21,7 @@ export const defaultMessages: DataTableMessages = {
   collapse: 'Hide full text',
   actions: 'Actions',
   selectAll: 'Select all rows on this page',
+  selectRow: 'Select row',
 }
 
 export const defaultIcons: DataTableIcons = {

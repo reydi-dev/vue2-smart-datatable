@@ -163,6 +163,7 @@ export interface DataTableMessages {
   collapse: string
   actions: string
   selectAll: string
+  selectRow?: string
 }
 
 export interface DataTableIcons {

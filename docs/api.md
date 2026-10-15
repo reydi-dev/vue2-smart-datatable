@@ -42,11 +42,15 @@
 
 Controlled props take precedence over persisted/default values. Interactions update internal optimistic state and emit the matching event so a parent can synchronize its source of truth.
 
+For translated selection controls, override `messages.selectAll` and `messages.selectRow`. The latter is a label prefix followed by the row's position on the current page (for example, `Select row 1`).
+
 ## Events
 
 State events are `input`, `selection-change`, `update:page`, `update:items-per-page`, `update:sort`, `update:filters`, `update:visible-columns`, `column-visibility-change`, and `options-change`.
 
 Lifecycle events are `load-start`, `load-success`, `load-error`, `loading-change`, `export-start`, `export-success`, and `export-error`. Interaction events are `row-click`, `row-action`, and `cell-click`. Load/export events include the request, result, scope, adapter key, or error described by the exported TypeScript types.
+
+Desktop rows enter the keyboard tab order when the consumer listens for `row-click`. Press Enter or Space on a focused row to emit the event.
 
 ## Slots
 

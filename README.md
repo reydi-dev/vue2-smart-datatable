@@ -3,7 +3,7 @@
 [![CI](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml/badge.svg)](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6. The first npm release is `0.1.0-beta.1`; the API may change before `0.1.0`.
+A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6. This package is in beta; the API may change before `0.1.0`.
 
 [Live demo](https://reydi-dev.github.io/vue2-smart-datatable/) · [API](docs/api.md) · [Roadmap](docs/roadmap.md) · [Security](SECURITY.md)
 

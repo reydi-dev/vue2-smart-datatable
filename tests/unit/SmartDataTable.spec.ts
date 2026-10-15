@@ -57,4 +57,23 @@ describe('SmartDataTable', () => {
     expect(wrapper.find('.sdt-filter').exists()).toBe(true)
     wrapper.destroy()
   })
+
+  it('lets keyboard users activate rows when row-click is observed', async () => {
+    const onRowClick = vi.fn()
+    const wrapper = mount(SmartDataTable, {
+      vuetify: new Vuetify(),
+      propsData: {
+        columns: [{ key: 'name', label: 'Name' }],
+        items: [{ id: 1, name: 'Ada' }],
+      },
+      listeners: { 'row-click': onRowClick },
+    })
+
+    const row = wrapper.find('tbody tr')
+    expect(row.attributes('tabindex')).toBe('0')
+    await row.trigger('keydown.enter')
+    await row.trigger('keydown.space')
+    expect(onRowClick).toHaveBeenCalledTimes(2)
+    wrapper.destroy()
+  })
 })

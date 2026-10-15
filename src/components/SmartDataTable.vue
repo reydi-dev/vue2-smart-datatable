@@ -54,6 +54,7 @@
       :row-key-of="rowKeyOf"
       :selected-keys="internalSelectedKeys"
       :selectable="selectable"
+      :row-clickable="Boolean($listeners['row-click'])"
       :actions="actions"
       :sort="internalSort"
       :dense="dense"

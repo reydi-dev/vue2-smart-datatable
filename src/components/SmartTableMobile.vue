@@ -13,6 +13,7 @@
             <v-checkbox
               v-if="selectable"
               :input-value="selectedKeys.includes(rowKeyOf(row))"
+              :aria-label="`${messages.selectRow || 'Select row'} ${index + 1}`"
               hide-details
               dense
               @click.native.stop
