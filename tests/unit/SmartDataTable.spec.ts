@@ -40,4 +40,21 @@ describe('SmartDataTable', () => {
     expect(wrapper.text()).toContain('Server row')
     wrapper.destroy()
   })
+
+  it('opens default filters when no custom filter slots are provided', async () => {
+    const wrapper = mount(SmartDataTable, {
+      vuetify: new Vuetify(),
+      propsData: {
+        columns: [{ key: 'name', label: 'Name', filterable: true }],
+        items: [{ id: 1, name: 'Ada' }],
+      },
+    })
+
+    wrapper.findComponent({ name: 'SmartTableToolbar' }).vm.$emit('toggle-filters')
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findComponent({ name: 'SmartTableFilters' }).exists()).toBe(true)
+    expect(wrapper.find('.sdt-filter').exists()).toBe(true)
+    wrapper.destroy()
+  })
 })

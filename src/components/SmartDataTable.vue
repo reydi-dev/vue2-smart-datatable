@@ -23,11 +23,7 @@
       :messages="resolvedMessages"
       @input="setFilters"
     >
-      <template
-        v-for="column in activeColumns"
-        v-if="$scopedSlots[`filter.${column.key}`]"
-        v-slot:[`filter.${column.key}`]="context"
-      >
+      <template v-for="column in filterSlotColumns" v-slot:[`filter.${column.key}`]="context">
         <slot :name="`filter.${column.key}`" v-bind="context" />
       </template>
     </SmartTableFilters>
@@ -286,6 +282,9 @@ export default Vue.extend({
     },
     activeColumns(): DataTableColumn[] {
       return this.normalizedColumns.filter((column) => this.internalVisibleColumns.includes(column.key))
+    },
+    filterSlotColumns(): DataTableColumn[] {
+      return this.activeColumns.filter((column) => Boolean(this.$scopedSlots[`filter.${column.key}`]))
     },
     localResult(): NormalizedData {
       return processLocalData(

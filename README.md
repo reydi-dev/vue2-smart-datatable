@@ -118,10 +118,54 @@ npm run build:demo
 
 ## Server example
 
-```ts
-const dataProvider = (request) => api.list(request)
-const normalizeResponse = (raw) => ({ items: raw.records, total: raw.count })
+This example connects to `GET /api/users`. The endpoint accepts one-based `page`, `per_page`, optional `sort` and `direction`, and an optional case-insensitive `name` search. It returns `{ data: User[], total: number }`, where `total` is the count **after filtering and before pagination**. Replace the URL and query names to match your API.
+
+```vue
+<template>
+  <SmartDataTable :columns="columns" mode="server" :data-provider="loadUsers" :normalize-response="normalizeUsers" />
+</template>
+
+<script lang="ts">
+import Vue from 'vue'
+import { SmartDataTable } from 'vue2-smart-datatable'
+import type { DataProvider, DataTableColumn, ResponseNormalizer } from 'vue2-smart-datatable'
+
+type User = { id: number; name: string }
+type UsersResponse = { data: User[]; total: number }
+
+const loadUsers: DataProvider = async ({ page, itemsPerPage, sort, filters, signal }) => {
+  const query = new URLSearchParams({ page: String(page), per_page: String(itemsPerPage) })
+  if (sort) {
+    query.set('sort', sort.field || sort.columnKey)
+    query.set('direction', sort.direction)
+  }
+  if (filters.name?.value) query.set('name', String(filters.name.value))
+
+  const response = await fetch(`/api/users?${query}`, { signal })
+  if (!response.ok) throw new Error(`Could not load users (${response.status})`)
+  return (await response.json()) as UsersResponse
+}
+
+const normalizeUsers: ResponseNormalizer<User> = (raw) => {
+  const response = raw as UsersResponse
+  return { items: response.data, total: response.total }
+}
+
+export default Vue.extend({
+  components: { SmartDataTable },
+  data: () => ({
+    columns: [
+      { key: 'id', label: 'ID', type: 'number', sortable: true },
+      { key: 'name', label: 'Name', sortable: true, filterable: true, filter: { operators: ['contains'] } },
+    ] as DataTableColumn<User>[],
+    loadUsers,
+    normalizeUsers,
+  }),
+})
+</script>
 ```
+
+Place this component inside the host application's `<v-app>` and import both stylesheets as shown above. The table handles loading, empty results, request cancellation, and a retry button for failed requests. See the [provider guide](docs/providers.md) for the endpoint contract and filter mapping.
 
 See [`docs/api.md`](docs/api.md), [`docs/providers.md`](docs/providers.md), [`docs/adapters.md`](docs/adapters.md), and [`docs/roadmap.md`](docs/roadmap.md).
 
