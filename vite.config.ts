@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: resolve(__dirname, 'build/entry.ts'),
       name: 'SmartDataTable',
       formats: ['es', 'cjs'],
       cssFileName: 'style',

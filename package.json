@@ -28,9 +28,13 @@
   "type": "module",
   "files": [
     "dist",
+    "docs",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "SECURITY.md",
+    "CONTRIBUTING.md",
+    "CODE_OF_CONDUCT.md"
   ],
   "main": "./dist/smart-data-table.cjs",
   "module": "./dist/smart-data-table.js",

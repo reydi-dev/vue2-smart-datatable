@@ -1,5 +1,4 @@
 import SmartDataTable from './components/SmartDataTable.vue'
-import './styles/index.scss'
 
 export { SmartDataTable }
 export { createCsvExporter } from './adapters/exporters/csv'

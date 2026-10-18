@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Included linked documentation and community files in the npm package.
+- Removed an unresolved stylesheet import from generated TypeScript declarations while preserving the built CSS entry point.
+
 ## 0.1.0-beta.2 - 2026-10-15
 
 - Fixed the filter panel crash when using the default filters.
