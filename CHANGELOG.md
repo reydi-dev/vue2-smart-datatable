@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-beta.3 - 2026-10-19
 
 - Included linked documentation and community files in the npm package.
 - Removed an unresolved stylesheet import from generated TypeScript declarations while preserving the built CSS entry point.
