@@ -387,7 +387,7 @@ export default Vue.extend({
       if (value === 'server') {
         if (this.autoLoad) this.scheduleLoad('initial')
       } else {
-        this.activeController?.abort()
+        this.cancelPendingLoad(true)
         this.serverRows = []
         this.updateLocalTotal()
       }
@@ -430,10 +430,20 @@ export default Vue.extend({
     else if (this.autoLoad) await this.load('initial')
   },
   beforeDestroy() {
-    if (this.loadTimer) clearTimeout(this.loadTimer)
-    this.activeController?.abort()
+    this.cancelPendingLoad()
   },
   methods: {
+    cancelPendingLoad(emitLoadingChange = false) {
+      if (this.loadTimer) clearTimeout(this.loadTimer)
+      this.loadTimer = null
+      this.requestId += 1
+      this.activeController?.abort()
+      this.activeController = null
+      if (this.internalLoading) {
+        this.internalLoading = false
+        if (emitLoadingChange) this.$emit('loading-change', false)
+      }
+    },
     rowKeyOf(row: DataRow): RowKey {
       return resolveRowKey(row, this.rowKey)
     },
@@ -475,6 +485,7 @@ export default Vue.extend({
         return
       }
       if (!this.dataProvider) {
+        this.cancelPendingLoad(true)
         this.internalError = new Error('dataProvider is required in server mode')
         return
       }
@@ -501,6 +512,7 @@ export default Vue.extend({
         this.$emit('load-error', { request, error })
       } finally {
         if (id === this.requestId) {
+          this.activeController = null
           this.internalLoading = false
           this.$emit('loading-change', false)
         }
