@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-rc.1 - 2026-10-21
+
+- Made disabled table controls and actions consistently unavailable to pointer and keyboard users.
+- Prevented outdated server responses from replacing current rows after a new request or mode change.
+- Validated the packed package in an independent Vue 2/Vuetify 2 consumer and the package lab.
+
 ## 0.1.0-beta.3 - 2026-10-19
 
 - Included linked documentation and community files in the npm package.

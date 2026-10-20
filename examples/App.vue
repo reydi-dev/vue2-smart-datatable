@@ -4,8 +4,8 @@
       <v-container class="demo-shell py-10">
         <header class="demo-hero">
           <div>
-            <p class="demo-eyebrow">Vue 2.7 · Vuetify 2.6 · Pre-release</p>
-            <h1>Smart Data Table v0.1.0 beta</h1>
+            <p class="demo-eyebrow">Vue 2.7 · Vuetify 2.6 · Release candidate</p>
+            <h1>Smart Data Table v0.1.0 RC</h1>
             <p class="demo-subtitle">
               A practical table for Vue 2 apps: switch between local and server data, try filters, and check the mobile
               layout.

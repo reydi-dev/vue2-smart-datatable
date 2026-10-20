@@ -3,7 +3,7 @@
 [![CI](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml/badge.svg)](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6. This package is in beta; the API may change before `0.1.0`.
+A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6. The `0.1.0` release candidate is ready for final validation; the API may change before the stable release.
 
 [Live demo](https://reydi-dev.github.io/vue2-smart-datatable/) · [API](docs/api.md) · [Roadmap](docs/roadmap.md) · [Security](SECURITY.md)
 
@@ -17,12 +17,12 @@ A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6. This package
 - English/LTR defaults with configurable messages and RTL
 - Escaped text rendering; no raw HTML renderer
 
-## Install the beta
+## Install the release candidate
 
 In a Vue 2.7 application that already uses Vuetify 2.6:
 
 ```sh
-npm install vue2-smart-datatable@beta
+npm install vue2-smart-datatable@0.1.0-rc.1
 ```
 
 Initialize Vuetify and import both stylesheets once in your application entry point:
