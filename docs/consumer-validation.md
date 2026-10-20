@@ -9,7 +9,11 @@ The candidate was built from `main` and packed as an npm tarball. Its SHA-1 was 
 1. In an isolated copy of [vue2-package-lab](https://github.com/reydi-dev/vue2-package-lab), the candidate tarball was installed as a `file:` dependency. A clean `npm ci` reproduced that installation. Type-check and production build passed, and all 10 Playwright browser tests passed. These tests cover local and server data, rapid filters, error and retry states, CSV export, mobile layouts, and RTL.
 2. A separate minimal Vue 2.7, Vuetify 2.6, and Vite consumer installed the same tarball. Its production build passed, and the built page rendered a table row in the browser. A mobile detail panel opened successfully.
 
-Neither consumer project in its repository was modified. Both checks used temporary copies, so the next release candidate should repeat these checks with its final tarball.
+Neither consumer project in its repository was modified. Both checks used temporary copies.
+
+## Published release candidate
+
+The published `0.1.0-rc.1` was installed from npm in a temporary copy of the package lab on 2026-10-21. Its registry tarball SHA-1 (`f7b0ab3f33c1cec21b52112de0083491ce620bad`) matched the locally checked package. The consumer type-check and production build passed, as did all 10 desktop and mobile browser tests. npm's `next` tag pointed to `0.1.0-rc.1`; `latest` remained on the previous beta until the stable release.
 
 ## Dependency risk
 
