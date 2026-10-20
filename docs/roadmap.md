@@ -6,7 +6,7 @@ The immediate goal is a stable, well-documented `0.1.0` release for Vue 2.7 and 
 
 - validate the API through the live demo and release candidates;
 - expand provider, slot, accessibility, and browser coverage;
-- test the packed artifact in independent consumer projects;
+- test the packed artifact in independent consumer projects ([current validation](consumer-validation.md); repeat for the final candidate);
 - finalize the npm package identity and release automation.
 
 ## Possible later work

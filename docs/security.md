@@ -9,4 +9,10 @@
 
 ## Unsupported framework advisories
 
-Vue 2 and Vuetify 2 are end-of-life. At the time of the 0.1.0 implementation, `npm audit` reports three low, one moderate, and one high advisory in the required toolchain, including Vuetify prototype-pollution and date-picker XSS advisories. No compatible Vuetify 2 fix is available; npm proposes a breaking upgrade outside this package's Vue 2.7/Vuetify 2.6 contract. Owners must explicitly accept this risk or migrate the host application before a public release.
+Vue 2 and Vuetify 2 are end-of-life. Audit counts vary with the consuming application's dependency tree and lockfile. The known upstream advisories include:
+
+- [Vuetify 2 prototype pollution](https://github.com/advisories/GHSA-3jp5-5f8r-q2wg) when a malicious preset reaches Vuetify's configuration merge. Keep preset configuration trusted; this package does not construct presets.
+- [Vuetify 2 date-picker XSS](https://github.com/advisories/GHSA-9w3x-85mw-4fwm) through an unsafe `title-date-format` result. This table does not use `VDatePicker`, but a host application may use it elsewhere.
+- [Vue 2 template-parser ReDoS](https://github.com/advisories/GHSA-5j4c-8p2g-v4jx) when an attacker-controlled template string is compiled. Do not compile untrusted templates.
+
+No compatible fix is available in the supported Vue 2.7 and Vuetify 2.6 ranges for these advisories. Consumers should assess the affected features in their host applications and plan migration where needed. An `npm audit` finding attributed to this package can be inherited from its peer dependencies; inspect the advisory chain before treating it as a separate flaw in the table.
