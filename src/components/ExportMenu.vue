@@ -1,7 +1,7 @@
 <template>
   <v-menu offset-y>
     <template #activator="{ on, attrs }"
-      ><v-btn text v-bind="attrs" :loading="loading" v-on="on"
+      ><v-btn text v-bind="attrs" :loading="loading" :disabled="disabled" v-on="on"
         ><v-icon left>{{ icon }}</v-icon
         >{{ messages.export }}</v-btn
       ></template
@@ -11,7 +11,7 @@
         ><v-list-item
           v-for="scope in exporter.scopes"
           :key="`${exporter.key}-${scope}`"
-          @click="$emit('export', { exporter: exporter.key, scope })"
+          @click="!disabled && $emit('export', { exporter: exporter.key, scope })"
           ><v-list-item-title
             >{{ exporter.label }} —
             {{ scope === 'current' ? messages.currentPage : messages.allRows }}</v-list-item-title
@@ -31,6 +31,7 @@ export default Vue.extend({
     messages: { type: Object as () => DataTableMessages, required: true },
     icon: String,
     loading: Boolean,
+    disabled: Boolean,
   },
 })
 </script>

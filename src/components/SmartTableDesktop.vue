@@ -8,6 +8,7 @@
               :input-value="allPageSelected"
               :indeterminate="somePageSelected"
               :aria-label="messages.selectAll"
+              :disabled="disabled"
               hide-details
               dense
               @change="$emit('select-page', Boolean($event))"
@@ -28,7 +29,13 @@
             :style="columnStyle(column)"
           >
             <slot name="header" :column="column">
-              <button v-if="column.sortable" type="button" class="sdt-sort-button" @click="$emit('sort', column)">
+              <button
+                v-if="column.sortable"
+                type="button"
+                class="sdt-sort-button"
+                :disabled="disabled"
+                @click="!disabled && $emit('sort', column)"
+              >
                 {{ column.label }}
                 <v-icon v-if="sort && sort.columnKey === column.key" x-small>{{
                   sort.direction === 'asc' ? icons.sortAsc : icons.sortDesc
@@ -46,14 +53,17 @@
           :key="String(rowKeyOf(row))"
           :class="rowClassValue(row, index)"
           :tabindex="rowClickable ? 0 : undefined"
-          @click="$emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
-          @keydown.enter.self="$emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
-          @keydown.space.self.prevent="$emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
+          @click="!disabled && $emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
+          @keydown.enter.self="!disabled && $emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
+          @keydown.space.self.prevent="
+            !disabled && $emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })
+          "
         >
           <td v-if="selectable" class="sdt-column--selection" @click.stop>
             <v-checkbox
               :input-value="selectedKeys.includes(rowKeyOf(row))"
               :aria-label="`${messages.selectRow || 'Select row'} ${index + 1}`"
+              :disabled="disabled"
               hide-details
               dense
               @change="$emit('select-row', { row, selected: Boolean($event) })"
@@ -73,19 +83,20 @@
                 :row-index="index"
                 :messages="messages"
                 :icons="icons"
+                :disabled="disabled"
                 @cell-click="$emit('cell-click', $event)"
               />
             </slot>
           </td>
           <td v-if="actions.length" class="text-center" @click.stop>
-            <slot name="row-actions" :row="row" :actions="visibleActions(row)">
+            <slot name="row-actions" :row="row" :actions="visibleActions(row)" :disabled="disabled">
               <template v-for="action in visibleActions(row)">
                 <slot
                   name="action"
                   :action="action"
                   :row="row"
                   :row-key="rowKeyOf(row)"
-                  :disabled="actionDisabled(action, row)"
+                  :disabled="disabled || actionDisabled(action, row)"
                   :loading="actionLoading(action, row)"
                   :trigger="actionTrigger(action, row)"
                 >
@@ -94,7 +105,7 @@
                     small
                     text
                     :color="action.color"
-                    :disabled="actionDisabled(action, row)"
+                    :disabled="disabled || actionDisabled(action, row)"
                     :loading="actionLoading(action, row)"
                     @click="triggerAction(action, row, $event)"
                     ><v-icon v-if="action.icon" left small>{{ action.icon }}</v-icon
@@ -132,6 +143,7 @@ export default Vue.extend({
     rowKeyOf: { type: Function, required: true },
     selectedKeys: { type: Array as () => RowKey[], required: true },
     selectable: Boolean,
+    disabled: Boolean,
     rowClickable: Boolean,
     actions: { type: Array as () => RowAction[], default: () => [] },
     sort: { type: Object as () => SortState | null },
@@ -175,6 +187,7 @@ export default Vue.extend({
       return (event: Event) => this.triggerAction(action, row, event)
     },
     triggerAction(action: RowAction, row: DataRow, event: Event) {
+      if (this.disabled) return
       this.$emit('row-action', { action, row, rowKey: this.rowKeyOf(row), event })
     },
     rowClassValue(row: DataRow, index: number): unknown {

@@ -9,7 +9,7 @@
       <img :src="imageUrl" :alt="column.label" />
     </v-avatar>
     <a
-      v-else-if="column.type === 'link' && linkUrl"
+      v-else-if="column.type === 'link' && linkUrl && !disabled"
       class="sdt-cell__link"
       :href="linkUrl"
       target="_blank"
@@ -17,11 +17,13 @@
       @click.stop="emitCellClick"
       >{{ formattedText }}</a
     >
+    <span v-else-if="column.type === 'link'">{{ formattedText }}</span>
     <button
       v-else-if="column.type === 'copy'"
       type="button"
       class="sdt-cell__icon-button"
       :aria-label="messages.copy"
+      :disabled="disabled"
       @click.stop="copy"
     >
       <v-icon small>{{ icons.copy }}</v-icon>
@@ -32,6 +34,7 @@
         type="button"
         class="sdt-cell__icon-button"
         :aria-label="expanded ? messages.collapse : messages.expand"
+        :disabled="disabled"
         @click.stop="expanded = !expanded"
       >
         <v-icon small>{{ expanded ? icons.collapse : icons.expand }}</v-icon>
@@ -56,6 +59,7 @@ export default Vue.extend({
     rowKeyValue: { type: [String, Number] as unknown as () => RowKey, required: true },
     rowIndex: { type: Number, required: true },
     mobile: { type: Boolean, default: false },
+    disabled: Boolean,
     messages: { type: Object as () => DataTableMessages, required: true },
     icons: { type: Object as () => DataTableIcons, required: true },
   },
@@ -101,9 +105,11 @@ export default Vue.extend({
   },
   methods: {
     emitCellClick(event: MouseEvent) {
+      if (this.disabled) return
       this.$emit('cell-click', { ...this.context, event })
     },
     async copy() {
+      if (this.disabled) return
       if (!this.formattedText) return
       if (typeof navigator !== 'undefined' && navigator.clipboard)
         await navigator.clipboard.writeText(this.formattedText)

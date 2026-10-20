@@ -2,11 +2,11 @@
   <div class="sdt-toolbar">
     <div class="sdt-toolbar__content"><slot /></div>
     <div class="sdt-toolbar__actions">
-      <v-btn v-if="hasFilters" text @click="$emit('toggle-filters')"
+      <v-btn v-if="hasFilters" text :disabled="disabled" @click="$emit('toggle-filters')"
         ><v-icon left>{{ icons.filter }}</v-icon
         >{{ messages.filters }}</v-btn
       >
-      <v-btn v-if="columnVisibility" text @click="$emit('columns')"
+      <v-btn v-if="columnVisibility" text :disabled="disabled" @click="$emit('columns')"
         ><v-icon left>{{ icons.columns }}</v-icon
         >{{ messages.columns }}</v-btn
       >
@@ -16,6 +16,7 @@
         :messages="messages"
         :icon="icons.export"
         :loading="exporting"
+        :disabled="disabled"
         @export="$emit('export', $event)"
       />
       <slot name="append" />
@@ -36,6 +37,7 @@ export default Vue.extend({
     messages: { type: Object as () => DataTableMessages, required: true },
     icons: { type: Object as () => DataTableIcons, required: true },
     exporting: Boolean,
+    disabled: Boolean,
   },
 })
 </script>

@@ -8,12 +8,15 @@
           :key="column.key"
           :input-value="draft.includes(column.key)"
           :label="column.label"
+          :disabled="disabled"
           hide-details
           @change="toggle(column.key, Boolean($event))"
       /></v-card-text>
       <v-card-actions
-        ><v-btn text @click="$emit('reset')">{{ messages.reset }}</v-btn
-        ><v-spacer /><v-btn color="primary" text @click="apply">{{ messages.apply }}</v-btn></v-card-actions
+        ><v-btn text :disabled="disabled" @click="$emit('reset')">{{ messages.reset }}</v-btn
+        ><v-spacer /><v-btn color="primary" text :disabled="disabled" @click="apply">{{
+          messages.apply
+        }}</v-btn></v-card-actions
       >
     </v-card>
   </v-dialog>
@@ -28,6 +31,7 @@ export default Vue.extend({
     columns: { type: Array as () => DataTableColumn[], required: true },
     visibleColumns: { type: Array as () => string[], required: true },
     messages: { type: Object as () => DataTableMessages, required: true },
+    disabled: Boolean,
   },
   data() {
     return { draft: [...this.visibleColumns] as string[] }
@@ -47,9 +51,11 @@ export default Vue.extend({
   },
   methods: {
     toggle(key: string, selected: boolean) {
+      if (this.disabled) return
       this.draft = selected ? [...new Set([...this.draft, key])] : this.draft.filter((item) => item !== key)
     },
     apply() {
+      if (this.disabled) return
       const fixed = this.columns.filter((column) => column.hideable === false).map((column) => column.key)
       this.$emit('apply', [...new Set([...fixed, ...this.draft])])
       this.$emit('input', false)

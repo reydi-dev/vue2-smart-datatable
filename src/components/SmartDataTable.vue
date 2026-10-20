@@ -9,9 +9,10 @@
         :messages="resolvedMessages"
         :icons="resolvedIcons"
         :exporting="exporting"
-        @toggle-filters="filtersOpen = !filtersOpen"
-        @columns="columnsDialog = true"
-        @export="exportData($event.exporter, $event.scope)"
+        :disabled="disabled"
+        @toggle-filters="!disabled && (filtersOpen = !filtersOpen)"
+        @columns="!disabled && (columnsDialog = true)"
+        @export="!disabled && exportData($event.exporter, $event.scope)"
         ><slot name="toolbar-prepend" /><template #append><slot name="toolbar-append" /></template
       ></SmartTableToolbar>
     </slot>
@@ -21,6 +22,7 @@
       :columns="activeColumns"
       :value="internalFilters"
       :messages="resolvedMessages"
+      :disabled="disabled"
       @input="setFilters"
     >
       <template v-for="column in filterSlotColumns" v-slot:[`filter.${column.key}`]="context">
@@ -54,7 +56,8 @@
       :row-key-of="rowKeyOf"
       :selected-keys="internalSelectedKeys"
       :selectable="selectable"
-      :row-clickable="Boolean($listeners['row-click'])"
+      :disabled="disabled"
+      :row-clickable="!disabled && Boolean($listeners['row-click'])"
       :actions="actions"
       :sort="internalSort"
       :dense="dense"
@@ -67,9 +70,9 @@
       @sort="setSortFromColumn"
       @select-row="selectRow"
       @select-page="selectPage"
-      @row-click="$emit('row-click', $event)"
-      @row-action="$emit('row-action', $event)"
-      @cell-click="$emit('cell-click', $event)"
+      @row-click="!disabled && $emit('row-click', $event)"
+      @row-action="!disabled && $emit('row-action', $event)"
+      @cell-click="!disabled && $emit('cell-click', $event)"
     >
       <template #header="context">
         <slot
@@ -83,6 +86,7 @@
             v-if="context.column.sortable"
             type="button"
             class="sdt-sort-button"
+            :disabled="disabled"
             @click="setSortFromColumn(context.column)"
           >
             {{ context.column.label }}
@@ -100,7 +104,7 @@
           v-bind="cellContext(context)"
         />
         <slot v-else-if="$scopedSlots.cell" name="cell" v-bind="cellContext(context)" />
-        <SmartTableCell v-else v-bind="cellProps(context)" @cell-click="$emit('cell-click', $event)" />
+        <SmartTableCell v-else v-bind="cellProps(context)" @cell-click="!disabled && $emit('cell-click', $event)" />
       </template>
       <template v-if="$scopedSlots['row-actions']" #row-actions="context"
         ><slot name="row-actions" v-bind="context"
@@ -116,7 +120,7 @@
           small
           text
           :color="context.action.color"
-          :disabled="context.disabled"
+          :disabled="disabled || context.disabled"
           :loading="context.loading"
           @click="context.trigger($event)"
           ><v-icon v-if="context.action.icon" left small>{{ context.action.icon }}</v-icon
@@ -141,6 +145,7 @@
         :messages="resolvedMessages"
         :previous-icon="paginationIcons.previous"
         :next-icon="paginationIcons.next"
+        :disabled="disabled"
         @update:page="setPage"
         @update:items-per-page="setItemsPerPage"
       />
@@ -151,8 +156,9 @@
       :columns="normalizedColumns"
       :visible-columns="internalVisibleColumns"
       :messages="resolvedMessages"
-      @apply="setVisibleColumns"
-      @reset="resetColumnVisibility"
+      :disabled="disabled"
+      @apply="!disabled && setVisibleColumns($event)"
+      @reset="!disabled && resetColumnVisibility()"
     />
     <div v-if="exporting" class="sdt-export-progress">
       <slot name="export-progress" :percent="exportProgress"><v-progress-linear :value="exportProgress" /></slot>
@@ -532,8 +538,8 @@ export default Vue.extend({
       this.$emit('update:page', 1)
       this.emitOptionsChange()
     },
-    setFilters(filters: FilterState) {
-      if (this.disabled) return
+    setFilters(filters: FilterState, force = false) {
+      if (this.disabled && !force) return
       this.internalFilters = { ...filters }
       this.internalPage = 1
       this.$emit('update:filters', this.internalFilters)
@@ -541,13 +547,15 @@ export default Vue.extend({
       this.emitOptionsChange()
     },
     resetFilters() {
-      this.setFilters({})
+      this.setFilters({}, true)
     },
     selectRow({ row, selected }: { row: DataRow; selected: boolean }) {
+      if (this.disabled) return
       const next = toggleKey(this.internalSelectedKeys, this.rowKeyOf(row), selected)
       this.setSelection(next)
     },
     selectPage(selected: boolean) {
+      if (this.disabled) return
       this.setSelection(togglePageKeys(this.internalSelectedKeys, this.displayRows.map(this.rowKeyOf), selected))
     },
     setSelection(keys: RowKey[]) {
@@ -648,6 +656,7 @@ export default Vue.extend({
         mobile: context.mobile,
         messages: this.resolvedMessages,
         icons: this.resolvedIcons,
+        disabled: this.disabled,
       }
     },
   },
