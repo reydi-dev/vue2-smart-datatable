@@ -2,7 +2,7 @@
   <v-expansion-panels class="sdt-mobile" multiple flat>
     <v-expansion-panel v-for="(row, index) in rows" :key="String(rowKeyOf(row))">
       <v-expansion-panel-header
-        @click.native="$emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
+        @click.native="!disabled && $emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
       >
         <slot name="mobile-summary" :row="row" :columns="summaryColumns" :row-index="index">
           <div
@@ -14,6 +14,7 @@
               v-if="selectable"
               :input-value="selectedKeys.includes(rowKeyOf(row))"
               :aria-label="`${messages.selectRow || 'Select row'} ${index + 1}`"
+              :disabled="disabled"
               hide-details
               dense
               @click.native.stop
@@ -30,6 +31,7 @@
                   mobile
                   :messages="messages"
                   :icons="icons"
+                  :disabled="disabled"
                   @cell-click="$emit('cell-click', $event)"
                 />
               </slot>
@@ -59,6 +61,7 @@
                     mobile
                     :messages="messages"
                     :icons="icons"
+                    :disabled="disabled"
                     @cell-click="$emit('cell-click', $event)"
                   />
                 </slot>
@@ -66,7 +69,7 @@
             </template>
           </dl>
         </slot>
-        <slot name="row-actions" :row="row" :actions="visibleActions(row)">
+        <slot name="row-actions" :row="row" :actions="visibleActions(row)" :disabled="disabled">
           <div v-if="visibleActions(row).length" class="sdt-mobile__actions">
             <template v-for="action in visibleActions(row)">
               <slot
@@ -74,7 +77,7 @@
                 :action="action"
                 :row="row"
                 :row-key="rowKeyOf(row)"
-                :disabled="actionDisabled(action, row)"
+                :disabled="disabled || actionDisabled(action, row)"
                 :loading="actionLoading(action, row)"
                 :trigger="actionTrigger(action, row)"
               >
@@ -83,7 +86,7 @@
                   small
                   text
                   :color="action.color"
-                  :disabled="actionDisabled(action, row)"
+                  :disabled="disabled || actionDisabled(action, row)"
                   :loading="actionLoading(action, row)"
                   @click="triggerAction(action, row, $event)"
                 >
@@ -113,6 +116,7 @@ export default Vue.extend({
     rowKeyOf: { type: Function, required: true },
     selectedKeys: { type: Array as () => RowKey[], required: true },
     selectable: Boolean,
+    disabled: Boolean,
     actions: { type: Array as () => RowAction[], default: () => [] },
     summaryLimit: { type: Number, default: 3 },
     messages: { type: Object as () => DataTableMessages, required: true },
@@ -145,6 +149,7 @@ export default Vue.extend({
       return (event: Event) => this.triggerAction(action, row, event)
     },
     triggerAction(action: RowAction, row: DataRow, event: Event) {
+      if (this.disabled) return
       this.$emit('row-action', { action, row, rowKey: this.rowKeyOf(row), event })
     },
   },

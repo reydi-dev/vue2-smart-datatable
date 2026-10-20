@@ -76,4 +76,45 @@ describe('SmartDataTable', () => {
     expect(onRowClick).toHaveBeenCalledTimes(2)
     wrapper.destroy()
   })
+
+  it('disables built-in interactions without blocking later re-enablement', async () => {
+    const onRowClick = vi.fn()
+    const wrapper = mount(SmartDataTable, {
+      vuetify: new Vuetify(),
+      propsData: {
+        columns: [{ key: 'name', label: 'Name', sortable: true, filterable: true }],
+        items: [{ id: 1, name: 'Ada' }],
+        selectable: true,
+        actions: [{ key: 'open', label: 'Open' }],
+        disabled: true,
+      },
+      listeners: { 'row-click': onRowClick },
+    })
+
+    const desktop = wrapper.findComponent({ name: 'SmartTableDesktop' })
+    expect(wrapper.find('tbody tr').attributes('tabindex')).toBeUndefined()
+    expect(wrapper.find('thead .sdt-sort-button').attributes('disabled')).toBe('disabled')
+    expect(wrapper.findAllComponents({ name: 'v-checkbox' }).at(1).props('disabled')).toBe(true)
+
+    await wrapper.find('tbody tr').trigger('click')
+    desktop.vm.$emit('select-row', { row: { id: 1, name: 'Ada' }, selected: true })
+    desktop.vm.$emit('row-action', { action: { key: 'open' } })
+    wrapper.findComponent({ name: 'SmartTableToolbar' }).vm.$emit('toggle-filters')
+    await wrapper.vm.$nextTick()
+
+    expect(onRowClick).not.toHaveBeenCalled()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('row-action')).toBeUndefined()
+    expect(wrapper.findComponent({ name: 'SmartTableFilters' }).exists()).toBe(false)
+
+    await wrapper.setProps({ filters: { name: { operator: 'contains', value: 'Ada' } } })
+    wrapper.vm.resetFilters()
+    expect(wrapper.emitted('update:filters')?.[0][0]).toEqual({})
+
+    await wrapper.setProps({ disabled: false })
+    desktop.vm.$emit('select-row', { row: { id: 1, name: 'Ada' }, selected: true })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.emitted('input')?.[0][0]).toEqual([1])
+    wrapper.destroy()
+  })
 })

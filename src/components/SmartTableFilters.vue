@@ -17,6 +17,7 @@
             :label="column.label"
             :items="operatorItems(column)"
             :value="clauseFor(column).operator"
+            :disabled="disabled"
             @change="setOperator(column, $event)"
           />
           <template v-if="clauseFor(column).operator === 'between'">
@@ -27,6 +28,7 @@
               :type="inputType(column)"
               :placeholder="'From'"
               :value="clauseFor(column).from"
+              :disabled="disabled"
               @input="setBetween(column, 'from', $event)"
             />
             <v-text-field
@@ -36,6 +38,7 @@
               :type="inputType(column)"
               :placeholder="'To'"
               :value="clauseFor(column).to"
+              :disabled="disabled"
               @input="setBetween(column, 'to', $event)"
             />
           </template>
@@ -50,6 +53,7 @@
             item-value="value"
             :multiple="clauseFor(column).operator === 'in'"
             :value="clauseFor(column).value"
+            :disabled="disabled"
             @change="setValue(column, $event)"
           />
           <v-text-field
@@ -61,13 +65,16 @@
             :type="inputType(column)"
             :placeholder="column.filter && column.filter.placeholder"
             :value="clauseFor(column).value"
+            :disabled="disabled"
             @input="setValue(column, $event)"
           />
         </slot>
       </div>
     </v-card-text>
     <v-card-actions
-      ><v-spacer /><v-btn text small @click="$emit('input', {})">{{ messages.clearFilters }}</v-btn></v-card-actions
+      ><v-spacer /><v-btn text small :disabled="disabled" @click="!disabled && $emit('input', {})">{{
+        messages.clearFilters
+      }}</v-btn></v-card-actions
     >
   </v-card>
 </template>
@@ -83,6 +90,7 @@ export default Vue.extend({
     columns: { type: Array as () => DataTableColumn[], required: true },
     value: { type: Object as () => FilterState, required: true },
     messages: { type: Object as () => DataTableMessages, required: true },
+    disabled: Boolean,
   },
   computed: {
     filterColumns(): DataTableColumn[] {
@@ -107,6 +115,7 @@ export default Vue.extend({
       return type === 'number' ? 'number' : type === 'date' ? 'date' : 'text'
     },
     setClause(key: string, clause: FilterClause) {
+      if (this.disabled) return
       this.$emit('input', { ...this.value, [key]: clause })
     },
     setClauseFor(key: string) {
@@ -116,6 +125,7 @@ export default Vue.extend({
       return () => this.clear(key)
     },
     clear(key: string) {
+      if (this.disabled) return
       const next = { ...this.value }
       delete next[key]
       this.$emit('input', next)

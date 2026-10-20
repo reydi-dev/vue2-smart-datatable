@@ -8,16 +8,21 @@
         hide-details
         :items="pageSizeOptions"
         :value="itemsPerPage"
+        :disabled="disabled"
         @change="$emit('update:items-per-page', Number($event))"
       />
     </label>
     <span class="sdt-pagination__count" aria-live="polite"
       >{{ firstItem }}–{{ lastItem }} {{ messages.of }} {{ total }}</span
     >
-    <v-btn icon :disabled="page <= 1" :aria-label="'Previous page'" @click="$emit('update:page', page - 1)"
+    <v-btn icon :disabled="disabled || page <= 1" :aria-label="'Previous page'" @click="$emit('update:page', page - 1)"
       ><v-icon>{{ previousIcon }}</v-icon></v-btn
     >
-    <v-btn icon :disabled="page >= pageCount" :aria-label="'Next page'" @click="$emit('update:page', page + 1)"
+    <v-btn
+      icon
+      :disabled="disabled || page >= pageCount"
+      :aria-label="'Next page'"
+      @click="$emit('update:page', page + 1)"
       ><v-icon>{{ nextIcon }}</v-icon></v-btn
     >
   </div>
@@ -36,6 +41,7 @@ export default Vue.extend({
     messages: { type: Object as () => DataTableMessages, required: true },
     previousIcon: String,
     nextIcon: String,
+    disabled: Boolean,
   },
   computed: {
     pageCount(): number {
