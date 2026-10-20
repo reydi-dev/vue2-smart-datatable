@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0 - 2026-10-21
+
+- First stable release for Vue 2.7 and Vuetify 2.6 applications.
+- Promoted the tested release candidate without changes to the public API.
+
 ## 0.1.0-rc.1 - 2026-10-21
 
 - Made disabled table controls and actions consistently unavailable to pointer and keyboard users.

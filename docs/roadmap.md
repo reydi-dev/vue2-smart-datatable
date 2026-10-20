@@ -1,13 +1,14 @@
 # Roadmap
 
-The immediate goal is a stable, well-documented `0.1.0` release for Vue 2.7 and Vuetify 2.6 applications.
+The first stable `0.1.0` release targets Vue 2.7 and Vuetify 2.6 applications.
 
-## Before 0.1.0
+## 0.1.0 release checks
 
-- validate the API through the live demo and release candidates;
-- expand provider, slot, accessibility, and browser coverage;
-- test the packed artifact in independent consumer projects ([current validation](consumer-validation.md); repeat for the final candidate);
-- finalize the npm package identity and release automation.
+- Validate the API through the live demo and release candidate.
+- Test the package in independent consumer projects ([validation record](consumer-validation.md)).
+- Confirm that the stable npm tarball installs, builds, and passes the package lab browser tests.
+
+Release automation is a possible follow-up after the first stable version; the initial release uses the existing CI and a manual npm publish.
 
 ## Possible later work
 
