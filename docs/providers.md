@@ -29,4 +29,4 @@ The default normalizer accepts either an array or `{ items, total, meta? }`. For
 
 Throw on HTTP errors (`fetch` does not throw for a 4xx or 5xx response). The table then shows its error state and retry control and emits `load-error`. While a request is pending it shows loading; a successful response with no rows shows the empty state. You can customize these using the `loading`, `empty`, and `error` slots or the `messages` prop.
 
-The table aborts superseded requests where supported and ignores stale results by request ID. A malformed normalized response emits `load-error` instead of silently showing an empty table.
+The table aborts superseded requests where supported and ignores stale results by request ID. Switching to local mode cancels a pending server request and ignores any late response. A malformed normalized response emits `load-error` instead of silently showing an empty table.

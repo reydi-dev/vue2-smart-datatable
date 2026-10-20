@@ -117,4 +117,60 @@ describe('SmartDataTable', () => {
     expect(wrapper.emitted('input')?.[0][0]).toEqual([1])
     wrapper.destroy()
   })
+
+  it('keeps local state when a server request finishes after switching modes', async () => {
+    let resolveProvider!: (value: unknown) => void
+    const dataProvider = vi.fn(
+      () =>
+        new Promise<unknown>((resolve) => {
+          resolveProvider = resolve
+        }),
+    )
+    const wrapper = mount(SmartDataTable, {
+      vuetify: new Vuetify(),
+      propsData: {
+        columns: [{ key: 'name', label: 'Name' }],
+        items: [{ id: 1, name: 'Local row' }],
+        mode: 'server',
+        dataProvider,
+      },
+    })
+
+    expect(dataProvider).toHaveBeenCalledOnce()
+    expect(wrapper.vm.getState().loading).toBe(true)
+    await wrapper.setProps({ mode: 'local' })
+    expect(wrapper.vm.getState().total).toBe(1)
+    expect(wrapper.vm.getState().loading).toBe(false)
+
+    resolveProvider({ items: [{ id: 2, name: 'Late server row' }], total: 99 })
+    await new Promise((resolve) => setTimeout(resolve, 0))
+    expect(wrapper.vm.getState().total).toBe(1)
+    expect(wrapper.emitted('load-success')).toBeUndefined()
+    wrapper.destroy()
+  })
+
+  it('shows a provider error and reloads when the retry control is clicked', async () => {
+    const dataProvider = vi
+      .fn()
+      .mockRejectedValueOnce(new Error('Temporary failure'))
+      .mockResolvedValue({ items: [{ id: 2, name: 'Recovered row' }], total: 1 })
+    const wrapper = mount(SmartDataTable, {
+      vuetify: new Vuetify(),
+      propsData: {
+        columns: [{ key: 'name', label: 'Name' }],
+        mode: 'server',
+        dataProvider,
+      },
+    })
+
+    await new Promise((resolve) => setTimeout(resolve, 0))
+    expect(wrapper.emitted('load-error')).toHaveLength(1)
+    expect(wrapper.find('.sdt-state button').exists()).toBe(true)
+    await wrapper.find('.sdt-state button').trigger('click')
+    await new Promise((resolve) => setTimeout(resolve, 0))
+    expect(dataProvider).toHaveBeenCalledTimes(2)
+    expect(wrapper.emitted('load-success')).toHaveLength(1)
+    expect(wrapper.text()).toContain('Recovered row')
+    wrapper.destroy()
+  })
 })

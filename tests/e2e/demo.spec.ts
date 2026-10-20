@@ -37,3 +37,23 @@ test('sorting and row selection have keyboard-accessible names and state', async
   await expect(mobileCheckbox).toHaveAttribute('aria-checked', 'true')
   await expect(page.getByTestId('selection')).toHaveText('Selected: 1')
 })
+
+test('server filters update the visible rows and total', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Server' }).click()
+  await expect(page.locator('.sdt-desktop tbody tr')).toHaveCount(25)
+
+  await page.getByRole('button', { name: 'Filters' }).click()
+  await page.locator('.sdt-filter').nth(1).locator('input').last().fill('Person 67')
+
+  await expect(page.locator('.sdt-desktop tbody tr')).toHaveCount(1)
+  await expect(page.getByText('Person 67', { exact: true })).toBeVisible()
+  await expect(page.locator('.sdt-pagination__count')).toContainText('1')
+})
+
+test('custom email cell remains available in mobile details', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 800 })
+  await page.goto('/')
+  await page.locator('.sdt-mobile .v-expansion-panel-header').first().click()
+  await expect(page.getByRole('link', { name: 'person1@example.com' })).toBeVisible()
+})
