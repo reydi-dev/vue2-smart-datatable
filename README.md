@@ -1,5 +1,7 @@
 # Smart Data Table for Vue 2.7
 
+[![npm version](https://img.shields.io/npm/v/vue2-smart-datatable.svg)](https://www.npmjs.com/package/vue2-smart-datatable)
+[![npm downloads](https://img.shields.io/npm/dt/vue2-smart-datatable.svg)](https://www.npmjs.com/package/vue2-smart-datatable)
 [![CI](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml/badge.svg)](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
