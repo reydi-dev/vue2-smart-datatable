@@ -1,19 +1,19 @@
-# Smart Data Table for Vue 2.7
+# Smart Data Table for Vue 2
 
 [![npm version](https://img.shields.io/npm/v/vue2-smart-datatable.svg)](https://www.npmjs.com/package/vue2-smart-datatable)
 [![npm downloads](https://img.shields.io/npm/dt/vue2-smart-datatable.svg)](https://www.npmjs.com/package/vue2-smart-datatable)
 [![CI](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml/badge.svg)](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A TypeScript-ready data table for Vue 2.7 and Vuetify 2 with server-side pagination, filtering, mobile layouts, RTL, and safe CSV export.
+A TypeScript-ready data table for Vue 2.6+ and Vuetify 2 with server-side pagination, filtering, mobile layouts, RTL, and safe CSV export.
 
 [Live demo](https://reydi-dev.github.io/vue2-smart-datatable/) · [API](docs/api.md) · [Roadmap](docs/roadmap.md) · [Security](SECURITY.md)
 
 ## Why this package?
 
-`vue2-smart-datatable` is for maintained Vue 2.7 and Vuetify 2 applications that need more than a basic `v-data-table` without coupling table state to one backend or store.
+`vue2-smart-datatable` is for maintained Vue 2 and Vuetify 2 applications that need more than a basic `v-data-table` without coupling table state to one backend or store.
 
-- Actively maintained for legacy Vue 2.7 and Vuetify 2 applications
+- Actively maintained for legacy Vue 2 and Vuetify 2 applications
 - Built-in TypeScript declarations and controlled state APIs
 - Backend-neutral provider and response-normalizer contracts
 - Responsive desktop/mobile renderers with configurable RTL
@@ -30,9 +30,21 @@ A TypeScript-ready data table for Vue 2.7 and Vuetify 2 with server-side paginat
 - English/LTR defaults with configurable messages and RTL
 - Escaped text rendering; no raw HTML renderer
 
+## Compatibility
+
+| Dependency            | Supported versions |
+| --------------------- | ------------------ |
+| Vue                   | `>=2.6.14 <3`      |
+| Vuetify               | `>=2.6.0 <3`       |
+| Node.js for consumers | `>=18.18`          |
+
+The package is developed with Vue 2.7 and also tested as a packed dependency in an independent Vue 2.6.14 consumer. Vue and Vuetify are peer dependencies and are not bundled.
+
+Contributing to or building this repository requires Node.js 20 because the development and browser-test toolchain has a newer runtime floor than the distributed library.
+
 ## Install
 
-In a Vue 2.7 application that already uses Vuetify 2.6:
+In a Vue 2 application that already uses Vuetify 2.6:
 
 ```sh
 npm install vue2-smart-datatable
@@ -86,7 +98,7 @@ export default Vue.extend({
 </script>
 ```
 
-Vue 2.7 and Vuetify 2.6 are peer dependencies. The host application must provide both. See the [API reference](docs/api.md) for provider mode, slots, events, and options.
+Vue and Vuetify are peer dependencies. The host application must provide supported versions of both. See the [API reference](docs/api.md) for provider mode, slots, events, and options.
 
 ## Try the demo locally
 

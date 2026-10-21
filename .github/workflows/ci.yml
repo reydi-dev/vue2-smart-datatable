@@ -74,10 +74,49 @@ jobs:
       - name: Run browser tests
         run: npm run test:e2e
 
+  legacy-consumer:
+    name: Vue 2.6 consumer on Node 18
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up build Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install package dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Pack package
+        run: npm pack
+
+      - name: Set up consumer Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 18
+
+      - name: Install Vue 2.6 consumer dependencies
+        run: npm ci
+        working-directory: tests/compatibility/vue-2.6
+
+      - name: Install packed package in Vue 2.6 consumer
+        run: npm install --no-save --ignore-scripts ../../../vue2-smart-datatable-*.tgz
+        working-directory: tests/compatibility/vue-2.6
+
+      - name: Run Vue 2.6 compatibility test
+        run: npm test
+        working-directory: tests/compatibility/vue-2.6
+
   pages-build:
     name: Build demo
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    needs: [validate, browser]
+    needs: [validate, browser, legacy-consumer]
     runs-on: ubuntu-latest
     permissions:
       contents: read
