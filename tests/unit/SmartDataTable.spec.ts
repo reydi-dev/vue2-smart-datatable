@@ -2,7 +2,46 @@ import { mount } from '@vue/test-utils'
 import Vuetify from 'vuetify'
 import { describe, expect, it, vi } from 'vitest'
 import SmartDataTable from '@/components/SmartDataTable.vue'
+import type { DataProviderRequest } from '@/types'
 describe('SmartDataTable', () => {
+  it('requests only the committed target page and blocks pagination while that request is pending', async () => {
+    const result = { items: [{ id: 1, name: 'Provider row' }], total: 2500 }
+    let finishJump!: (value: typeof result) => void
+    const pendingJump = new Promise<typeof result>((resolve) => {
+      finishJump = resolve
+    })
+    const dataProvider = vi
+      .fn<(request: DataProviderRequest) => Promise<typeof result>>()
+      .mockResolvedValueOnce(result)
+      .mockImplementation(() => pendingJump)
+    const wrapper = mount(SmartDataTable, {
+      vuetify: new Vuetify(),
+      propsData: { columns: [{ key: 'name', label: 'Name' }], mode: 'server', dataProvider, direction: 'rtl' },
+    })
+    try {
+      await vi.waitFor(() => expect(wrapper.vm.getState().loading).toBe(false))
+      const pagination = wrapper.findComponent({ name: 'SmartTablePagination' })
+      expect(pagination.props('previousIcon')).toBe('mdi-chevron-right')
+      await pagination.find('input').setValue('۳')
+      await pagination.find('input').setValue('۳۰')
+      expect(dataProvider).toHaveBeenCalledOnce()
+      expect(wrapper.emitted('update:page')).toBeUndefined()
+      await pagination.find('form').trigger('submit')
+      await vi.waitFor(() => expect(dataProvider).toHaveBeenCalledTimes(2))
+      expect(dataProvider.mock.calls.map(([request]) => request.page)).toEqual([1, 30])
+      expect(wrapper.emitted('update:page')).toEqual([[30]])
+      expect(pagination.find('input').attributes('disabled')).toBeDefined()
+      await pagination.find('input').setValue('40')
+      await pagination.find('form').trigger('submit')
+      expect(dataProvider).toHaveBeenCalledTimes(2)
+      finishJump(result)
+      await vi.waitFor(() => expect(wrapper.vm.getState().loading).toBe(false))
+      expect(pagination.find('input').attributes('disabled')).toBeUndefined()
+    } finally {
+      finishJump(result)
+      wrapper.destroy()
+    }
+  })
   it('renders text safely and emits selection', async () => {
     const wrapper = mount(SmartDataTable, {
       vuetify: new Vuetify(),

@@ -11,7 +11,8 @@ mandatory Vuetify dependency. There is no separate project to reproduce the curr
 See the [UI/UX redesign plan](ui-ux-redesign.md) for decisions, proposed scope, open choices, and completion criteria.
 The maintainer has authorized the design phase. The initial brief and two visual directions are available in the
 standalone [design lab](../examples/design.html). Clarity is the preferred direction for refinement, including direct
-page navigation requested during review; production migration remains a later step.
+page navigation requested during review. Production migration has started with native pagination form controls and
+provider-tested direct page navigation; the remaining Vuetify migration is still planned.
 
 Implementation is tracked in the [Clarity migration stages](clarity-migration.md), with one commit per completed stage.
 

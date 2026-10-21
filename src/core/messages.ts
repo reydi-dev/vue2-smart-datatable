@@ -1,6 +1,6 @@
 import type { DataTableIcons, DataTableMessages } from '../types'
 
-export const defaultMessages: DataTableMessages = {
+export const defaultMessages = {
   loading: 'Loading data…',
   empty: 'No items to display',
   error: 'Unable to load data',
@@ -22,7 +22,12 @@ export const defaultMessages: DataTableMessages = {
   actions: 'Actions',
   selectAll: 'Select all rows on this page',
   selectRow: 'Select row',
-}
+  previousPage: 'Previous page',
+  nextPage: 'Next page',
+  goToPage: 'Go to page',
+  go: 'Go',
+  invalidPage: 'Enter a whole page number in this range:',
+} satisfies DataTableMessages
 
 export const defaultIcons: DataTableIcons = {
   sortAsc: 'mdi-arrow-up',

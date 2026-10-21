@@ -145,7 +145,7 @@
         :messages="resolvedMessages"
         :previous-icon="paginationIcons.previous"
         :next-icon="paginationIcons.next"
-        :disabled="disabled"
+        :disabled="disabled || isLoading || Boolean(internalError)"
         @update:page="setPage"
         @update:items-per-page="setItemsPerPage"
       />

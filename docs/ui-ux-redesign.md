@@ -1,6 +1,7 @@
 # UI/UX redesign plan
 
-Status: design phase authorized; initial brief and two interactive visual directions implemented for review.
+Status: Clarity selected for refinement; prototype review has led to the first production pagination migration. See the
+[implementation stages](clarity-migration.md) for completed and planned work.
 
 This document records the agreed direction and separates it from proposals that still need a decision. It is linked from
 the [roadmap](roadmap.md). No release number or delivery date has been assigned.
@@ -40,7 +41,7 @@ interactions. Removing the peer dependency alone is not sufficient.
 | Default experience | A ready-to-use styled table with CSS variables and slots for customization                        |
 
 The maintainer authorized starting with these assumptions. They remain open to revision during prototype review;
-Clarity is the maintainer's preferred direction for refinement; production migration has not started.
+Clarity is the maintainer's preferred direction for refinement; production migration has started with pagination.
 Support for additional UI-library adapters and a public headless API has not been committed.
 
 ## Initial prototype

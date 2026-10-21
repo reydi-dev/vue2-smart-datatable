@@ -164,6 +164,11 @@ export interface DataTableMessages {
   actions: string
   selectAll: string
   selectRow?: string
+  previousPage?: string
+  nextPage?: string
+  goToPage?: string
+  go?: string
+  invalidPage?: string
 }
 
 export interface DataTableIcons {

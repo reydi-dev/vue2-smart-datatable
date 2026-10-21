@@ -1,4 +1,27 @@
 import { expect, test } from '@playwright/test'
+
+test('production pagination jumps on Enter, rejects out-of-range pages, and works on mobile', async ({ page }) => {
+  await page.goto('/')
+  const target = page.getByRole('textbox', { name: 'Go to page', exact: true })
+  await target.fill('۳')
+  await expect(page.getByText('Person 1', { exact: true })).toBeVisible()
+  await expect(page.getByText('Person 51', { exact: true })).toHaveCount(0)
+  await target.press('Enter')
+  await expect(page.getByText('Person 51', { exact: true })).toBeVisible()
+  await expect(page.locator('.sdt-pagination__count')).toHaveText('51–67 of 67')
+  await target.fill('4')
+  await target.press('Enter')
+  await expect(page.locator('.sdt-pagination [role="alert"]')).toContainText('1–3')
+  await expect(target).toHaveAttribute('aria-invalid', 'true')
+  await expect(page.getByText('Person 51', { exact: true })).toBeVisible()
+  await page.setViewportSize({ width: 390, height: 800 })
+  await target.fill('٢')
+  await page.getByRole('button', { name: 'Go', exact: true }).click()
+  await expect(page.locator('.sdt-mobile')).toBeVisible()
+  await expect(page.locator('.sdt-pagination__count')).toHaveText('26–50 of 67')
+  await expect(page.locator('.sdt-pagination [role="alert"]')).toHaveCount(0)
+})
+
 test('local and server demos render responsively', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByText('Smart Data Table v0.1.0')).toBeVisible()

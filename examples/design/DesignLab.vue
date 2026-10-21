@@ -460,6 +460,7 @@ import Vue from 'vue'
 import LabIcon from './LabIcon.vue'
 import { orders as standardOrders, largeOrders, copy, extraColumns, formatExtra } from './data'
 import type { Order, OrderStatus, ExtraColumn } from './data'
+import { parsePageInput } from '../../src/core/pagination'
 
 type SortKey = 'id' | 'customer' | 'amount'
 type FocusTarget = NonNullable<typeof document.activeElement> & { focus(): void }
@@ -562,12 +563,8 @@ export default Vue.extend({
     },
     jumpToPage() {
       if (this.state !== 'ready' || !this.resultCount) return
-      const normalized = this.pageDraft
-        .trim()
-        .replace(/[۰-۹]/g, (digit) => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(digit)))
-        .replace(/[٠-٩]/g, (digit) => String('٠١٢٣٤٥٦٧٨٩'.indexOf(digit)))
-      const target = Number(normalized)
-      if (!/^\d+$/.test(normalized) || !Number.isSafeInteger(target) || target < 1 || target > this.pageCount) {
+      const target = parsePageInput(this.pageDraft, this.pageCount)
+      if (target === null) {
         this.jumpError = true
         return
       }

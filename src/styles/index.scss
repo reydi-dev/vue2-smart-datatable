@@ -2,6 +2,11 @@
   --sdt-border-color: rgba(0, 0, 0, 0.12);
   --sdt-muted-color: rgba(0, 0, 0, 0.6);
   --sdt-tint-color: rgba(0, 0, 0, 0.025);
+  --sdt-accent: #087c63;
+  --sdt-accent-soft: #edf7f2;
+  --sdt-surface: #fff;
+  --sdt-text-color: #24312e;
+  --sdt-error-color: #a52b36;
   position: relative;
   width: 100%;
 }
@@ -9,6 +14,11 @@
   --sdt-border-color: rgba(255, 255, 255, 0.2);
   --sdt-muted-color: rgba(255, 255, 255, 0.7);
   --sdt-tint-color: rgba(255, 255, 255, 0.06);
+  --sdt-accent: #83d6bb;
+  --sdt-accent-soft: #253d34;
+  --sdt-surface: #202b26;
+  --sdt-text-color: #edf5f0;
+  --sdt-error-color: #ffb2b9;
 }
 .sdt-toolbar {
   display: flex;
@@ -111,10 +121,12 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 16px;
   min-height: 64px;
-  padding: 10px 12px;
+  padding: 16px 20px;
   border-top: 1px solid var(--sdt-border-color);
+  color: var(--sdt-muted-color);
+  font-size: 0.75rem;
 }
 .sdt-pagination__size {
   display: flex;
@@ -122,8 +134,71 @@
   gap: 8px;
   margin-inline-end: auto;
 }
-.sdt-pagination__size .v-input {
-  max-width: 90px;
+.sdt-pagination select,
+.sdt-pagination input,
+.sdt-pagination__button {
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--sdt-border-color);
+  border-radius: 6px;
+  background: var(--sdt-surface);
+  color: var(--sdt-text-color);
+  font: inherit;
+}
+.sdt-pagination select,
+.sdt-pagination__button {
+  cursor: pointer;
+}
+.sdt-pagination :is(select, input, button):focus-visible {
+  outline: 2px solid var(--sdt-accent);
+  outline-offset: 3px;
+}
+.sdt-pagination :is(select, input, button):disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.sdt-pagination__button:hover:not(:disabled) {
+  background: var(--sdt-accent-soft);
+  border-color: var(--sdt-accent);
+}
+.sdt-pagination__navigation,
+.sdt-pagination__jump,
+.sdt-pagination__jump label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sdt-pagination__jump {
+  flex-wrap: wrap;
+}
+.sdt-pagination__jump label {
+  white-space: nowrap;
+}
+.sdt-pagination__jump input {
+  width: 64px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.sdt-pagination__jump input[aria-invalid='true'] {
+  border-color: var(--sdt-error-color);
+}
+.sdt-pagination__error {
+  flex-basis: 100%;
+  color: var(--sdt-error-color);
+}
+.sdt-pagination__arrow {
+  display: inline-grid;
+  place-items: center;
+  min-width: 36px;
+  padding: 4px;
+}
+.sdt-pagination__page {
+  padding: 8px 10px;
+  border-radius: 5px;
+  background: var(--sdt-tint-color);
+  color: var(--sdt-text-color);
+  font-weight: 600;
+  white-space: nowrap;
 }
 .sdt-pagination__count {
   margin-inline-end: 8px;
@@ -212,5 +287,9 @@
   }
   .sdt-pagination__size {
     flex-basis: 100%;
+  }
+  .sdt-pagination__jump {
+    flex-basis: 100%;
+    justify-content: flex-end;
   }
 }

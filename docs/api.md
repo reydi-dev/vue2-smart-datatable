@@ -45,6 +45,30 @@ Controlled props take precedence over persisted/default values. Interactions upd
 
 For translated selection controls, override `messages.selectAll` and `messages.selectRow`. The latter is a label prefix followed by the row's position on the current page (for example, `Select row 1`).
 
+## Pagination
+
+The built-in footer shows the current/total page count, previous/next controls, a native page-size select, and a
+"Go to page" form. Typing edits a draft only; pressing Enter or clicking Go submits the target. Latin, Persian, and
+Arabic-Indic digits are accepted. Empty, fractional, nonnumeric, and out-of-range values show an associated inline error
+without emitting `update:page`. Submitting the current page does not emit another update.
+
+A valid jump uses the existing `update:page` / `options-change` flow. In server mode it requests the target page through
+the provider, without loading intermediate pages. This requires a page/offset-based backend and a correct `total` from
+the provider; cursor-only APIs need their own pagination integration. `total` is the filtered count before pagination.
+
+The built-in pagination controls are disabled while a data load is pending, when `disabled` is true, or after a provider
+error until retry succeeds. Page navigation is also disabled when there are no results. Page size and valid input range
+follow the current controlled props. The existing custom `footer` slot remains available.
+
+Pagination labels can be translated with optional `messages.previousPage`, `messages.nextPage`, `messages.goToPage`,
+`messages.go`, and `messages.invalidPage`, alongside `rowsPerPage` and `of`. `invalidPage` is the error prefix followed by
+the allowed numeric range. Existing message objects retain English defaults for omitted fields.
+
+Pagination form controls now use native HTML with scoped `.sdt-pagination__*` classes. The `--sdt-accent`,
+`--sdt-accent-soft`, `--sdt-surface`, `--sdt-text-color`, and `--sdt-error-color` CSS variables configure these controls
+alongside the existing border/muted/tint variables. Vuetify icon overrides and RTL navigation direction remain supported
+in this intermediate migration stage; the library as a whole still requires Vuetify.
+
 ## Events
 
 State events are `input`, `selection-change`, `update:page`, `update:items-per-page`, `update:sort`, `update:filters`, `update:visible-columns`, `column-visibility-change`, and `options-change`.
