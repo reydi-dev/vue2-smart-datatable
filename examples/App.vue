@@ -32,6 +32,7 @@
               <p>Change the data source, then try sorting, filtering, selecting, and exporting rows.</p>
             </div>
             <div class="demo-controls mb-4">
+              <a href="./design.html">Explore the UI/UX design lab</a>
               <v-btn-toggle v-model="mode" mandatory>
                 <v-btn value="local">Local</v-btn>
                 <v-btn value="server">Server</v-btn>

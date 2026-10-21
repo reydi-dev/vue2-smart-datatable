@@ -9,8 +9,11 @@ The agreed direction is to design the new table experience first, then implement
 mandatory Vuetify dependency. There is no separate project to reproduce the current UI without Vuetify before redesigning it.
 
 See the [UI/UX redesign plan](ui-ux-redesign.md) for decisions, proposed scope, open choices, and completion criteria.
-Recording this plan does not start prototype development; the initial brief and visual directions are awaiting maintainer
-confirmation.
+The maintainer has authorized the design phase. The initial brief and two visual directions are available in the
+standalone [design lab](../examples/design.html). Clarity is the preferred direction for refinement, including direct
+page navigation requested during review; production migration remains a later step.
+
+Implementation is tracked in the [Clarity migration stages](clarity-migration.md), with one commit per completed stage.
 
 1. Define the design brief and release scope; explore two visual directions in an isolated, interactive prototype.
 2. Refine the selected direction across desktop, mobile, RTL, and table states.

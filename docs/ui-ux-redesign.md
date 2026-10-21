@@ -1,6 +1,6 @@
 # UI/UX redesign plan
 
-Status: planning recorded; design brief and prototype work have not started.
+Status: design phase authorized; initial brief and two interactive visual directions implemented for review.
 
 This document records the agreed direction and separates it from proposals that still need a decision. It is linked from
 the [roadmap](roadmap.md). No release number or delivery date has been assigned.
@@ -29,7 +29,7 @@ independent.
 Replacing controls also requires preserving keyboard behavior, focus management, accessible names, and menu/dialog
 interactions. Removing the peer dependency alone is not sufficient.
 
-## Proposed starting brief — not yet approved
+## Initial brief — working assumptions
 
 | Decision           | Proposal                                                                                          |
 | ------------------ | ------------------------------------------------------------------------------------------------- |
@@ -39,8 +39,115 @@ interactions. Removing the peer dependency alone is not sufficient.
 | Release scope      | Redesign existing capabilities; add features only where needed to complete a coherent interaction |
 | Default experience | A ready-to-use styled table with CSS variables and slots for customization                        |
 
-These are starting assumptions, not committed requirements. Confirm or revise them before building the visual directions.
+The maintainer authorized starting with these assumptions. They remain open to revision during prototype review;
+Clarity is the maintainer's preferred direction for refinement; production migration has not started.
 Support for additional UI-library adapters and a public headless API has not been committed.
+
+## Initial prototype
+
+Run `npm run dev` and open `/design.html` on the URL printed by Vite. The existing demo links to this page. The demo build
+also includes this entry, with its own Vue mount and CSS, without importing Vuetify or production table components.
+
+- **Clarity:** warm neutral surfaces, green accent, open spacing, and soft boundaries.
+- **Precision:** cool neutral surfaces, blue accent, shorter desktop rows, and explicit column boundaries.
+
+Both directions share the same sample orders and local interactions: search, status and minimum-amount filters, sorting,
+selection across pages, column visibility, CSV export, pagination, and an inline order-detail panel. Switch language to
+review Persian/RTL; dates use the Gregorian calendar in both languages and amounts use USD. The state selector simulates
+loading, error/retry, and no-data presentations; filtering can produce a separate no-results state. No server requests are
+made, and prototype logic is not a replacement for the production table engine.
+
+Export defaults to all filtered results; the filter panel also exposes an explicit selected-rows export scope. The header
+checkbox selects only the current page. Selection is retained across pages and filters, and its feedback states that scope.
+These prototype behaviors are proposals for review, not changes to the published API. Native select controls are used for
+the first pass; polished custom popup behavior and light/dark theme decisions remain later work.
+
+### Review tasks
+
+1. Compare both directions with the same filter and selected rows; choose based on readability and daily use.
+2. Find a customer, filter by status and minimum amount, and remove individual filters.
+3. Select a page, navigate, and verify the selection count and CSV scope.
+4. Hide columns, open an order, and return to its trigger using the keyboard.
+5. Repeat on a narrow viewport and in Persian; review mixed-direction customer emails and order IDs.
+6. Inspect the loading, error, empty, and no-results states.
+
+After selecting a direction, refine the interactions and tokens before migrating production components. Vue 2 Package Lab
+will serve as independent consumer validation after implementation, with separate with-Vuetify and without-Vuetify
+scenarios; its current setup has not been inspected or changed in this design phase.
+
+### Review feedback: direct page navigation
+
+The maintainer identified that previous/next alone makes distant pages expensive to reach, especially with API-backed
+data. The prototype now includes the current/total page count and a localized "Go to page" form. Entering a number only
+edits a draft; clicking Go or pressing Enter commits one valid target page. Persian, Arabic-Indic, and Latin digits are
+accepted. Empty, fractional, nonnumeric, and out-of-range entries show an inline error without navigating. Navigation is
+disabled during simulated loading/error/empty states and when no results exist. Changing filters or page size updates
+the valid range and synchronizes the displayed page input when the current page changes.
+
+A sample-dataset selector offers 24 or 800 local sample orders (100 pages at 8 rows) so distant-page navigation can be
+reviewed. Switching datasets clears selection and filters. These fixtures are not a performance benchmark.
+
+During production migration, connect committed page changes to the existing controlled pagination/provider flow so that
+an offset/page-based API can request the target directly, without loading intermediate pages. Arbitrary page jumps
+require a backend that supports them and sufficient total-count information; cursor-only APIs may require different UX.
+The prototype remains local and does not verify server request counts.
+
+### Review feedback: more columns on mobile
+
+The sample orders include seven additional optional columns: item count, payment, delivery method, city, priority,
+tags, and description. Fixtures cover short and long localized descriptions, multiline instructions, a long unbroken
+reference, empty descriptions/tags, and boolean and numeric values. All new columns are enabled initially and can be
+hidden from the Columns control.
+
+Desktop keeps the table horizontally scrollable and lets descriptions expand from a single-line preview. Mobile keeps
+the original summary and exposes the additional visible fields in each card's native More details disclosure. Descriptions
+span the full card width, preserve newlines, and wrap long references; missing values receive a localized label. The
+separate order-detail panel also includes these additional visible fields.
+
+A preview-width switch above the page constrains the same layout to 390px for review on a wider screen. Container queries
+drive both this preview and natural narrow-screen behavior. This is a layout preview, not device/browser emulation.
+
+### Initial token comparison
+
+The prototype's `examples/design/design.css` defines scoped `--sdt-*` tokens. These values are exploratory, not a new
+public styling API.
+
+| Token                      | Clarity   | Precision |
+| -------------------------- | --------- | --------- |
+| Accent                     | `#087c63` | `#3458c5` |
+| Text                       | `#24312e` | `#263044` |
+| Border                     | `#e3e9e6` | `#dfe4ed` |
+| Surface                    | `#ffffff` | `#ffffff` |
+| Desktop row minimum height | `77px`    | `61px`    |
+| Workspace radius           | `14px`    | `5px`     |
+
+Focus uses a visible outline; selection uses an accent-tinted surface. Status badges combine text with a colored dot.
+Mobile uses an order card with identity, status, customer, amount, date, and a details action, subject to column visibility.
+
+### Existing API inventory for migration
+
+The [current API reference](api.md) remains authoritative. The prototype does not expose or replace these contracts.
+
+| Area                         | Existing contract to account for                                                                         |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Data                         | `columns`, `items`, `mode`, `dataProvider`, `normalizeResponse`, `rowKey`                                |
+| Controlled state             | `page`, `itemsPerPage`, `sort`, `filters`, selection through `value`/`input`, `visibleColumns`           |
+| Extension points             | Header and cell slots, custom filters, toolbar, row actions, mobile summary/details, footer, state slots |
+| Integration                  | Provider events, selection and state events, persistence adapters, exporter adapters                     |
+| Presentation                 | `messages`, `direction`, `icons`, `dense`, `fixedHeader`, `height`, `rowClass`                           |
+| Vuetify-specific assumptions | Named `mobileBreakpoint` values, MDI icon strings, action colors, inherited theme and control behavior   |
+
+Breakpoint semantics, icon rendering, and theme/action-color mapping need explicit migration decisions. Search, active-filter
+chips, status shortcuts, and the order-detail panel demonstrate candidate UX; they do not promise new built-in APIs.
+
+### Initial validation
+
+- Type checking, repository lint, and the multi-entry production demo build passed.
+- Browser review covered both directions in English and Persian/RTL, cross-page selection, no-results recovery, opening
+  order details with focus transfer, and the simulated error state.
+- A 390px mobile layout review covered the additional fields and long descriptions in Persian/RTL.
+- A full keyboard/accessibility audit, broader device review, further user feedback, and Package Lab validation remain
+  outstanding. The prototype is ready for initial visual comparison, not production release.
 
 ## Design workflow and deliverables
 

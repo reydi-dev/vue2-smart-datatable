@@ -19,6 +19,12 @@ export default defineConfig({
     },
   },
   build: {
+    rollupOptions: {
+      input: {
+        demo: resolve(__dirname, 'examples/index.html'),
+        design: resolve(__dirname, 'examples/design.html'),
+      },
+    },
     outDir: resolve(__dirname, 'dist-demo'),
     emptyOutDir: true,
     chunkSizeWarningLimit: 1000,
