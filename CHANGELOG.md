@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Improved npm and GitHub discoverability metadata for Vue 2, Vuetify 2, data-table, server-side, and RTL searches.
+- Clarified the package's maintained legacy-app focus and its TypeScript, provider, responsive, and safe-export advantages.
+
 ## 0.1.0 - 2026-10-21
 
 - First stable release for Vue 2.7 and Vuetify 2.6 applications.

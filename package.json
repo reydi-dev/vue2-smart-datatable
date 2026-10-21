@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6.",
+  "description": "A TypeScript-ready data table for Vue 2.7 and Vuetify 2 with server-side pagination, filtering, mobile layouts, RTL, and CSV export.",
   "author": {
     "name": "Mohammad Reza Dehghani",
     "url": "https://github.com/reydi-dev"
@@ -14,16 +14,29 @@
     "type": "git",
     "url": "git+https://github.com/reydi-dev/vue2-smart-datatable.git"
   },
-  "homepage": "https://github.com/reydi-dev/vue2-smart-datatable#readme",
+  "homepage": "https://reydi-dev.github.io/vue2-smart-datatable/",
   "bugs": {
     "url": "https://github.com/reydi-dev/vue2-smart-datatable/issues"
   },
   "keywords": [
     "vue",
     "vue2",
+    "vue-2",
     "vuetify",
+    "vuetify2",
+    "vuetify-2",
     "data-table",
-    "datatable"
+    "datatable",
+    "data-grid",
+    "table",
+    "vue-component",
+    "typescript",
+    "server-side",
+    "pagination",
+    "sorting",
+    "filtering",
+    "rtl",
+    "csv-export"
   ],
   "type": "module",
   "files": [

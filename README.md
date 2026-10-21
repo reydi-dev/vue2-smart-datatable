@@ -5,9 +5,20 @@
 [![CI](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml/badge.svg)](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A reusable, backend-neutral data table for Vue 2.7 and Vuetify 2.6.
+A TypeScript-ready data table for Vue 2.7 and Vuetify 2 with server-side pagination, filtering, mobile layouts, RTL, and safe CSV export.
 
 [Live demo](https://reydi-dev.github.io/vue2-smart-datatable/) · [API](docs/api.md) · [Roadmap](docs/roadmap.md) · [Security](SECURITY.md)
+
+## Why this package?
+
+`vue2-smart-datatable` is for maintained Vue 2.7 and Vuetify 2 applications that need more than a basic `v-data-table` without coupling table state to one backend or store.
+
+- Actively maintained for legacy Vue 2.7 and Vuetify 2 applications
+- Built-in TypeScript declarations and controlled state APIs
+- Backend-neutral provider and response-normalizer contracts
+- Responsive desktop/mobile renderers with configurable RTL
+- Safe-by-default text rendering and spreadsheet export
+- No direct runtime dependencies; Vue and Vuetify remain peer dependencies
 
 ## Features
 
