@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A TypeScript-ready data table for Vue 2.7 and Vuetify 2 with server-side pagination, filtering, mobile layouts, RTL, and CSV export.",
+  "description": "A TypeScript-ready data table for Vue 2.6+ and Vuetify 2 with server-side pagination, filtering, mobile layouts, RTL, and CSV export.",
   "author": {
     "name": "Mohammad Reza Dehghani",
     "url": "https://github.com/reydi-dev"
@@ -75,7 +75,7 @@
     "**/*.scss"
   ],
   "engines": {
-    "node": ">=20"
+    "node": ">=18.18"
   },
   "scripts": {
     "dev": "vite --config vite.demo.config.ts",
@@ -93,7 +93,7 @@
     "prepublishOnly": "npm run build && npm run test:dist"
   },
   "peerDependencies": {
-    "vue": "^2.7.0",
+    "vue": ">=2.6.14 <3",
     "vuetify": ">=2.6.0 <3"
   },
   "devDependencies": {

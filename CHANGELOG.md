@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Expanded the supported Vue peer range to Vue 2.6.14 and lowered the Node.js floor to 18.18, backed by an independent packed-package compatibility test.
 - Improved npm and GitHub discoverability metadata for Vue 2, Vuetify 2, data-table, server-side, and RTL searches.
 - Clarified the package's maintained legacy-app focus and its TypeScript, provider, responsive, and safe-export advantages.
 
