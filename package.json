@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "A TypeScript-ready data table for Vue 2.6+ and Vuetify 2 with server-side pagination, filtering, mobile layouts, RTL, and CSV export.",
+  "description": "A TypeScript-ready, UI-framework-independent data table for Vue 2.6+ with server-side pagination, filtering, mobile layouts, RTL, and CSV export.",
   "author": {
     "name": "Mohammad Reza Dehghani",
     "url": "https://github.com/reydi-dev"
@@ -22,9 +22,6 @@
     "vue",
     "vue2",
     "vue-2",
-    "vuetify",
-    "vuetify2",
-    "vuetify-2",
     "data-table",
     "datatable",
     "data-grid",
@@ -90,15 +87,14 @@
     "test:unit": "vitest run tests/unit",
     "test:e2e": "playwright test",
     "test:dist": "vitest run tests/consumer",
-    "prepublishOnly": "npm run build && npm run test:dist"
+    "prepublishOnly": "npm run build && npm run test:dist",
+    "build:demo:labs": "vite build --config vite.demo.config.ts --mode labs"
   },
   "peerDependencies": {
-    "vue": ">=2.6.14 <3",
-    "vuetify": ">=2.6.0 <3"
+    "vue": ">=2.6.14 <3"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
-    "@mdi/font": "7.4.47",
     "@playwright/test": "^1.55.0",
     "@types/node": "^24.3.0",
     "@vitejs/plugin-vue2": "^2.3.3",
@@ -114,7 +110,6 @@
     "vitest": "^3.0.8",
     "vue": "2.7.16",
     "vue-eslint-parser": "^10.2.0",
-    "vue-tsc": "^2.2.12",
-    "vuetify": "2.6.15"
+    "vue-tsc": "^2.2.12"
   }
 }

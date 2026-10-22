@@ -5,20 +5,20 @@
 [![CI](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml/badge.svg)](https://github.com/reydi-dev/vue2-smart-datatable/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A TypeScript-ready data table for Vue 2.6+ and Vuetify 2 with server-side pagination, filtering, mobile layouts, RTL, and safe CSV export.
+A TypeScript-ready data table for Vue 2.6+ with server-side pagination, filtering, mobile layouts, RTL, and safe CSV export.
 
 [Live demo](https://reydi-dev.github.io/vue2-smart-datatable/) · [API](docs/api.md) · [Roadmap](docs/roadmap.md) · [Security](SECURITY.md)
 
 ## Why this package?
 
-`vue2-smart-datatable` is for maintained Vue 2 and Vuetify 2 applications that need more than a basic `v-data-table` without coupling table state to one backend or store.
+`vue2-smart-datatable` is for maintained Vue 2 applications that need a complete data table without coupling table state to one backend or store.
 
-- Actively maintained for legacy Vue 2 and Vuetify 2 applications
+- Native Clarity UI for legacy Vue 2 applications, with no UI framework required
 - Built-in TypeScript declarations and controlled state APIs
 - Backend-neutral provider and response-normalizer contracts
 - Responsive desktop/mobile renderers with configurable RTL
 - Safe-by-default text rendering and spreadsheet export
-- No direct runtime dependencies; Vue and Vuetify remain peer dependencies
+- No direct runtime dependencies; Vue is the only peer dependency
 
 ## Features
 
@@ -35,47 +35,33 @@ A TypeScript-ready data table for Vue 2.6+ and Vuetify 2 with server-side pagina
 | Dependency            | Supported versions |
 | --------------------- | ------------------ |
 | Vue                   | `>=2.6.14 <3`      |
-| Vuetify               | `>=2.6.0 <3`       |
 | Node.js for consumers | `>=18.18`          |
 
-The package is developed with Vue 2.7 and also tested as a packed dependency in an independent Vue 2.6.14 consumer. Vue and Vuetify are peer dependencies and are not bundled.
+The package is developed with Vue 2.7 and also tested as a packed dependency in an independent Vue 2.6.14 consumer. Vue is a peer dependency and is not bundled. Vuetify is optional host software; the table does not import it. Native dialog support is required for the built-in column chooser (see [browser support](docs/native-controls.md)).
 
 Contributing to or building this repository requires Node.js 20 because the development and browser-test toolchain has a newer runtime floor than the distributed library.
 
-> Clarity migration: all built-in UI now uses native controls. The main demo runs without Vuetify imports; package peers
-> and the installation instructions below remain unchanged until final consumer validation. See the
-> [migration stages](docs/clarity-migration.md) and [native control guide](docs/native-controls.md).
+> This branch contains the Clarity redesign. It has not been published by this migration; npm and the hosted demo may still serve the previous release. See the [upgrade guide](docs/clarity-upgrade.md).
 
 ## Install
 
-In a Vue 2 application that already uses Vuetify 2.6:
+In a Vue 2.6.14+ application:
 
 ```sh
 npm install vue2-smart-datatable
 ```
 
-Initialize Vuetify and import both stylesheets once in your application entry point:
+Import the table stylesheet once in your application entry point:
 
 ```ts
-import Vue from 'vue'
-import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
 import 'vue2-smart-datatable/styles.css'
-
-Vue.use(Vuetify)
-const vuetify = new Vuetify()
-// Pass vuetify to your root Vue instance: new Vue({ vuetify, ... })
 ```
 
 Use the table in a component:
 
 ```vue
 <template>
-  <v-app>
-    <v-main>
-      <SmartDataTable v-model="selectedIds" :columns="columns" :items="rows" selectable />
-    </v-main>
-  </v-app>
+  <SmartDataTable v-model="selectedIds" :columns="columns" :items="rows" selectable />
 </template>
 
 <script lang="ts">
@@ -102,7 +88,7 @@ export default Vue.extend({
 </script>
 ```
 
-Vue and Vuetify are peer dependencies. The host application must provide supported versions of both. See the [API reference](docs/api.md) for provider mode, slots, events, and options.
+The host application must provide a supported Vue 2 version. No Vuetify instance, `v-app`, icon font, or external icon service is required. Existing Vuetify hosts can keep their own setup. See the [API reference](docs/api.md) for provider mode, slots, events, and options.
 
 ## Try the demo locally
 
@@ -113,7 +99,7 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. The [live demo](https://reydi-dev.github.io/vue2-smart-datatable/) shows this repository's full example with local data, a mock server provider, and mobile and RTL layouts.
+Open the local URL printed by Vite. The default demo build contains one public entry. Development-only labs can be built with `npm run build:demo:labs` for regression testing. The [live demo](https://reydi-dev.github.io/vue2-smart-datatable/) shows the last deployed example with local data, a mock server provider, and mobile and RTL layouts.
 
 ### Vite apps using Vuetify 2
 
@@ -194,13 +180,13 @@ export default Vue.extend({
 </script>
 ```
 
-Place this component inside the host application's `<v-app>` and import both stylesheets as shown above. The table handles loading, empty results, request cancellation, and a retry button for failed requests. See the [provider guide](docs/providers.md) for the endpoint contract and filter mapping.
+Import the table stylesheet as shown above; no UI-framework wrapper is needed. The table handles loading, empty results, request cancellation, and a retry button for failed requests. See the [provider guide](docs/providers.md) for the endpoint contract and filter mapping.
 
 See [`docs/api.md`](docs/api.md), [`docs/providers.md`](docs/providers.md), [`docs/adapters.md`](docs/adapters.md), and [`docs/roadmap.md`](docs/roadmap.md).
 
 Contributions are welcome. Read [`CONTRIBUTING.md`](CONTRIBUTING.md), the [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md), and the project [`SECURITY.md`](SECURITY.md) before opening a pull request or report.
 
-> Vue 2 and Vuetify 2 are end-of-life. This package intentionally targets applications that cannot migrate yet.
+> Vue 2 is end-of-life. This package intentionally targets applications that cannot migrate yet.
 
 ## License
 

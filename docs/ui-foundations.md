@@ -1,7 +1,6 @@
 # Independent UI foundations (migration stage 3)
 
-Table-owned icons, viewport detection, and the shared Clarity style tokens no longer use Vuetify services. All built-in controls have also migrated in [stage 5](native-controls.md). Keep the existing required Vue/Vuetify
-installation until the final [package-validation stage](clarity-migration.md).
+Table-owned icons, viewport detection, and the shared Clarity style tokens no longer use Vuetify services. All built-in controls have also migrated in [stage 5](native-controls.md). Vue is now the only required peer; Vuetify is not needed. See the final [package-validation stage](clarity-migration.md).
 
 ## Viewport and mobile breakpoint
 
@@ -103,8 +102,7 @@ rules share the same foundation values. Existing event guards remain responsible
 
 Run `npm run dev` and open `/foundations.html`. This entry imports Vue, the real icon/pagination components, and the library
 stylesheet; it does not import Vuetify or an icon font. It demonstrates explicit light/dark palettes, keyboard focus,
-native pagination, custom SVG, RTL arrows, and independently configurable viewport thresholds. The existing table demo
-links to it. This verifies the migrated foundations, not full removal of Vuetify from the table.
+native pagination, custom SVG, RTL arrows, and independently configurable viewport thresholds. This is a development fixture, accessible directly rather than linked from the public main demo. This verifies the migrated foundations, not full removal of Vuetify from the table.
 
 The companion `/renderers.html` page exercises real native desktop/mobile renderers and cells with 13 sample columns.
 See the [renderer migration guide](native-renderers.md) for slot, styling, and behavior details.

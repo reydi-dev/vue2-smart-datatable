@@ -75,7 +75,11 @@ jobs:
         run: npm run test:e2e
 
   legacy-consumer:
-    name: Vue 2.6 consumer on Node 18
+    name: Vue ${{ matrix.vue }} consumer (${{ matrix.host }}) on Node 18
+    strategy:
+      matrix:
+        vue: ['2.6.14', '2.7.16']
+        host: [native, vuetify]
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -101,16 +105,22 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Vue 2.6 consumer dependencies
+      - name: Install baseline consumer dependencies
         run: npm ci
         working-directory: tests/compatibility/vue-2.6
 
-      - name: Install packed package in Vue 2.6 consumer
-        run: npm install --no-save --ignore-scripts ../../../vue2-smart-datatable-*.tgz
+      - name: Install packed package and selected host
+        run: |
+          host_dependencies=()
+          if [ "${{ matrix.host }}" = "vuetify" ]; then host_dependencies+=(vuetify@2.6.15); fi
+          npm install --no-save --ignore-scripts ../../../vue2-smart-datatable-*.tgz vue@${{ matrix.vue }} vue-template-compiler@${{ matrix.vue }} "${host_dependencies[@]}"
         working-directory: tests/compatibility/vue-2.6
 
-      - name: Run Vue 2.6 compatibility test
+      - name: Run packed compatibility test
         run: npm test
+        env:
+          SDT_VUE_VERSION: ${{ matrix.vue }}
+          SDT_WITH_VUETIFY: ${{ matrix.host == 'vuetify' && '1' || '0' }}
         working-directory: tests/compatibility/vue-2.6
 
   pages-build:

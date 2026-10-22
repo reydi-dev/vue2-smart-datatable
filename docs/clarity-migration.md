@@ -26,9 +26,12 @@ the exploratory [design plan](ui-ux-redesign.md). No package publication, releas
    drafts and modal focus, export disclosure/progress/failure, and loading/error/no-results states now share Clarity styles.
    Slots and provider/export contracts remain available. The main demo uses the full component without Vuetify imports,
    with search through existing filters, Persian/RTL, and explicit themes. See the [control migration guide](native-controls.md).
-6. **Package and consumer validation — planned.** Remove the required Vuetify peer only after production code no longer
-   depends on it. Update install/demo/API/migration documentation and validate packed consumers with and without Vuetify,
-   Vue 2.6 compatibility, browser interactions, and API request behavior. Inspect Package Lab before modifying it.
+6. **Package and consumer validation — complete with documented manual acceptance.** Vue is the only peer; obsolete
+   Vuetify/font setup and test registrations are removed. Install/upgrade docs, a four-way Vue/host compatibility matrix,
+   and one public demo entry are ready. Packed consumers and the original Package Lab suite passed. The maintainer
+   confirmed retained selection and no clipping/horizontal scroll after resizing the local table. This manual acceptance
+   closes stage 6; it does not turn the earlier failed immediate-width automated assertion into a passing test. See the
+   [validation report](consumer-validation.md) for that limitation. Publication and deployment require a separate release task.
 
 ## Commit and validation policy
 
@@ -76,3 +79,11 @@ recovery, and disabled states. The complete main demo makes no font requests and
 Manual review covered the main desktop view and Persian/RTL dark mobile column dialog at 390px. Native dialog focus
 cycling was tightened after a keyboard regression test exposed a boundary case. Package peer removal, independent
 Vue 2.6/Package Lab validation, older-browser compatibility, and final demo-fixture consolidation remain stage 6 work.
+
+Stage 6 validation: clean Vue-only installation, 104 unit tests, 4 distribution tests, build/declarations, single-entry
+public demo, lint/format/type checks, and package dry-run passed. Four packed Vue 2.6/2.7 native/Vuetify consumers passed.
+Earlier browser runs passed all 14 repository tests and the original 10 Package Lab tests, plus the extra API-jump test.
+The additional immediate resize-width assertion failed; no automated rerun is claimed. The maintainer subsequently
+accepted the stable local mobile layout manually, with retained selection and no clipping/horizontal scroll. All six
+migration stages are complete under this explicitly documented manual-acceptance exception. Visual refinement against
+the original design remains a separate follow-up; completion here does not claim pixel-perfect design parity or a release.

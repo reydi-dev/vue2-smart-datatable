@@ -2,8 +2,7 @@
 
 The table's built-in toolbar, filters, column visibility dialog, export chooser, and states now use native controls with
 Clarity tokens. The main demo (`/`) runs the complete production component without importing Vuetify or an icon font.
-The package's required Vuetify peer and installation instructions remain unchanged until stage 6 consumer validation.
-No packed Vue 2.6 or Package Lab compatibility claim is added by this stage.
+Stage 6 removes the required Vuetify peer and updates installation instructions. See the [consumer validation report](consumer-validation.md) for packed Vue 2.6/2.7 and Package Lab checks.
 
 ## Toolbar and search
 
@@ -34,7 +33,7 @@ Column choices remain a draft until Apply. Closing with Close, Escape, or the ba
 next open. Fixed columns are retained; Reset uses the existing persistence reset behavior. Native `dialog.showModal()`
 provides modality, the background is inert, Tab/Shift+Tab cycle through enabled controls, and closing restores focus to
 the opener. The dialog retains the table's direction and theme. Browsers must support native HTML dialog (or the host
-must provide a dialog polyfill); older-browser coverage belongs to the final compatibility review.
+must provide a dialog polyfill); browsers without native dialog support need a host-provided polyfill. Browser automation in this migration used Chrome; Safari/Firefox and assistive-technology certification are not claimed.
 
 The export chooser is a disclosure containing normal buttons, not an ARIA application menu. Enter/Space opens it, Tab
 reaches choices, Escape closes it and returns focus, and pointer/focus movement outside dismisses it. Choosing a scope
@@ -61,8 +60,7 @@ demo demonstrates Persian UI messages and RTL without automatically translating 
 Style `.sdt-control`, `.sdt-filter`, `.sdt-dialog`, `.sdt-choice`, `.sdt-export__panel`, `.sdt-state`, and the existing Clarity
 variables instead of Vuetify internal classes. Native controls and popup choices follow explicit light/dark color schemes.
 No Vuetify component markup or service access remains in production components; the main demo entry also has no Vuetify
-imports. Development dependencies and package peers are deliberately retained for stage 6 validation.
+imports. The package has no Vuetify or icon-font dependency; legacy host-font overrides still work when supplied by the consumer.
 
 The main demo is the reference for the complete component. Design/foundations/renderer labs remain development fixtures
-for targeted comparison and regression tests, not alternate production implementations. Consolidating or removing these
-fixtures is deferred until final validation so their test coverage is not lost during migration.
+for targeted comparison and regression tests, not alternate production implementations. Stage 6 removes their links from the public demo and excludes them from the default production build. They remain directly accessible in the dev server; `npm run build:demo:labs` includes them for browser regression tests.

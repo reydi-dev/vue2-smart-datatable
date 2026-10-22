@@ -1,21 +1,21 @@
 # Roadmap
 
-The current package targets Vue 2.6+ and requires Vuetify 2.6+. The package version in `package.json` is `0.2.0`;
+The current package targets Vue 2.6+ and does not require a UI framework. The package version in `package.json` is `0.2.0`;
 the `0.1.0` checklist below is retained as historical release context.
 
-## Next: UI/UX design, then independent UI implementation
+## Clarity UI migration
 
 The agreed direction is to design the new table experience first, then implement that design while removing the
 mandatory Vuetify dependency. There is no separate project to reproduce the current UI without Vuetify before redesigning it.
 
 See the [UI/UX redesign plan](ui-ux-redesign.md) for decisions, proposed scope, open choices, and completion criteria.
-The maintainer has authorized the design phase. The initial brief and two visual directions are available in the
-standalone [design lab](../examples/design.html). Clarity is the preferred direction for refinement, including direct
-page navigation requested during review. Production migration has started with native pagination form controls and
+The maintainer selected Clarity after reviewing two directions. The initial brief and prototypes remain in the development-only
+standalone [design lab](../examples/design.html). Clarity includes direct
+page navigation requested during review. Production migration includes native pagination form controls and
 provider-tested direct page navigation. Table-owned icons, viewport detection, and native style foundations are now
 independent of Vuetify. Desktop/mobile renderers, selection, row actions, and cells now use native markup with Clarity
 styles. Toolbar, filters, columns/export controls, and states are also native; the main demo now uses the complete
-Clarity component without Vuetify imports. Package metadata cleanup and independent consumer validation are next. See the
+Clarity component without Vuetify imports. The required Vuetify peer has been removed and independent consumer validation is recorded in the [validation report](consumer-validation.md). See the
 [native renderer guide](native-renderers.md) and [control guide](native-controls.md) for behavior and CSS migration notes.
 
 Implementation is tracked in the [Clarity migration stages](clarity-migration.md), with one commit per completed stage.

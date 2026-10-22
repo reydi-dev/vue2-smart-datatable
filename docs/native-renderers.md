@@ -1,8 +1,8 @@
 # Native desktop, mobile, and cells (migration stage 4)
 
 The production desktop/mobile renderers, selection checkboxes, row actions, and built-in cells now use native HTML and
-the Clarity tokens. The remaining controls have since migrated in [stage 5](native-controls.md). Keep the required Vuetify
-peer installed until [stage 6](clarity-migration.md).
+the Clarity tokens. The remaining controls have since migrated in [stage 5](native-controls.md). The required Vuetify
+peer was removed in [stage 6](clarity-migration.md); Vue is the only peer.
 
 ## Desktop and mobile behavior
 
@@ -57,4 +57,4 @@ and viewport settings.
 Run `npm run dev` and open `/renderers.html`. This page imports the real renderers, cells, pagination, and library CSS
 without Vuetify or an icon font. It provides 13 columns, English/Persian, RTL, light/dark, compact, disabled/loading
 controls, sort, selection, and long/missing/multiline sample values. It verifies these migrated pieces, not the complete
-table without Vuetify. The main demo now exercises that complete component; packed consumers, Vue 2.6, and Package Lab remain scheduled for stage 6.
+table without Vuetify. The main demo now exercises that complete component; packed consumers and Package Lab are covered by the [stage 6 validation report](consumer-validation.md).

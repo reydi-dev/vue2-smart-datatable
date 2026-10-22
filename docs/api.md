@@ -51,8 +51,7 @@ Desktop/mobile renderers, selection, row actions, and cells now use native HTML.
 mobile row activation, and missing values. See the [renderer migration guide](native-renderers.md) for native CSS
 classes, preserved slots, keyboard behavior, long-text presentation, and row-action color mapping. Toolbar, filters,
 column/export controls, and states have also migrated; see the [native control guide](native-controls.md) for new optional
-message fields, filter value types, modal focus, export failure behavior, and the search integration pattern. The required
-Vuetify peer remains in package metadata until final consumer validation.
+message fields, filter value types, modal focus, export failure behavior, and the search integration pattern. Vue is the only required peer; Vuetify is no longer required.
 
 ## UI foundations
 
@@ -84,8 +83,7 @@ the allowed numeric range. Existing message objects retain English defaults for 
 Pagination form controls now use native HTML with scoped `.sdt-pagination__*` classes. The `--sdt-accent`,
 `--sdt-accent-soft`, `--sdt-surface`, `--sdt-text-color`, and `--sdt-error-color` CSS variables configure these controls
 alongside the existing border/muted/tint variables. Bundled inline SVG icons and RTL navigation direction are independent of Vuetify; custom MDI font names require a
-host-provided font stylesheet. Production controls are now native; the required Vuetify package peer is retained until
-final consumer validation.
+host-provided font stylesheet. Production controls are now native; Vue is the only required package peer.
 
 ## Events
 

@@ -1,12 +1,10 @@
 import { mount } from '@vue/test-utils'
-import Vuetify from 'vuetify'
 import { describe, expect, it, vi } from 'vitest'
 import SmartDataTable from '@/components/SmartDataTable.vue'
 import type { DataProviderRequest } from '@/types'
 describe('SmartDataTable', () => {
   it('preserves named cell/action slots and native fallback actions together', async () => {
     const wrapper = mount(SmartDataTable, {
-      vuetify: new Vuetify(),
       propsData: {
         columns: [{ key: 'name', label: 'Name', formatter: (value: unknown) => `Hello ${value}` }],
         items: [{ id: 1, name: 'Ada' }],
@@ -41,7 +39,6 @@ describe('SmartDataTable', () => {
       .mockResolvedValueOnce(result)
       .mockImplementation(() => pendingJump)
     const wrapper = mount(SmartDataTable, {
-      vuetify: new Vuetify(),
       propsData: { columns: [{ key: 'name', label: 'Name' }], mode: 'server', dataProvider, direction: 'rtl' },
     })
     try {
@@ -70,7 +67,6 @@ describe('SmartDataTable', () => {
   })
   it('renders text safely and emits selection', async () => {
     const wrapper = mount(SmartDataTable, {
-      vuetify: new Vuetify(),
       propsData: {
         columns: [{ key: 'name', label: 'Name' }],
         items: [{ id: 1, name: '<b>unsafe</b>' }],
@@ -89,7 +85,6 @@ describe('SmartDataTable', () => {
   it('loads from the provider when mode changes to server', async () => {
     const dataProvider = vi.fn().mockResolvedValue({ items: [{ id: 2, name: 'Server row' }], total: 1 })
     const wrapper = mount(SmartDataTable, {
-      vuetify: new Vuetify(),
       propsData: {
         columns: [{ key: 'name', label: 'Name' }],
         items: [{ id: 1, name: 'Local row' }],
@@ -108,7 +103,6 @@ describe('SmartDataTable', () => {
 
   it('opens default filters when no custom filter slots are provided', async () => {
     const wrapper = mount(SmartDataTable, {
-      vuetify: new Vuetify(),
       propsData: {
         columns: [{ key: 'name', label: 'Name', filterable: true }],
         items: [{ id: 1, name: 'Ada' }],
@@ -126,7 +120,6 @@ describe('SmartDataTable', () => {
   it('lets keyboard users activate rows when row-click is observed', async () => {
     const onRowClick = vi.fn()
     const wrapper = mount(SmartDataTable, {
-      vuetify: new Vuetify(),
       propsData: {
         columns: [{ key: 'name', label: 'Name' }],
         items: [{ id: 1, name: 'Ada' }],
@@ -145,7 +138,6 @@ describe('SmartDataTable', () => {
   it('disables built-in interactions without blocking later re-enablement', async () => {
     const onRowClick = vi.fn()
     const wrapper = mount(SmartDataTable, {
-      vuetify: new Vuetify(),
       propsData: {
         columns: [{ key: 'name', label: 'Name', sortable: true, filterable: true }],
         items: [{ id: 1, name: 'Ada' }],
@@ -192,7 +184,6 @@ describe('SmartDataTable', () => {
         }),
     )
     const wrapper = mount(SmartDataTable, {
-      vuetify: new Vuetify(),
       propsData: {
         columns: [{ key: 'name', label: 'Name' }],
         items: [{ id: 1, name: 'Local row' }],
@@ -220,7 +211,6 @@ describe('SmartDataTable', () => {
       .mockRejectedValueOnce(new Error('Temporary failure'))
       .mockResolvedValue({ items: [{ id: 2, name: 'Recovered row' }], total: 1 })
     const wrapper = mount(SmartDataTable, {
-      vuetify: new Vuetify(),
       propsData: {
         columns: [{ key: 'name', label: 'Name' }],
         mode: 'server',

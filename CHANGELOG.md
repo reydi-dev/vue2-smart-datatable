@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Replaced built-in Vuetify UI with native Clarity desktop/mobile renderers, filters, column dialog, export controls, and states. Vue is now the only peer dependency; no icon font is required.
+- Added explicit page jumps (including Persian/Arabic digits), independent viewport detection, inline SVG overrides, light/dark themes, and keyboard-accessible native interactions.
+- Retained public slots/provider/export contracts and legacy breakpoint/icon aliases. Custom CSS targeting Vuetify internals and Vuetify color names must migrate; see [Clarity migration](docs/clarity-migration.md).
+- Refreshed the main demo and kept development labs outside its default production build. Extended packed-consumer coverage to Vue 2.6/2.7 with and without a Vuetify host.
+
 ## 0.2.0 - 2026-10-21
 
 - Expanded the supported Vue peer range to Vue 2.6.14 and lowered the Node.js floor to 18.18, backed by an independent packed-package compatibility test.

@@ -18,9 +18,9 @@ the [roadmap](roadmap.md). No release number or delivery date has been assigned.
 - Consider future Vue 3 support when defining reusable logic, design tokens, and interaction contracts. Vue 3 support
   itself is outside this phase.
 
-## Current implementation constraints
+## Original implementation constraints (before migration)
 
-Vuetify is currently a required peer dependency. The dependency extends beyond styling: renderers, filters, pagination,
+At the start of this plan, Vuetify was a required peer dependency. The dependency extended beyond styling: renderers, filters, pagination,
 menus, dialogs, and cell content use Vuetify controls, and mobile detection uses `$vuetify.breakpoint`.
 
 Existing modules in `src/core` and `src/adapters` provide reusable logic. Some table orchestration still lives in
@@ -46,7 +46,7 @@ Support for additional UI-library adapters and a public headless API has not bee
 
 ## Initial prototype
 
-Run `npm run dev` and open `/design.html` on the URL printed by Vite. The existing demo links to this page. The demo build
+Run `npm run dev` and open `/design.html` on the URL printed by Vite. This development fixture is accessible directly; it is not linked from the public main demo. The development-only `npm run build:demo:labs` build
 also includes this entry, with its own Vue mount and CSS, without importing Vuetify or production table components.
 
 - **Clarity:** warm neutral surfaces, green accent, open spacing, and soft boundaries.

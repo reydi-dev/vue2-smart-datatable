@@ -82,10 +82,6 @@
         <span data-testid="selection">Selected: {{ selected.join(', ') || 'none' }}</span
         ><span>Last action: {{ lastAction || 'none' }}</span>
       </div>
-      <nav class="demo-labs" aria-label="Development previews">
-        <a href="./design.html">Design lab</a><a href="./foundations.html">Foundations</a
-        ><a href="./renderers.html">Renderer lab</a>
-      </nav>
     </div>
   </main>
 </template>
@@ -303,17 +299,13 @@ body {
 .demo-page .sdt-toolbar__content > strong {
   font-weight: 600;
 }
-.demo-feedback,
-.demo-labs {
+.demo-feedback {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 16px;
   margin-top: 20px;
   font-size: 12px;
-}
-.demo-labs {
-  justify-content: flex-start;
 }
 @media (max-width: 600px) {
   .demo-page {

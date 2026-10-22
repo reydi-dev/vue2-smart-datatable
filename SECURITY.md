@@ -24,4 +24,4 @@ Please allow the maintainer reasonable time to investigate before public disclos
 
 ## Framework status
 
-Vue 2 and Vuetify 2 are end-of-life. Some upstream advisories do not have compatible fixes in this project's supported version range. Consumers must review the documented risks and apply application-level mitigations where appropriate.
+Vue 2 is end-of-life. Vuetify is no longer a dependency of this package; existing hosts may still use it. Some upstream advisories do not have compatible fixes in this project's supported version range. Consumers must review the documented risks and apply application-level mitigations where appropriate.

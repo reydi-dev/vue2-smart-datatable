@@ -13,7 +13,7 @@ export default defineConfig({
       fileName: (format) => (format === 'es' ? 'smart-data-table.js' : 'smart-data-table.cjs'),
     },
     rollupOptions: {
-      external: ['vue', 'vuetify', /^vuetify\//],
+      external: ['vue'],
       output: { exports: 'named' },
     },
   },

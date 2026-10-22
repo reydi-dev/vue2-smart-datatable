@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue2'
 import { resolve } from 'node:path'
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   root: 'examples',
   base: process.env.SDT_DEMO_BASE || '/',
   plugins: [vue()],
@@ -22,13 +22,17 @@ export default defineConfig({
     rollupOptions: {
       input: {
         demo: resolve(__dirname, 'examples/index.html'),
-        design: resolve(__dirname, 'examples/design.html'),
-        foundations: resolve(__dirname, 'examples/foundations.html'),
-        renderers: resolve(__dirname, 'examples/renderers.html'),
+        ...(mode === 'labs'
+          ? {
+              design: resolve(__dirname, 'examples/design.html'),
+              foundations: resolve(__dirname, 'examples/foundations.html'),
+              renderers: resolve(__dirname, 'examples/renderers.html'),
+            }
+          : {}),
       },
     },
     outDir: resolve(__dirname, 'dist-demo'),
     emptyOutDir: true,
     chunkSizeWarningLimit: 1000,
   },
-})
+}))
