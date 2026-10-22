@@ -7,41 +7,20 @@
 
 A TypeScript-ready data table for Vue 2.6+ with server-side pagination, filtering, mobile layouts, RTL, and safe CSV export.
 
-[Live demo](https://reydi-dev.github.io/vue2-smart-datatable/) · [API](docs/api.md) · [Roadmap](docs/roadmap.md) · [Security](SECURITY.md)
+[Live demo](https://reydi-dev.github.io/vue2-smart-datatable/) · [Local/API example](https://reydi-dev.github.io/vue2-smart-datatable/#data) · [Quick start](#install) · [API reference](docs/api.md) · [Upgrade from 0.2.x](docs/clarity-upgrade.md)
 
-## Why this package?
+[![Clarity order demo with status tabs, search, column controls and direct page navigation](https://raw.githubusercontent.com/reydi-dev/vue2-smart-datatable/main/docs/assets/clarity-orders.jpg)](https://reydi-dev.github.io/vue2-smart-datatable/)
 
-`vue2-smart-datatable` is for maintained Vue 2 applications that need a complete data table without coupling table state to one backend or store.
+The order demo combines the real table with application-owned slots. Try the live demo for mobile cards, Persian/RTL and light/dark themes; status tabs and compact order summaries are example customizations.
 
-- Native Clarity UI for legacy Vue 2 applications, with no UI framework required
-- Built-in TypeScript declarations and controlled state APIs
-- Backend-neutral provider and response-normalizer contracts
-- Responsive desktop/mobile renderers with configurable RTL
-- Safe-by-default text rendering and spreadsheet export
-- No direct runtime dependencies; Vue is the only peer dependency
+<details>
+<summary>See status filtering and search in action — 8-second GIF</summary>
 
-## Features
+![Captured demo states: all orders, Processing filter, all orders again, then a search for Lana](https://raw.githubusercontent.com/reydi-dev/vue2-smart-datatable/main/docs/assets/clarity-demo.gif)
 
-- Local and provider-backed server data
-- Controlled pagination, sorting, filters, selection, and column visibility
-- Desktop and mobile layouts
-- Typed custom cells, filters, toolbar content, actions, and state events
-- Optional local-storage persistence and safe CSV export
-- English/LTR defaults with configurable messages and RTL
-- Escaped text rendering; no raw HTML renderer
+Captured from the live demo with synthetic sample orders. [Open the interactive example](https://reydi-dev.github.io/vue2-smart-datatable/).
 
-## Compatibility
-
-| Dependency            | Supported versions |
-| --------------------- | ------------------ |
-| Vue                   | `>=2.6.14 <3`      |
-| Node.js for consumers | `>=18.18`          |
-
-The package is developed with Vue 2.7 and also tested as a packed dependency in an independent Vue 2.6.14 consumer. Vue is a peer dependency and is not bundled. Vuetify is optional host software; the table does not import it. Native dialog support is required for the built-in column chooser (see [browser support](docs/native-controls.md)).
-
-Contributing to or building this repository requires Node.js 20 because the development and browser-test toolchain has a newer runtime floor than the distributed library.
-
-> Clarity `0.3.0` replaces the Vuetify-based UI. When upgrading from `0.2.x`, follow the [upgrade guide](docs/clarity-upgrade.md) for CSS, icon, color and breakpoint changes. The hosted demo is deployed separately from npm releases.
+</details>
 
 ## Install
 
@@ -89,6 +68,30 @@ export default Vue.extend({
 ```
 
 The host application must provide a supported Vue 2 version. No Vuetify instance, `v-app`, icon font, or external icon service is required. Existing Vuetify hosts can keep their own setup. See the [API reference](docs/api.md) for provider mode, slots, events, and options.
+
+## Why this package?
+
+`vue2-smart-datatable` is for maintained Vue 2 applications that need a complete data table without coupling table state to one backend or store.
+
+- Native Clarity UI for legacy Vue 2 applications, with no UI framework required
+- Built-in TypeScript declarations and controlled state APIs
+- Backend-neutral provider and response-normalizer contracts
+- Responsive desktop/mobile renderers with configurable RTL
+- Safe-by-default text rendering and spreadsheet export
+- No direct runtime dependencies; Vue is the only peer dependency
+
+## Compatibility
+
+| Dependency            | Supported versions |
+| --------------------- | ------------------ |
+| Vue                   | `>=2.6.14 <3`      |
+| Node.js for consumers | `>=18.18`          |
+
+The package is developed with Vue 2.7 and also tested as a packed dependency in an independent Vue 2.6.14 consumer. Vue is a peer dependency and is not bundled. Vuetify is optional host software; the table does not import it. Native dialog support is required for the built-in column chooser (see [browser support](docs/native-controls.md)).
+
+Contributing to or building this repository requires Node.js 20 because the development and browser-test toolchain has a newer runtime floor than the distributed library.
+
+> Clarity `0.3.0` replaces the Vuetify-based UI. When upgrading from `0.2.x`, follow the [upgrade guide](docs/clarity-upgrade.md) for CSS, icon, color and breakpoint changes. The hosted demo is deployed separately from npm releases.
 
 ## Try the demo locally
 
