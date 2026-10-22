@@ -9,19 +9,9 @@ A TypeScript-ready data table for Vue 2.6+ with server-side pagination, filterin
 
 [Live demo](https://reydi-dev.github.io/vue2-smart-datatable/) · [Local/API example](https://reydi-dev.github.io/vue2-smart-datatable/#data) · [Quick start](#install) · [API reference](docs/api.md) · [Upgrade from 0.2.x](docs/clarity-upgrade.md)
 
-<table>
-<tr><th>Desktop</th><th>Mobile · expanded details</th></tr>
-<tr>
-<td width="70%" valign="top">
-<a href="https://reydi-dev.github.io/vue2-smart-datatable/"><img src="https://raw.githubusercontent.com/reydi-dev/vue2-smart-datatable/main/docs/assets/clarity-orders.jpg" alt="Clarity desktop order table with status tabs, search and pagination" width="720" /></a>
-</td>
-<td width="30%" valign="top">
-<a href="https://reydi-dev.github.io/vue2-smart-datatable/"><img src="https://raw.githubusercontent.com/reydi-dev/vue2-smart-datatable/main/docs/assets/clarity-mobile.jpg" alt="Clarity mobile order card at a 390px viewport with expanded details and responsive pagination" width="240" /></a>
-</td>
-</tr>
-</table>
+[![Vector preview of Clarity desktop orders and expanded mobile details in equal-height panels](https://raw.githubusercontent.com/reydi-dev/vue2-smart-datatable/main/docs/assets/clarity-responsive.svg)](https://reydi-dev.github.io/vue2-smart-datatable/)
 
-The order demo combines the real table with application-owned slots. Try the live demo for mobile cards, Persian/RTL and light/dark themes; status tabs and compact order summaries are example customizations.
+The vector illustration above uses the order demo’s sample data and application-owned slots; it is not a pixel-exact browser export. Try the live demo for mobile cards, Persian/RTL and light/dark themes; status tabs and compact order summaries are example customizations.
 
 <details>
 <summary>See status filtering and search in action — 8-second GIF</summary>

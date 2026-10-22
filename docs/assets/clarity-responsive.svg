@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title description">
+<title id="title">Clarity table — desktop and mobile</title>
+<desc id="description">Vector illustration of the order demo. Eight desktop orders and an expanded mobile card for Olivia Rhye use the same sample data. Both panels have equal height. See the live demo for actual behavior.</desc>
+<defs><clipPath id="desktop"><rect x="28" y="120" width="932" height="852" rx="18"/></clipPath><clipPath id="mobile"><rect x="984" y="120" width="428" height="852" rx="18"/></clipPath></defs>
+<g font-family="Arial, Helvetica, sans-serif">
+<rect x="0" y="0" width="1440" height="1000" rx="0" fill="#f3f7f5" stroke="none"/>
+<text x="30" y="43" font-size="13" fill="#087f68" font-weight="700" letter-spacing="2">CLARITY / VUE 2</text>
+<text x="30" y="83" font-size="32" fill="#26352f" font-weight="700" >One table. Every screen.</text>
+<text x="1384" y="80" font-size="12" fill="#6a7b74" font-weight="600" text-anchor="end" letter-spacing="1.5">DESKTOP + MOBILE</text>
+<rect x="28" y="120" width="932" height="852" rx="18" fill="#fff" stroke="#dfe7e4"/>
+<rect x="984" y="120" width="428" height="852" rx="18" fill="#fff" stroke="#dfe7e4"/>
+<g clip-path="url(#desktop)">
+<text x="52" y="164" font-size="25" fill="#26352f" font-weight="700" >Orders</text>
+<rect x="151" y="142" width="36" height="28" rx="6" fill="#f6f9f7" stroke="#dfe7e4"/>
+<text x="169" y="161" font-size="14" fill="#26352f" font-weight="500" text-anchor="middle">24</text>
+<text x="52" y="194" font-size="15" fill="#6a7b74" font-weight="400" >Track, filter, and manage customer orders.</text>
+<text x="52" y="240" font-size="15" fill="#087f68" font-weight="650" >All orders</text>
+<rect x="140" y="223" width="27" height="23" rx="5" fill="#eaf6f1" stroke="none"/>
+<text x="153.5" y="240" font-size="13" fill="#087f68" font-weight="550" text-anchor="middle">24</text>
+<path d="M52 259h136" stroke="#087f68" stroke-width="3"/>
+<text x="208" y="240" font-size="15" fill="#6a7b74" font-weight="400" >Completed</text>
+<rect x="288" y="223" width="27" height="23" rx="5" fill="#f6f9f7" stroke="none"/>
+<text x="301.5" y="240" font-size="13" fill="#6a7b74" font-weight="550" text-anchor="middle">9</text>
+<text x="363" y="240" font-size="15" fill="#6a7b74" font-weight="400" >Processing</text>
+<rect x="451" y="223" width="27" height="23" rx="5" fill="#f6f9f7" stroke="none"/>
+<text x="464.5" y="240" font-size="13" fill="#6a7b74" font-weight="550" text-anchor="middle">6</text>
+<text x="514" y="240" font-size="15" fill="#6a7b74" font-weight="400" >Pending</text>
+<rect x="578" y="223" width="27" height="23" rx="5" fill="#f6f9f7" stroke="none"/>
+<text x="591.5" y="240" font-size="13" fill="#6a7b74" font-weight="550" text-anchor="middle">6</text>
+<text x="649" y="240" font-size="15" fill="#6a7b74" font-weight="400" >Cancelled</text>
+<rect x="729" y="223" width="27" height="23" rx="5" fill="#f6f9f7" stroke="none"/>
+<text x="742.5" y="240" font-size="13" fill="#6a7b74" font-weight="550" text-anchor="middle">3</text>
+<path d="M28 260H960V260" fill="none" stroke="#dfe7e4"/>
+<rect x="52" y="280" width="432" height="42" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<g stroke="#6a7b74" stroke-width="1.7" fill="none"><circle cx="73" cy="300" r="6"/><path d="M77 305l5 5"/></g>
+<text x="94" y="306" font-size="14" fill="#6a7b74" font-weight="400" >Search by customer or order ID…</text>
+<rect x="508" y="281" width="91" height="40" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<text x="553.5" y="306" font-size="14" fill="#26352f" font-weight="550" text-anchor="middle">Filters</text>
+<rect x="611" y="281" width="111" height="40" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<text x="666.5" y="306" font-size="14" fill="#26352f" font-weight="550" text-anchor="middle">Columns</text>
+<rect x="734" y="281" width="202" height="40" rx="8" fill="#087f68" stroke="#087f68"/>
+<text x="835" y="306" font-size="14" fill="#fff" font-weight="550" text-anchor="middle">↓  Export CSV</text>
+<rect x="29" y="342" width="930" height="46" rx="0" fill="#f6f9f7" stroke="none"/>
+<path d="M28 342H960V342" fill="none" stroke="#dfe7e4"/>
+<rect x="52" y="357" width="16" height="16" rx="3" fill="#fff" stroke="#8b9992"/>
+<text x="92" y="371" font-size="14" fill="#6a7b74" font-weight="400" >Order</text>
+<text x="231" y="371" font-size="14" fill="#6a7b74" font-weight="400" >Customer</text>
+<text x="496" y="371" font-size="14" fill="#6a7b74" font-weight="400" >Status</text>
+<text x="669" y="371" font-size="14" fill="#6a7b74" font-weight="400" >Amount</text>
+<text x="794" y="371" font-size="14" fill="#6a7b74" font-weight="400" >Order date</text>
+<rect x="52" y="410" width="16" height="16" rx="3" fill="#fff" stroke="#8b9992"/>
+<text x="92" y="422" font-size="14" fill="#26352f" font-weight="550" >ORD-1048</text>
+<circle cx="245" cy="418" r="17" fill="#eaf6f1"/>
+<text x="245" y="422" font-size="10" fill="#087f68" font-weight="550" text-anchor="middle">OR</text>
+<text x="274" y="413" font-size="15" fill="#26352f" font-weight="600" >Olivia Rhye</text>
+<text x="274" y="432" font-size="12" fill="#6a7b74" font-weight="400" >olivia@acme.design</text>
+<rect x="496" y="404" width="115" height="29" rx="6" fill="#edf8f1" stroke="#dfe7e4"/>
+<circle cx="509" cy="419" r="3" fill="#22794e"/>
+<text x="519" y="424" font-size="13" fill="#22794e" font-weight="500" >Completed</text>
+<text x="754" y="422" font-size="15" fill="#26352f" font-weight="550" text-anchor="end">$240.00</text>
+<text x="794" y="422" font-size="14" fill="#6a7b74" font-weight="400" >Oct 21, 2026</text>
+<path d="M28 448H960V448" fill="none" stroke="#dfe7e4"/>
+<rect x="52" y="470" width="16" height="16" rx="3" fill="#fff" stroke="#8b9992"/>
+<text x="92" y="482" font-size="14" fill="#26352f" font-weight="550" >ORD-1047</text>
+<circle cx="245" cy="478" r="17" fill="#eaf6f1"/>
+<text x="245" y="482" font-size="10" fill="#087f68" font-weight="550" text-anchor="middle">PB</text>
+<text x="274" y="473" font-size="15" fill="#26352f" font-weight="600" >Phoenix Baker</text>
+<text x="274" y="492" font-size="12" fill="#6a7b74" font-weight="400" >phoenix@layers.studio</text>
+<rect x="496" y="464" width="115" height="29" rx="6" fill="#f6f9f7" stroke="#dfe7e4"/>
+<circle cx="509" cy="479" r="3" fill="#486aaf"/>
+<text x="519" y="484" font-size="13" fill="#486aaf" font-weight="500" >Processing</text>
+<text x="754" y="482" font-size="15" fill="#26352f" font-weight="550" text-anchor="end">$1,250.00</text>
+<text x="794" y="482" font-size="14" fill="#6a7b74" font-weight="400" >Oct 21, 2026</text>
+<path d="M28 508H960V508" fill="none" stroke="#dfe7e4"/>
+<rect x="52" y="530" width="16" height="16" rx="3" fill="#fff" stroke="#8b9992"/>
+<text x="92" y="542" font-size="14" fill="#26352f" font-weight="550" >ORD-1046</text>
+<circle cx="245" cy="538" r="17" fill="#eaf6f1"/>
+<text x="245" y="542" font-size="10" fill="#087f68" font-weight="550" text-anchor="middle">LS</text>
+<text x="274" y="533" font-size="15" fill="#26352f" font-weight="600" >Lana Steiner</text>
+<text x="274" y="552" font-size="12" fill="#6a7b74" font-weight="400" >lana@sisyphus.com</text>
+<rect x="496" y="524" width="115" height="29" rx="6" fill="#edf8f1" stroke="#dfe7e4"/>
+<circle cx="509" cy="539" r="3" fill="#22794e"/>
+<text x="519" y="544" font-size="13" fill="#22794e" font-weight="500" >Completed</text>
+<text x="754" y="542" font-size="15" fill="#26352f" font-weight="550" text-anchor="end">$89.00</text>
+<text x="794" y="542" font-size="14" fill="#6a7b74" font-weight="400" >Oct 20, 2026</text>
+<path d="M28 568H960V568" fill="none" stroke="#dfe7e4"/>
+<rect x="52" y="590" width="16" height="16" rx="3" fill="#fff" stroke="#8b9992"/>
+<text x="92" y="602" font-size="14" fill="#26352f" font-weight="550" >ORD-1045</text>
+<circle cx="245" cy="598" r="17" fill="#eaf6f1"/>
+<text x="245" y="602" font-size="10" fill="#087f68" font-weight="550" text-anchor="middle">DW</text>
+<text x="274" y="593" font-size="15" fill="#26352f" font-weight="600" >Demi Wilkinson</text>
+<text x="274" y="612" font-size="12" fill="#6a7b74" font-weight="400" >demi@catalog.studio</text>
+<rect x="496" y="584" width="115" height="29" rx="6" fill="#f6f9f7" stroke="#dfe7e4"/>
+<circle cx="509" cy="599" r="3" fill="#996b1b"/>
+<text x="519" y="604" font-size="13" fill="#996b1b" font-weight="500" >Pending</text>
+<text x="754" y="602" font-size="15" fill="#26352f" font-weight="550" text-anchor="end">$560.00</text>
+<text x="794" y="602" font-size="14" fill="#6a7b74" font-weight="400" >Oct 20, 2026</text>
+<path d="M28 628H960V628" fill="none" stroke="#dfe7e4"/>
+<rect x="52" y="650" width="16" height="16" rx="3" fill="#fff" stroke="#8b9992"/>
+<text x="92" y="662" font-size="14" fill="#26352f" font-weight="550" >ORD-1044</text>
+<circle cx="245" cy="658" r="17" fill="#eaf6f1"/>
+<text x="245" y="662" font-size="10" fill="#087f68" font-weight="550" text-anchor="middle">DC</text>
+<text x="274" y="653" font-size="15" fill="#26352f" font-weight="600" >Drew Cano</text>
+<text x="274" y="672" font-size="12" fill="#6a7b74" font-weight="400" >drew@circooles.com</text>
+<rect x="496" y="644" width="115" height="29" rx="6" fill="#f6f9f7" stroke="#dfe7e4"/>
+<circle cx="509" cy="659" r="3" fill="#b24c4c"/>
+<text x="519" y="664" font-size="13" fill="#b24c4c" font-weight="500" >Cancelled</text>
+<text x="754" y="662" font-size="15" fill="#26352f" font-weight="550" text-anchor="end">$320.00</text>
+<text x="794" y="662" font-size="14" fill="#6a7b74" font-weight="400" >Oct 19, 2026</text>
+<path d="M28 688H960V688" fill="none" stroke="#dfe7e4"/>
+<rect x="52" y="710" width="16" height="16" rx="3" fill="#fff" stroke="#8b9992"/>
+<text x="92" y="722" font-size="14" fill="#26352f" font-weight="550" >ORD-1043</text>
+<circle cx="245" cy="718" r="17" fill="#eaf6f1"/>
+<text x="245" y="722" font-size="10" fill="#087f68" font-weight="550" text-anchor="middle">NC</text>
+<text x="274" y="713" font-size="15" fill="#26352f" font-weight="600" >Natali Craig</text>
+<text x="274" y="732" font-size="12" fill="#6a7b74" font-weight="400" >natali@hourglass.app</text>
+<rect x="496" y="704" width="115" height="29" rx="6" fill="#f6f9f7" stroke="#dfe7e4"/>
+<circle cx="509" cy="719" r="3" fill="#486aaf"/>
+<text x="519" y="724" font-size="13" fill="#486aaf" font-weight="500" >Processing</text>
+<text x="754" y="722" font-size="15" fill="#26352f" font-weight="550" text-anchor="end">$145.00</text>
+<text x="794" y="722" font-size="14" fill="#6a7b74" font-weight="400" >Oct 19, 2026</text>
+<path d="M28 748H960V748" fill="none" stroke="#dfe7e4"/>
+<rect x="52" y="770" width="16" height="16" rx="3" fill="#fff" stroke="#8b9992"/>
+<text x="92" y="782" font-size="14" fill="#26352f" font-weight="550" >ORD-1042</text>
+<circle cx="245" cy="778" r="17" fill="#eaf6f1"/>
+<text x="245" y="782" font-size="10" fill="#087f68" font-weight="550" text-anchor="middle">OD</text>
+<text x="274" y="773" font-size="15" fill="#26352f" font-weight="600" >Orlando Diggs</text>
+<text x="274" y="792" font-size="12" fill="#6a7b74" font-weight="400" >orlando@command.design</text>
+<rect x="496" y="764" width="115" height="29" rx="6" fill="#edf8f1" stroke="#dfe7e4"/>
+<circle cx="509" cy="779" r="3" fill="#22794e"/>
+<text x="519" y="784" font-size="13" fill="#22794e" font-weight="500" >Completed</text>
+<text x="754" y="782" font-size="15" fill="#26352f" font-weight="550" text-anchor="end">$890.00</text>
+<text x="794" y="782" font-size="14" fill="#6a7b74" font-weight="400" >Oct 18, 2026</text>
+<path d="M28 808H960V808" fill="none" stroke="#dfe7e4"/>
+<rect x="52" y="830" width="16" height="16" rx="3" fill="#fff" stroke="#8b9992"/>
+<text x="92" y="842" font-size="14" fill="#26352f" font-weight="550" >ORD-1041</text>
+<circle cx="245" cy="838" r="17" fill="#eaf6f1"/>
+<text x="245" y="842" font-size="10" fill="#087f68" font-weight="550" text-anchor="middle">AL</text>
+<text x="274" y="833" font-size="15" fill="#26352f" font-weight="600" >Andi Lane</text>
+<text x="274" y="852" font-size="12" fill="#6a7b74" font-weight="400" >andi@quotient.co</text>
+<rect x="496" y="824" width="115" height="29" rx="6" fill="#f6f9f7" stroke="#dfe7e4"/>
+<circle cx="509" cy="839" r="3" fill="#996b1b"/>
+<text x="519" y="844" font-size="13" fill="#996b1b" font-weight="500" >Pending</text>
+<text x="754" y="842" font-size="15" fill="#26352f" font-weight="550" text-anchor="end">$75.00</text>
+<text x="794" y="842" font-size="14" fill="#6a7b74" font-weight="400" >Oct 18, 2026</text>
+<path d="M28 868H960V868" fill="none" stroke="#dfe7e4"/>
+<text x="52" y="910" font-size="14" fill="#6a7b74" font-weight="400" >Rows per page</text>
+<rect x="166" y="885" width="65" height="40" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<text x="198.5" y="910" font-size="14" fill="#26352f" font-weight="550" text-anchor="middle">8  ⌄</text>
+<text x="500" y="910" font-size="14" fill="#6a7b74" font-weight="400" >1–8 of 24</text>
+<rect x="595" y="885" width="40" height="40" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<text x="615" y="910" font-size="14" fill="#26352f" font-weight="550" text-anchor="middle">‹</text>
+<text x="650" y="910" font-size="14" fill="#26352f" font-weight="600" >1 of 3</text>
+<rect x="706" y="885" width="40" height="40" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<text x="726" y="910" font-size="14" fill="#26352f" font-weight="550" text-anchor="middle">›</text>
+<text x="762" y="910" font-size="13" fill="#6a7b74" font-weight="400" >Go to page</text>
+<rect x="840" y="885" width="42" height="40" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<text x="861" y="910" font-size="14" fill="#26352f" font-weight="550" text-anchor="middle">1</text>
+<rect x="892" y="885" width="44" height="40" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<text x="914" y="910" font-size="14" fill="#26352f" font-weight="550" text-anchor="middle">Go</text>
+</g><g clip-path="url(#mobile)">
+<text x="1008" y="164" font-size="25" fill="#26352f" font-weight="700" >Orders</text>
+<rect x="1108" y="142" width="36" height="28" rx="6" fill="#f6f9f7" stroke="#dfe7e4"/>
+<text x="1126" y="161" font-size="14" fill="#26352f" font-weight="500" text-anchor="middle">24</text>
+<text x="1008" y="194" font-size="14" fill="#6a7b74" font-weight="400" >Track, filter, and manage customer orders.</text>
+<text x="1008" y="240" font-size="15" fill="#087f68" font-weight="650" >All orders</text>
+<rect x="1096" y="223" width="27" height="23" rx="5" fill="#eaf6f1" stroke="none"/>
+<text x="1109.5" y="240" font-size="13" fill="#087f68" font-weight="550" text-anchor="middle">24</text>
+<path d="M1008 259h115" stroke="#087f68" stroke-width="3"/>
+<text x="1143" y="240" font-size="15" fill="#6a7b74" font-weight="400" >Completed</text>
+<rect x="1223" y="223" width="27" height="23" rx="5" fill="#f6f9f7" stroke="none"/>
+<text x="1236.5" y="240" font-size="13" fill="#6a7b74" font-weight="550" text-anchor="middle">9</text>
+<text x="1278" y="240" font-size="15" fill="#6a7b74" font-weight="400" >Processing</text>
+<rect x="1366" y="223" width="27" height="23" rx="5" fill="#f6f9f7" stroke="none"/>
+<text x="1379.5" y="240" font-size="13" fill="#6a7b74" font-weight="550" text-anchor="middle">6</text>
+<path d="M984 260H1412V260" fill="none" stroke="#dfe7e4"/>
+<rect x="1008" y="278" width="380" height="42" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<g stroke="#6a7b74" stroke-width="1.7" fill="none"><circle cx="1029" cy="298" r="6"/><path d="M1033 303l5 5"/></g>
+<text x="1050" y="304" font-size="14" fill="#6a7b74" font-weight="400" >ORD-1048</text>
+<rect x="1008" y="334" width="84" height="40" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<text x="1050" y="359" font-size="14" fill="#26352f" font-weight="550" text-anchor="middle">Filters</text>
+<rect x="1104" y="334" width="100" height="40" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<text x="1154" y="359" font-size="14" fill="#26352f" font-weight="550" text-anchor="middle">Columns</text>
+<rect x="1216" y="334" width="172" height="40" rx="8" fill="#087f68" stroke="#087f68"/>
+<text x="1302" y="359" font-size="14" fill="#fff" font-weight="550" text-anchor="middle">↓  Export CSV</text>
+<path d="M984 391H1412V391" fill="none" stroke="#dfe7e4"/>
+<rect x="1008" y="413" width="16" height="16" rx="3" fill="#fff" stroke="#8b9992"/>
+<text x="1040" y="427" font-size="15" fill="#26352f" font-weight="700" >#ORD-1048</text>
+<rect x="1263" y="407" width="125" height="29" rx="6" fill="#edf8f1" stroke="#dfe7e4"/>
+<circle cx="1276" cy="422" r="3" fill="#22794e"/>
+<text x="1286" y="427" font-size="13" fill="#22794e" font-weight="500" >Completed</text>
+<text x="1040" y="462" font-size="17" fill="#26352f" font-weight="600" >Olivia Rhye</text>
+<text x="1040" y="484" font-size="13" fill="#6a7b74" font-weight="400" >Oct 21, 2026</text>
+<text x="1388" y="464" font-size="18" fill="#26352f" font-weight="650" text-anchor="end">$240.00</text>
+<path d="M1008 505H1388V505" fill="none" stroke="#dfe7e4"/>
+<text x="1008" y="536" font-size="15" fill="#087f68" font-weight="400" >More details</text>
+<text x="1388" y="536" font-size="17" fill="#087f68" font-weight="500" text-anchor="end">⌃</text>
+<text x="1008" y="576" font-size="13" fill="#6a7b74" font-weight="400" >Email</text>
+<text x="1008" y="601" font-size="16" fill="#26352f" font-weight="400" >olivia@acme.design</text>
+<text x="1008" y="641" font-size="13" fill="#6a7b74" font-weight="400" >Items</text>
+<text x="1008" y="666" font-size="16" fill="#26352f" font-weight="400" >1</text>
+<text x="1220" y="641" font-size="13" fill="#6a7b74" font-weight="400" >Payment</text>
+<text x="1220" y="666" font-size="16" fill="#26352f" font-weight="400" >Unpaid</text>
+<text x="1008" y="706" font-size="13" fill="#6a7b74" font-weight="400" >Delivery</text>
+<text x="1008" y="731" font-size="16" fill="#26352f" font-weight="400" >Express</text>
+<text x="1220" y="706" font-size="13" fill="#6a7b74" font-weight="400" >City</text>
+<text x="1220" y="731" font-size="16" fill="#26352f" font-weight="400" >Tehran</text>
+<text x="1008" y="771" font-size="13" fill="#6a7b74" font-weight="400" >Priority</text>
+<text x="1008" y="796" font-size="16" fill="#26352f" font-weight="400" >Yes</text>
+<text x="1220" y="771" font-size="13" fill="#6a7b74" font-weight="400" >Tags</text>
+<text x="1220" y="796" font-size="16" fill="#26352f" font-weight="400" >Gift · Fragile</text>
+<text x="1008" y="836" font-size="13" fill="#6a7b74" font-weight="400" >Description</text>
+<text x="1008" y="861" font-size="15" fill="#26352f" font-weight="400" >Gift order. Please remove the price tag</text>
+<text x="1008" y="883" font-size="15" fill="#26352f" font-weight="400" >and include a handwritten note.</text>
+<path d="M984 904H1412V904" fill="none" stroke="#dfe7e4"/>
+<text x="1008" y="946" font-size="13" fill="#6a7b74" font-weight="400" >1–1 of 1</text>
+<rect x="1110" y="920" width="38" height="40" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<text x="1129" y="945" font-size="14" fill="#26352f" font-weight="550" text-anchor="middle">‹</text>
+<text x="1163" y="945" font-size="14" fill="#26352f" font-weight="600" >1 of 1</text>
+<rect x="1221" y="920" width="38" height="40" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<text x="1240" y="945" font-size="14" fill="#26352f" font-weight="550" text-anchor="middle">›</text>
+<rect x="1271" y="920" width="52" height="40" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<text x="1297" y="945" font-size="14" fill="#26352f" font-weight="550" text-anchor="middle">1</text>
+<rect x="1335" y="920" width="53" height="40" rx="8" fill="#fff" stroke="#dfe7e4"/>
+<text x="1361.5" y="945" font-size="14" fill="#26352f" font-weight="550" text-anchor="middle">Go</text>
+</g></g></svg>
