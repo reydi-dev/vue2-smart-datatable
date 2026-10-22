@@ -4,6 +4,7 @@ Captured on 2026-10-23 from the deployed [Clarity order demo](https://reydi-dev.
 These are screenshots of the running component with synthetic data, not generated UI mockups.
 
 - `clarity-orders.jpg`: 1280 × 1142, full-page light/English desktop capture at the browser's default viewport. Search is empty and all orders are shown. The image links to the interactive demo.
+- `clarity-mobile.jpg`: 364 × 990 card crop from a 390px-wide mobile viewport, English/light, filtered to `ORD-1048`, with details expanded. The document width matched the viewport (390px); the desktop and mobile images are shown together in the README.
 - `clarity-demo.gif`: 1150 × 367, four captured states assembled with holds of 2.2s, 2.2s, 0.7s and 2.6s (7.7s total). The sequence is All orders → Processing → All orders → search `Lana`. It is a stepped demonstration of real results, not continuous screen recording. Frames share a 256-color palette and loop; the static image and live-demo links remain alternatives.
 
 ## Refreshing the media
