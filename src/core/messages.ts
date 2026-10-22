@@ -29,6 +29,10 @@ export const defaultMessages = {
   invalidPage: 'Enter a whole page number in this range:',
   trueValue: 'True',
   falseValue: 'False',
+  notProvided: 'Not provided',
+  moreDetails: 'More details',
+  openRow: 'Open row',
+  table: 'Data table',
 } satisfies DataTableMessages
 
 export const defaultIcons: DataTableIcons = {

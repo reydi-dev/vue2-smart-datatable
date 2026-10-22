@@ -4,6 +4,32 @@ import { describe, expect, it, vi } from 'vitest'
 import SmartDataTable from '@/components/SmartDataTable.vue'
 import type { DataProviderRequest } from '@/types'
 describe('SmartDataTable', () => {
+  it('preserves named cell/action slots and native fallback actions together', async () => {
+    const wrapper = mount(SmartDataTable, {
+      vuetify: new Vuetify(),
+      propsData: {
+        columns: [{ key: 'name', label: 'Name', formatter: (value: unknown) => `Hello ${value}` }],
+        items: [{ id: 1, name: 'Ada' }],
+        actions: [
+          { key: 'custom', label: 'Custom' },
+          { key: 'open', label: 'Open' },
+        ],
+      },
+      scopedSlots: {
+        'cell.name': '<span>{{ props.formattedValue }}</span>',
+        'action.custom': '<button class="custom-action" @click="props.trigger($event)">Custom action</button>',
+      },
+    })
+    try {
+      expect(wrapper.find('tbody').text()).toContain('Hello Ada')
+      await wrapper.find('.custom-action').trigger('click')
+      await wrapper.find('tbody button.sdt-action').trigger('click')
+      expect(wrapper.emitted('row-action')?.map(([event]) => event.action.key)).toEqual(['custom', 'open'])
+      expect(wrapper.find('tbody .v-btn').exists()).toBe(false)
+    } finally {
+      wrapper.destroy()
+    }
+  })
   it('requests only the committed target page and blocks pagination while that request is pending', async () => {
     const result = { items: [{ id: 1, name: 'Provider row' }], total: 2500 }
     let finishJump!: (value: typeof result) => void
@@ -54,8 +80,8 @@ describe('SmartDataTable', () => {
     })
     expect(wrapper.html()).toContain('&lt;b&gt;unsafe&lt;/b&gt;')
     expect(wrapper.find('b').exists()).toBe(false)
-    const checkbox = wrapper.findAllComponents({ name: 'v-checkbox' }).at(1)
-    await checkbox.vm.$emit('change', true)
+    const checkbox = wrapper.findAll('input.sdt-checkbox').at(1)
+    await checkbox.setChecked(true)
     expect(wrapper.emitted('input')?.[0][0]).toEqual([1])
     wrapper.destroy()
   })
@@ -133,7 +159,7 @@ describe('SmartDataTable', () => {
     const desktop = wrapper.findComponent({ name: 'SmartTableDesktop' })
     expect(wrapper.find('tbody tr').attributes('tabindex')).toBeUndefined()
     expect(wrapper.find('thead .sdt-sort-button').attributes('disabled')).toBe('disabled')
-    expect(wrapper.findAllComponents({ name: 'v-checkbox' }).at(1).props('disabled')).toBe(true)
+    expect(wrapper.findAll('input.sdt-checkbox').at(1).attributes('disabled')).toBeDefined()
 
     await wrapper.find('tbody tr').trigger('click')
     desktop.vm.$emit('select-row', { row: { id: 1, name: 'Ada' }, selected: true })

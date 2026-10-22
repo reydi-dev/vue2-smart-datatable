@@ -16,6 +16,8 @@
   --sdt-text-color: #24312e;
   --sdt-error-color: #a52b36;
   --sdt-success-color: #26734f;
+  --sdt-warning-color: #8c661b;
+  --sdt-info-color: #365ba8;
   --sdt-font-size: 0.875rem;
   --sdt-font-size-small: 0.75rem;
   --sdt-space-1: 4px;
@@ -48,6 +50,8 @@
   --sdt-text-color: #edf5f0;
   --sdt-error-color: #ffb2b9;
   --sdt-success-color: #83d6bb;
+  --sdt-warning-color: #f2d48f;
+  --sdt-info-color: #a4c2ff;
 }
 
 .sdt-root :where(button, a, input, select, textarea, summary, [tabindex]):focus-visible {

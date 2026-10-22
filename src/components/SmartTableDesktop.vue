@@ -1,18 +1,26 @@
 <template>
-  <v-simple-table class="sdt-desktop" :dense="dense" :fixed-header="fixedHeader" :height="height">
-    <template #default>
+  <div
+    class="sdt-desktop"
+    :class="{ 'sdt-desktop--dense': dense, 'sdt-desktop--fixed-header': fixedHeader }"
+    :style="viewportStyle"
+    tabindex="0"
+    role="region"
+    :aria-label="messages.table || 'Data table'"
+  >
+    <table class="sdt-desktop__table">
       <thead>
         <tr>
           <th v-if="selectable" scope="col" class="sdt-column--selection">
-            <v-checkbox
-              :input-value="allPageSelected"
-              :indeterminate="somePageSelected"
-              :aria-label="messages.selectAll"
-              :disabled="disabled"
-              hide-details
-              dense
-              @change="$emit('select-page', Boolean($event))"
-            />
+            <label class="sdt-selection-control"
+              ><input
+                type="checkbox"
+                class="sdt-checkbox"
+                :checked="allPageSelected"
+                :indeterminate.prop="somePageSelected"
+                :aria-label="messages.selectAll"
+                :disabled="disabled"
+                @change="selectPage($event)"
+            /></label>
           </th>
           <th
             v-for="column in columns"
@@ -25,7 +33,7 @@
                   : 'descending'
                 : undefined
             "
-            :class="[column.headerClass, `text-${column.align || 'start'}`]"
+            :class="[column.headerClass, `sdt-align--${column.align || 'start'}`]"
             :style="columnStyle(column)"
           >
             <slot name="header" :column="column">
@@ -46,35 +54,44 @@
               <span v-else>{{ column.label }}</span>
             </slot>
           </th>
-          <th v-if="actions.length" scope="col" class="text-center">{{ messages.actions }}</th>
+          <th v-if="actions.length" scope="col" class="sdt-align--center">{{ messages.actions }}</th>
         </tr>
       </thead>
       <tbody>
         <tr
           v-for="(row, index) in rows"
           :key="String(rowKeyOf(row))"
-          :class="rowClassValue(row, index)"
-          :tabindex="rowClickable ? 0 : undefined"
-          @click="!disabled && $emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
-          @keydown.enter.self="!disabled && $emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })"
+          :class="[
+            rowClassValue(row, index),
+            {
+              'sdt-row--selected': selectedKeys.includes(rowKeyOf(row)),
+              'sdt-row--clickable': rowClickable && !disabled,
+            },
+          ]"
+          :tabindex="rowClickable && !disabled ? 0 : undefined"
+          @click="activateRow(row, index, $event)"
+          @keydown.enter.self="
+            rowClickable && !disabled && $emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })
+          "
           @keydown.space.self.prevent="
-            !disabled && $emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })
+            rowClickable && !disabled && $emit('row-click', { row, rowKey: rowKeyOf(row), index, event: $event })
           "
         >
           <td v-if="selectable" class="sdt-column--selection" @click.stop>
-            <v-checkbox
-              :input-value="selectedKeys.includes(rowKeyOf(row))"
-              :aria-label="`${messages.selectRow || 'Select row'} ${index + 1}`"
-              :disabled="disabled"
-              hide-details
-              dense
-              @change="$emit('select-row', { row, selected: Boolean($event) })"
-            />
+            <label class="sdt-selection-control"
+              ><input
+                type="checkbox"
+                class="sdt-checkbox"
+                :checked="selectedKeys.includes(rowKeyOf(row))"
+                :aria-label="`${messages.selectRow || 'Select row'} ${index + 1}`"
+                :disabled="disabled"
+                @change="selectRow(row, $event)"
+            /></label>
           </td>
           <td
             v-for="column in columns"
             :key="column.key"
-            :class="`text-${column.align || 'start'}`"
+            :class="`sdt-align--${column.align || 'start'}`"
             :style="columnStyle(column)"
           >
             <slot name="cell" :row="row" :row-key="rowKeyOf(row)" :column="column" :row-index="index" :mobile="false">
@@ -90,7 +107,7 @@
               />
             </slot>
           </td>
-          <td v-if="actions.length" class="text-center" @click.stop>
+          <td v-if="actions.length" class="sdt-align--center" @click.stop>
             <slot name="row-actions" :row="row" :actions="visibleActions(row)" :disabled="disabled">
               <template v-for="action in visibleActions(row)">
                 <slot
@@ -102,31 +119,28 @@
                   :loading="actionLoading(action, row)"
                   :trigger="actionTrigger(action, row)"
                 >
-                  <v-btn
+                  <SmartTableAction
                     :key="action.key"
-                    small
-                    text
-                    :color="action.color"
+                    :action="action"
                     :disabled="disabled || actionDisabled(action, row)"
                     :loading="actionLoading(action, row)"
                     @click="triggerAction(action, row, $event)"
-                    ><SmartTableIcon v-if="action.icon" :icon="action.icon" :size="16" leading />{{
-                      action.label
-                    }}</v-btn
-                  >
+                  />
                 </slot>
               </template>
             </slot>
           </td>
         </tr>
       </tbody>
-    </template>
-  </v-simple-table>
+    </table>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import SmartTableIcon from './SmartTableIcon.vue'
+import SmartTableAction from './SmartTableAction.vue'
+import { isInteractiveTarget, inputChecked } from '../core/interactions'
 import SmartTableCell from './SmartTableCell.vue'
 import type {
   DataRow,
@@ -140,7 +154,7 @@ import type {
 
 export default Vue.extend({
   name: 'SmartTableDesktop',
-  components: { SmartTableCell, SmartTableIcon },
+  components: { SmartTableCell, SmartTableIcon, SmartTableAction },
   props: {
     rows: { type: Array as () => DataRow[], required: true },
     columns: { type: Array as () => DataTableColumn[], required: true },
@@ -159,6 +173,9 @@ export default Vue.extend({
     rowClass: Function,
   },
   computed: {
+    viewportStyle(): { height: string | undefined } {
+      return { height: typeof this.height === 'number' ? `${this.height}px` : this.height }
+    },
     pageKeys(): RowKey[] {
       return this.rows.map((row) => this.rowKeyOf(row))
     },
@@ -170,6 +187,16 @@ export default Vue.extend({
     },
   },
   methods: {
+    selectPage(event: Event) {
+      if (!this.disabled) this.$emit('select-page', inputChecked(event))
+    },
+    selectRow(row: DataRow, event: Event) {
+      if (!this.disabled) this.$emit('select-row', { row, selected: inputChecked(event) })
+    },
+    activateRow(row: DataRow, index: number, event: MouseEvent) {
+      if (!this.disabled && this.rowClickable && !isInteractiveTarget(event))
+        this.$emit('row-click', { row, rowKey: this.rowKeyOf(row), index, event })
+    },
     columnStyle(column: DataTableColumn) {
       return {
         width: typeof column.width === 'number' ? `${column.width}px` : column.width,
@@ -191,7 +218,7 @@ export default Vue.extend({
       return (event: Event) => this.triggerAction(action, row, event)
     },
     triggerAction(action: RowAction, row: DataRow, event: Event) {
-      if (this.disabled) return
+      if (this.disabled || this.actionDisabled(action, row) || this.actionLoading(action, row)) return
       this.$emit('row-action', { action, row, rowKey: this.rowKeyOf(row), event })
     },
     rowClassValue(row: DataRow, index: number): unknown {

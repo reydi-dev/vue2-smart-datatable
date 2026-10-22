@@ -56,15 +56,9 @@ test('the real table changes renderers on resize and retains selection', async (
   await expect(page.getByTestId('selection')).toHaveText('Selected: 1')
   await page.setViewportSize({ width: 959, height: 800 })
   await expect(page.locator('.sdt-mobile')).toBeVisible()
-  await expect(page.getByRole('checkbox', { name: 'Select row 1', exact: true })).toHaveAttribute(
-    'aria-checked',
-    'true',
-  )
+  await expect(page.getByRole('checkbox', { name: 'Select row 1', exact: true })).toBeChecked()
   await page.setViewportSize({ width: 960, height: 800 })
   await expect(page.locator('.sdt-desktop')).toBeVisible()
-  await expect(page.getByRole('checkbox', { name: 'Select row 1', exact: true })).toHaveAttribute(
-    'aria-checked',
-    'true',
-  )
+  await expect(page.getByRole('checkbox', { name: 'Select row 1', exact: true })).toBeChecked()
   await expect(page.locator('.sdt-pagination .v-icon')).toHaveCount(0)
 })

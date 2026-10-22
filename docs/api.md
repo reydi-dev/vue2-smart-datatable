@@ -46,6 +46,12 @@ Controlled props take precedence over persisted/default values. Interactions upd
 
 For translated selection controls, override `messages.selectAll` and `messages.selectRow`. The latter is a label prefix followed by the row's position on the current page (for example, `Select row 1`).
 
+Desktop/mobile renderers, selection, row actions, and cells now use native HTML. Optional `messages.table`,
+`messages.moreDetails`, `messages.openRow`, and `messages.notProvided` label the table region, mobile disclosure,
+mobile row activation, and missing values. See the [renderer migration guide](native-renderers.md) for native CSS
+classes, preserved slots, keyboard behavior, long-text presentation, and row-action color mapping. Toolbar and other
+unmigrated controls still require Vuetify at this stage.
+
 ## UI foundations
 
 `theme` optionally accepts `'light'` or `'dark'` for the independent native-control palette. Omit it to preserve the legacy

@@ -18,8 +18,10 @@ the exploratory [design plan](ui-ux-redesign.md). No package publication, releas
    legacy host-font fallback. Viewport observation replaces `$vuetify.breakpoint`, with numeric cutoffs and documented
    legacy aliases. Scoped Clarity tokens define explicit palettes, focus, disabled states, and future renderer geometry.
    The [UI foundations guide](ui-foundations.md) documents migration and a standalone page without Vuetify imports.
-4. **Desktop, mobile, and cells — planned.** Transfer the table and mobile disclosures to native markup, preserve slots,
-   support dense layouts and long/missing/mixed-direction content, and verify row/action/selection behavior.
+4. **Desktop, mobile, and cells — complete.** Native table, selection, mobile disclosures, row actions, and cells now use
+   Clarity styles. Slots are retained; dense/sticky layouts, keyboard activation, and long/missing/mixed-direction content
+   are covered. The [native renderer guide](native-renderers.md) records behavior and consumer CSS migration. A standalone
+   `/renderers.html` entry exercises real components with 13 columns and no Vuetify imports.
 5. **Toolbar, filters, columns, export, and states — planned.** Replace remaining controls, preserve custom extension
    points, complete localization and loading/error/no-results behavior, and review focus and keyboard navigation.
 6. **Package and consumer validation — planned.** Remove the required Vuetify peer only after production code no longer
@@ -55,3 +57,11 @@ legacy viewport boundaries, SSR-safe observation and listener cleanup, live rend
 native-control themes/focus, and a standalone entry that makes no icon-font requests. Mobile/desktop layout checks also
 cover unintended page overflow. Type checking, lint, and formatting passed. Independent Vue 2.6 and Package Lab validation
 remain scheduled for the final consumer-validation stage; this step does not remove the Vuetify peer dependency.
+
+Stage 4 validation passed: 96 unit tests, the 11-test Chrome browser suite, package/declaration build, 3 distribution
+tests, demo production build, type checking, lint, formatting, and `npm pack --dry-run`. The 3 renderer browser tests
+were rerun after the final mobile copy/link layout adjustment. Coverage includes named cell/action slots with default
+fallbacks, native mixed selection, nested controls, guarded actions, dense rows, sticky headers, RTL long/empty/multiline
+values, disabled-but-readable mobile details, and light/dark styling. Manual review covered 1280px desktop and 390px
+Persian mobile. A page-overflow issue from offscreen screen-reader placeholders was fixed and covered by the desktop
+browser test. Package Lab and independent Vue 2.6 validation remain pending stage 6. Next: stage 5 controls and states.

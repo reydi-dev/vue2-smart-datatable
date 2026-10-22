@@ -49,7 +49,7 @@ test('sorting and row selection have keyboard-accessible names and state', async
   const firstRowCheckbox = page.getByRole('checkbox', { name: 'Select row 1', exact: true })
   await firstRowCheckbox.focus()
   await page.keyboard.press('Space')
-  await expect(firstRowCheckbox).toHaveAttribute('aria-checked', 'true')
+  await expect(firstRowCheckbox).toBeChecked()
   await expect(page.getByTestId('selection')).toHaveText('Selected: 67')
 
   await page.setViewportSize({ width: 390, height: 800 })
@@ -57,7 +57,7 @@ test('sorting and row selection have keyboard-accessible names and state', async
   const mobileCheckbox = page.getByRole('checkbox', { name: 'Select row 1', exact: true })
   await mobileCheckbox.focus()
   await page.keyboard.press('Space')
-  await expect(mobileCheckbox).toHaveAttribute('aria-checked', 'true')
+  await expect(mobileCheckbox).toBeChecked()
   await expect(page.getByTestId('selection')).toHaveText('Selected: 1')
 })
 
@@ -77,6 +77,6 @@ test('server filters update the visible rows and total', async ({ page }) => {
 test('custom email cell remains available in mobile details', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 800 })
   await page.goto('/')
-  await page.locator('.sdt-mobile .v-expansion-panel-header').first().click()
+  await page.locator('.sdt-mobile__disclosure > summary').first().click()
   await expect(page.getByRole('link', { name: 'person1@example.com' })).toBeVisible()
 })

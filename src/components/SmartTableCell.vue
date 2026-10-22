@@ -1,6 +1,10 @@
 <template>
   <div class="sdt-cell" :class="cellClass" :title="tooltipText" @click="emitCellClick">
-    <template v-if="column.type === 'boolean'">
+    <span v-if="isMissing" class="sdt-cell__empty"
+      ><span aria-hidden="true">—</span
+      ><span class="sdt-sr-only">{{ messages.notProvided || 'Not provided' }}</span></span
+    >
+    <template v-else-if="column.type === 'boolean'">
       <SmartTableIcon
         :icon="value ? 'mdi-check-circle' : 'mdi-close-circle'"
         :size="16"
@@ -8,16 +12,20 @@
         :label="value ? messages.trueValue || 'True' : messages.falseValue || 'False'"
       />
     </template>
-    <v-chip v-else-if="column.type === 'chip'" small outlined>{{ textValue }}</v-chip>
+    <span v-else-if="column.type === 'chip'" class="sdt-cell__chip">{{ formattedText }}</span>
     <SmartTableIcon
       v-else-if="column.type === 'icon'"
       :icon="displayIcon"
       :size="16"
       :label="column.formatter ? formattedText : column.label"
     />
-    <v-avatar v-else-if="column.type === 'image' && imageUrl" size="36">
-      <img :src="imageUrl" :alt="column.label" />
-    </v-avatar>
+    <img
+      v-else-if="column.type === 'image' && imageUrl"
+      class="sdt-cell__image"
+      :src="imageUrl"
+      :alt="column.label"
+      loading="lazy"
+    />
     <a
       v-else-if="column.type === 'link' && linkUrl && !disabled"
       class="sdt-cell__link"
@@ -25,7 +33,7 @@
       target="_blank"
       rel="noopener noreferrer"
       @click.stop="emitCellClick"
-      >{{ formattedText }}</a
+      ><bdi>{{ formattedText }}</bdi></a
     >
     <span v-else-if="column.type === 'link'">{{ formattedText }}</span>
     <button
@@ -37,21 +45,23 @@
       @click.stop="copy"
     >
       <SmartTableIcon :icon="icons.copy" :size="16" />
-      <span class="sdt-cell__copy-value">{{ formattedText }}</span>
+      <bdi class="sdt-cell__copy-value">{{ formattedText }}</bdi>
     </button>
     <div v-else-if="column.type === 'expandable-text'" class="sdt-cell__expandable">
       <button
+        v-if="!mobile"
         type="button"
         class="sdt-cell__icon-button"
         :aria-label="expanded ? messages.collapse : messages.expand"
+        :aria-expanded="expanded ? 'true' : 'false'"
         :disabled="disabled"
         @click.stop="expanded = !expanded"
       >
         <SmartTableIcon :icon="expanded ? icons.collapse : icons.expand" :size="16" />
       </button>
-      <span v-if="expanded">{{ formattedText }}</span>
+      <span :class="{ 'sdt-cell__preview': !mobile && !expanded }">{{ formattedText }}</span>
     </div>
-    <span v-else>{{ formattedText }}</span>
+    <bdi v-else>{{ formattedText }}</bdi>
   </div>
 </template>
 
@@ -85,6 +95,9 @@ export default Vue.extend({
   },
   data: () => ({ expanded: false }),
   computed: {
+    isMissing(): boolean {
+      return this.formattedValue === null || this.formattedValue === undefined || this.formattedText === ''
+    },
     displayIcon(): DataTableIcon {
       return this.value && typeof this.value === 'object' && 'path' in this.value
         ? (this.value as DataTableIcon)

@@ -71,7 +71,7 @@ attributes, never as raw HTML.
 
 `theme="light"` and `theme="dark"` set the native foundation palette without a Vuetify theme service. Omitting the prop uses
 the light palette, with a compatibility bridge for an existing `.theme--dark` ancestor. An explicit light theme overrides
-that bridge. The theme currently affects native foundation controls and table-owned icons; remaining Vuetify components
+that bridge. The theme affects native controls, desktop/mobile renderers, cells, row actions, and table-owned icons; remaining Vuetify components
 continue to inherit their host's theme until their migration is complete.
 
 All tokens and focus/disabled rules are scoped to `.sdt-root`. No stylesheet resets are applied to unrelated app controls.
@@ -98,8 +98,8 @@ Customize tokens on the table root:
 | Shape and density | `--sdt-radius`, `--sdt-control-radius`, `--sdt-control-height`, `--sdt-row-height`, `--sdt-row-height-compact`                                                                      |
 | Interaction       | `--sdt-focus-width`, `--sdt-focus-offset`, `--sdt-disabled-opacity`                                                                                                                 |
 
-Space, text, and control tokens are consumed by the migrated native controls and icons. Workspace/row tokens are defined
-for the upcoming renderer migration; they do not yet override Vuetify row geometry. Focus-visible and native disabled
+Space, text, control, and row tokens are consumed by the migrated native controls, renderers, cells, and icons. Row heights
+are minimums and can grow for taller content; dense mode uses the compact row token. Focus-visible and native disabled
 rules share the same foundation values. Existing event guards remain responsible for disabling interactions.
 
 ## Standalone verification page
@@ -108,3 +108,6 @@ Run `npm run dev` and open `/foundations.html`. This entry imports Vue, the real
 stylesheet; it does not import Vuetify or an icon font. It demonstrates explicit light/dark palettes, keyboard focus,
 native pagination, custom SVG, RTL arrows, and independently configurable viewport thresholds. The existing table demo
 links to it. This verifies the migrated foundations, not full removal of Vuetify from the table.
+
+The companion `/renderers.html` page exercises real native desktop/mobile renderers and cells with 13 sample columns.
+See the [renderer migration guide](native-renderers.md) for slot, styling, and behavior details.

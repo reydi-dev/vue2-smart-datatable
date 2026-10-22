@@ -24,6 +24,7 @@ export default defineConfig({
         demo: resolve(__dirname, 'examples/index.html'),
         design: resolve(__dirname, 'examples/design.html'),
         foundations: resolve(__dirname, 'examples/foundations.html'),
+        renderers: resolve(__dirname, 'examples/renderers.html'),
       },
     },
     outDir: resolve(__dirname, 'dist-demo'),

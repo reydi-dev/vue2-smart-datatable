@@ -116,18 +116,13 @@
           :name="`action.${context.action.key}`"
           v-bind="context"
         />
-        <v-btn
+        <SmartTableAction
           v-else
-          small
-          text
-          :color="context.action.color"
+          :action="context.action"
           :disabled="disabled || context.disabled"
           :loading="context.loading"
           @click="context.trigger($event)"
-          ><SmartTableIcon v-if="context.action.icon" :icon="context.action.icon" :size="16" leading />{{
-            context.action.label
-          }}</v-btn
-        >
+        />
       </template>
       <template v-if="$scopedSlots['mobile-summary']" #mobile-summary="context"
         ><slot name="mobile-summary" v-bind="context"
@@ -171,6 +166,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import SmartTableIcon from './SmartTableIcon.vue'
+import SmartTableAction from './SmartTableAction.vue'
 import SmartTableDesktop from './SmartTableDesktop.vue'
 import SmartTableMobile from './SmartTableMobile.vue'
 import SmartTableToolbar from './SmartTableToolbar.vue'
@@ -217,6 +213,7 @@ export default Vue.extend({
   name: 'SmartDataTable',
   components: {
     SmartTableIcon,
+    SmartTableAction,
     SmartTableDesktop,
     SmartTableMobile,
     SmartTableToolbar,

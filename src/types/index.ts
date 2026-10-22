@@ -183,6 +183,10 @@ export interface DataTableMessages {
   invalidPage?: string
   trueValue?: string
   falseValue?: string
+  notProvided?: string
+  moreDetails?: string
+  openRow?: string
+  table?: string
 }
 
 export interface DataTableIcons {

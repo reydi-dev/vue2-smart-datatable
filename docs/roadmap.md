@@ -13,7 +13,9 @@ The maintainer has authorized the design phase. The initial brief and two visual
 standalone [design lab](../examples/design.html). Clarity is the preferred direction for refinement, including direct
 page navigation requested during review. Production migration has started with native pagination form controls and
 provider-tested direct page navigation. Table-owned icons, viewport detection, and native style foundations are now
-independent of Vuetify; migration of the remaining renderers and controls is still planned.
+independent of Vuetify. Desktop/mobile renderers, selection, row actions, and cells now use native markup with Clarity
+styles; toolbar, filters, columns/export controls, and states are the next migration stage. See the
+[native renderer guide](native-renderers.md) for behavior and CSS migration notes.
 
 Implementation is tracked in the [Clarity migration stages](clarity-migration.md), with one commit per completed stage.
 
