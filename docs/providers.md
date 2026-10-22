@@ -1,6 +1,6 @@
 # Providers and response normalization
 
-Use `mode="server"` with a `dataProvider` function. A complete Vue 2 example that calls `/api/users` is in the [README](../README.md#server-example).
+Use `mode="server"` with a `dataProvider` function. Copy [ServerTable.vue](examples/ServerTable.vue) and follow the [example setup guide](examples/README.md#api-contract) for a complete `/api/users` integration. A shorter explanation is also in the [README](../README.md#server-example).
 
 The provider receives `{ page, itemsPerPage, sort, filters, context, signal, reason }`. The table calls it on initial load and when the user changes pages, page size, sorting, or filters. It also calls it for refreshes and server-side exports.
 

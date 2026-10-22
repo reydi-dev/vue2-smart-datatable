@@ -69,6 +69,19 @@ export default Vue.extend({
 
 The host application must provide a supported Vue 2 version. No Vuetify instance, `v-app`, icon font, or external icon service is required. Existing Vuetify hosts can keep their own setup. See the [API reference](docs/api.md) for provider mode, slots, events, and options.
 
+## Copyable examples
+
+Copy a complete Vue 2 component for your use case; each uses public package imports.
+
+| Example                                            | What it shows                                              |
+| -------------------------------------------------- | ---------------------------------------------------------- |
+| [Local data](docs/examples/BasicTable.vue)         | Sorting, filtering and controlled row selection            |
+| [API data](docs/examples/ServerTable.vue)          | Paginated fetch, cancellation, response mapping and errors |
+| [Persian / RTL](docs/examples/PersianTable.vue)    | Translated controls, Rial formatting and mobile layout     |
+| [Custom appearance](docs/examples/StyledTable.vue) | Brand colors, dark mode, custom cells and CSV              |
+
+See the [example setup guide](docs/examples/README.md) for copying instructions and the API contract.
+
 ## Why this package?
 
 `vue2-smart-datatable` is for maintained Vue 2 applications that need a complete data table without coupling table state to one backend or store.

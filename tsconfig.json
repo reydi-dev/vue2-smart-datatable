@@ -12,8 +12,21 @@
     "lib": ["ES2019", "DOM", "DOM.Iterable"],
     "types": ["node", "vitest/globals"],
     "baseUrl": ".",
-    "paths": { "@/*": ["src/*"] }
+    "paths": {
+      "@/*": ["src/*"],
+      "vue2-smart-datatable": ["src/index.ts"]
+    }
   },
-  "vueCompilerOptions": { "target": 2.7 },
-  "include": ["src/**/*.ts", "src/**/*.vue", "examples/**/*.ts", "examples/**/*.vue", "tests/**/*.ts", "*.ts"]
+  "vueCompilerOptions": {
+    "target": 2.7
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "examples/**/*.ts",
+    "examples/**/*.vue",
+    "tests/**/*.ts",
+    "docs/examples/**/*.vue",
+    "*.ts"
+  ]
 }

@@ -23,6 +23,8 @@ export default [
         navigator: 'readonly',
         Blob: 'readonly',
         URL: 'readonly',
+        URLSearchParams: 'readonly',
+        fetch: 'readonly',
         AbortController: 'readonly',
         AbortSignal: 'readonly',
         Event: 'readonly',

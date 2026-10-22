@@ -4,7 +4,13 @@ import { resolve } from 'node:path'
 
 export default defineConfig({
   plugins: [vue()],
-  resolve: { alias: { '@': resolve(__dirname, 'src') } },
+  resolve: {
+    alias: [
+      { find: '@', replacement: resolve(__dirname, 'src') },
+      { find: /^vue2-smart-datatable$/, replacement: resolve(__dirname, 'src/index.ts') },
+      { find: /^vue2-smart-datatable\/styles\.css$/, replacement: resolve(__dirname, 'src/styles/index.scss') },
+    ],
+  },
   test: {
     environment: 'jsdom',
     setupFiles: ['tests/setup.ts'],
