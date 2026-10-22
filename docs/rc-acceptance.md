@@ -72,6 +72,8 @@ including a separate order-page chunk). Repository lint passed. The original Lab
 host chunk-size warning remains. Direct visual review at the restricted origin was not performed, and no screenshot or
 browser pass is claimed. Source-demo visual approval does not establish this new consumer route's visual acceptance.
 
-Pending comparison: open `/clarity-orders`, compare the order card with `/renderers.html`, then check English/Persian,
-light/dark, narrow-screen details, search, status tabs, selection, column visibility and CSV. Record discrepancies before
-closing step 5. The generic Lab's host navigation/resize acceptance remains a separate checklist item above.
+The maintainer explicitly approved the appearance of `/clarity-orders` on 2026-10-23. This is maintainer-reported
+visual acceptance of the registry consumer composition, not an automated browser result or confirmation that every
+functional scenario has passed. Visual comparison is closed. The remaining behavior checks (search/status tabs, selection,
+column visibility, CSV and the generic provider/recovery scenarios above) remain pending explicit results. Earlier
+manual resize acceptance remains recorded; it does not establish a fresh pass for every RTL/theme combination.

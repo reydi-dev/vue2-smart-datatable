@@ -132,4 +132,5 @@ against the registry RC using only public exports/slots. The source fixture's pr
 with named public cell slots and plain consumer-owned mobile detail formatting. No library runtime changed and no new
 package was published. The original Lab repository remains unchanged. Consumer type checking/build and repository lint
 passed. See [RC acceptance](rc-acceptance.md) for the reproducible preparation script and review scope.
-Consumer-route visual approval and the remaining functional acceptance groups are pending; step 5 stays open.
+The maintainer subsequently approved the consumer-route appearance explicitly on 2026-10-23. Visual acceptance is
+complete; remaining functional acceptance results are pending. Step 5 stays open and stable publication is not authorized.
