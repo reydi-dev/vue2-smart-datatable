@@ -3,13 +3,13 @@
 Branch: `clarity-ui-migration`. This checklist follows the completed six implementation stages. It does not authorize
 publication, release tags, or deployment.
 
-| Step | Scope                                                                     | Status                                                           |
-| ---- | ------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| 1    | Final visual review against Clarity                                       | Approved by maintainer after source-demo visual review           |
-| 2    | Pack the final candidate and validate in Package Lab                      | Automated checks passed; fresh Package Lab manual review pending |
-| 3    | Set the RC version, changelog, upgrade notes and inspect package contents | Pending                                                          |
-| 4    | Publish an explicitly approved RC under `next`                            | Pending explicit release approval                                |
-| 5    | Review real-consumer feedback and approve stable release                  | Pending                                                          |
+| Step | Scope                                                                     | Status                                                       |
+| ---- | ------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| 1    | Final visual review against Clarity                                       | Approved by maintainer after source-demo visual review       |
+| 2    | Pack the final candidate and validate in Package Lab                      | Completed: automated checks and maintainer manual acceptance |
+| 3    | Set the RC version, changelog, upgrade notes and inspect package contents | Pending                                                      |
+| 4    | Publish an explicitly approved RC under `next`                            | Pending explicit release approval                            |
+| 5    | Review real-consumer feedback and approve stable release                  | Pending                                                      |
 
 ## Step 1 evidence
 
@@ -47,6 +47,8 @@ The same tarball was installed in the existing temporary Package Lab copy; clean
 build passed. Installed JavaScript and CSS hashes match the candidate. The original Package Lab repository remains unchanged.
 The temporary server was restarted on the same origin, with Vite dependency re-optimization, for maintainer review.
 No browser automation was rerun against the previously blocked Lab origin. Its historical immediate resize-width failure
-remains unresolved by automation; a fresh manual resize/detail check of this candidate has been requested.
-Step 2 remains open until that manual response is recorded. See [consumer validation](consumer-validation.md) for hashes
-and scope. Step 3 (RC version and release documentation) has not started.
+remains unresolved by automation. The maintainer refreshed the updated candidate, selected a row, narrowed the window,
+waited for the layout to settle and opened its details. They explicitly confirmed retained selection and no clipping or
+horizontal scrolling. This is maintainer-reported manual acceptance, not an automated pass. Step 2 is complete on that
+basis. See [consumer validation](consumer-validation.md) for hashes and scope. Step 3 (RC version and release documentation)
+has not started.

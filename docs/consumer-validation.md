@@ -94,8 +94,10 @@ The build retains its host's existing large-chunk warning and host-provided icon
 
 The Lab server was restarted at its existing `http://127.0.0.1:4176` origin with forced dependency re-optimization.
 No Lab browser tests were rerun through another surface to bypass the saved origin restriction. The earlier 11-pass,
-1-failure Lab result and subsequent manual acceptance remain historical evidence. A new manual check of row selection,
-resize, expanded details and overflow has been requested for this updated CSS candidate; acceptance is pending.
+1-failure Lab result and subsequent manual acceptance remain historical evidence. For this updated CSS candidate, the
+maintainer refreshed the page and explicitly confirmed that selection survives narrowing the window and opening details,
+with no clipping or horizontal scrolling after the layout settles. This is maintainer-reported manual acceptance, not an
+agent-observed or automated pass. Release preparation step 2 is complete with that documented limitation.
 
 ## Compatibility limits
 
