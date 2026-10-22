@@ -8,7 +8,7 @@ publication, release tags, or deployment.
 | 1    | Final visual review against Clarity                                       | Approved by maintainer after source-demo visual review       |
 | 2    | Pack the final candidate and validate in Package Lab                      | Completed: automated checks and maintainer manual acceptance |
 | 3    | Set the RC version, changelog, upgrade notes and inspect package contents | Completed: 0.3.0-rc.1 packed and inspected                   |
-| 4    | Publish an explicitly approved RC under `next`                            | Pending explicit release approval                            |
+| 4    | Publish an explicitly approved RC under `next`                            | Completed: published under next and registry consumer passed |
 | 5    | Review real-consumer feedback and approve stable release                  | Pending                                                      |
 
 ## Step 1 evidence
@@ -92,3 +92,23 @@ This report was completed after packing; the tarball includes the preparation pl
 Do not silently repack and publish a different artifact. If this file is lost, regenerate and inspect a candidate, record
 its new integrity and obtain approval of that concrete file before publishing. Step 3 is complete; step 4 remains pending
 explicit publication approval. No git release tag was created.
+
+## Step 4 publication
+
+The maintainer explicitly approved publication of the reviewed `0.3.0-rc.1` artifact on 2026-10-23 (Asia/Tehran).
+Before publishing, the working tree was clean, its SHA-256 matched the step-3 report, npm identity was `reydi-dev`, and
+registry `latest` was `0.2.0`. The version was not already published.
+
+The exact reviewed tarball was submitted with `npm publish <reviewed-tarball> --tag next --access public`.
+npm accepted the publication, then took about a minute to expose version metadata; the initial E404/ETARGET responses
+were followed by successful registry verification, without submitting another publication.
+Registry integrity matches the step-3 SHA-512 exactly, with SHA-1 `d592ce5a04dd598ccfd9e70de74accadba6cbc0e`.
+`next` now points to `0.3.0-rc.1`; `latest` remains `0.2.0`. No stable promotion, git release tag, push or demo deployment
+was performed. The published archive retains the preparation-time unpublished notices because that approved file was
+published unchanged; repository documentation now records the actual release status.
+
+The exact published version was installed from npm in the isolated Vue 2.7.16 consumer without Vuetify. Its lockfile
+resolves to the registry tarball (not the local file) with the verified integrity. A clean `npm ci` reproduced that
+installation and the DOM smoke fixture passed native controls, filters, selection, mobile switching, export and direct
+provider pagination. This is not a new Lab browser run. Step 4 is complete; step 5 (real-application feedback and explicit
+stable-release approval) remains pending.

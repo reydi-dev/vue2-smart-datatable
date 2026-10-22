@@ -99,6 +99,19 @@ maintainer refreshed the page and explicitly confirmed that selection survives n
 with no clipping or horizontal scrolling after the layout settles. This is maintainer-reported manual acceptance, not an
 agent-observed or automated pass. Release preparation step 2 is complete with that documented limitation.
 
+## Published Clarity RC — 0.3.0-rc.1
+
+Publication date: 2026-10-23 (Asia/Tehran), after explicit maintainer approval. The reviewed step-3 tarball was published
+unchanged under `next`. Registry SHA-512 matches the approved artifact:
+`sha512-JWdOrTpaYmJrLNl8wyDppFcS5cHzvhU/i/7+xAwj17eL7sqjrcp1SOErFmTFxvvdSNsgaavQvPOpgEfs3I8Xpw==`.
+Registry SHA-1 is `d592ce5a04dd598ccfd9e70de74accadba6cbc0e`. `latest` remained `0.2.0`.
+
+An isolated Vue 2.7.16 consumer without Vuetify installed the exact published version from npm, reproduced installation
+with `npm ci`, and passed the existing DOM smoke fixture (controls, filters, selection, mobile, export and direct provider
+jump). Its lockfile resolves to `https://registry.npmjs.org/vue2-smart-datatable/-/vue2-smart-datatable-0.3.0-rc.1.tgz`
+with the matching integrity. Earlier four-way consumer and manual Lab results retain their documented scope; no new
+Package Lab browser validation is claimed. The original consumer repositories remain unchanged.
+
 ## Compatibility limits
 
 Browser automation used installed Chrome. Safari/Firefox, obsolete browsers, and assistive-technology certification are

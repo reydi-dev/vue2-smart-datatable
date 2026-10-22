@@ -41,7 +41,7 @@ The package is developed with Vue 2.7 and also tested as a packed dependency in 
 
 Contributing to or building this repository requires Node.js 20 because the development and browser-test toolchain has a newer runtime floor than the distributed library.
 
-> This branch prepares the unpublished Clarity candidate `0.3.0-rc.1`. The unqualified npm install and hosted demo still follow their published/deployed releases. To test this candidate, use its local tarball as described in the [upgrade guide](docs/clarity-upgrade.md).
+> Clarity is available as `0.3.0-rc.1` under the npm `next` tag. Install it explicitly with `npm install vue2-smart-datatable@0.3.0-rc.1`. The unqualified install still selects stable `0.2.0`; the hosted demo has not been redeployed by this release. See the [upgrade guide](docs/clarity-upgrade.md).
 
 ## Install
 
