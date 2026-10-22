@@ -23,6 +23,23 @@ it('uses production slots for compact order summaries, retained selection and wo
     expect(wrapper.findAll('.renderer-order-summary').wrappers.every((row) => row.text().includes('Completed'))).toBe(
       true,
     )
+    const dialog = wrapper.findComponent({ name: 'ColumnVisibilityDialog' })
+    dialog.vm.$emit('apply', [
+      'id',
+      'status',
+      'amount',
+      'date',
+      'email',
+      'items',
+      'payment',
+      'shipping',
+      'city',
+      'priority',
+      'tags',
+      'description',
+    ])
+    await wrapper.vm.$nextTick()
+    expect(wrapper.find('.renderer-order-summary').text()).not.toContain('Olivia Rhye')
     await wrapper.setData({ disabled: true })
     expect(wrapper.find('.renderer-order-summary input').attributes('disabled')).toBeDefined()
   } finally {

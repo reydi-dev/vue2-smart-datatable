@@ -41,7 +41,7 @@ test('RTL mobile cards show long, empty, multiline and unbroken values without h
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/renderers.html')
   await page.getByRole('combobox', { name: 'Language', exact: true }).selectOption('fa')
-  await expect(page.locator('.sdt-root')).toHaveAttribute('dir', 'rtl')
+  await expect(page.locator('.renderer-card > .sdt-root')).toHaveAttribute('dir', 'rtl')
   const cards = page.locator('.sdt-mobile__row')
   const second = cards.nth(1)
   const disclosure = second.locator('summary')

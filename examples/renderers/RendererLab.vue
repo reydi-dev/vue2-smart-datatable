@@ -60,6 +60,7 @@
       </p>
       <SmartDataTable
         ref="table"
+        @update:visible-columns="visibleColumnKeys = $event"
         v-model="selected"
         :exporters="exporters"
         :items="allRows"
@@ -108,17 +109,17 @@
                 :aria-label="`${messages.selectRow} ${rowIndex + 1}`"
                 @change="toggleOrder(row.id)"
             /></label>
-            <strong class="renderer-order-id"
+            <strong v-if="columnShown('id')" class="renderer-order-id"
               ><bdi>#{{ row.id }}</bdi></strong
             >
-            <span class="renderer-status" :class="`renderer-status--${row.status}`"
+            <span v-if="columnShown('status')" class="renderer-status" :class="`renderer-status--${row.status}`"
               ><i aria-hidden="true" />{{ statusLabel(row.status) }}</span
             >
-            <div class="renderer-order-person">
+            <div v-if="columnShown('customer')" class="renderer-order-person">
               <strong>{{ row.customer }}</strong
-              ><small>{{ orderDate(row.date) }}</small>
+              ><small v-if="columnShown('date')">{{ orderDate(row.date) }}</small>
             </div>
-            <strong class="renderer-order-amount"
+            <strong v-if="columnShown('amount')" class="renderer-order-amount"
               ><bdi>{{ orderAmount(row.amount) }}</bdi></strong
             >
           </div>
@@ -203,6 +204,7 @@ export default Vue.extend({
     disabled: false,
     busyFirst: false,
     query: '',
+    visibleColumnKeys: null as string[] | null,
     status: 'all' as 'all' | Order['status'],
     orders,
     tabs: ['all', 'completed', 'processing', 'pending', 'cancelled'] as Array<'all' | Order['status']>,
@@ -244,7 +246,7 @@ export default Vue.extend({
             nextPage: 'صفحه بعد',
             invalidPage: 'بازه مجاز:',
           }
-        : { ...defaultMessages, export: 'Export CSV' }
+        : { ...defaultMessages, export: 'Export CSV', trueValue: 'Yes', falseValue: 'No' }
     },
     columns(): DataTableColumn<Order>[] {
       return [
@@ -267,9 +269,17 @@ export default Vue.extend({
           sortable: true,
           filterable: true,
           numberFormat: { style: 'currency', currency: 'USD' },
+          formatter: (_value, row) => this.orderAmount(row.amount),
           mobile: { summary: true, order: 3 },
         },
-        { key: 'date', label: this.t.date, type: 'date', minWidth: 140, dateFormat: { dateStyle: 'medium' } },
+        {
+          key: 'date',
+          label: this.t.date,
+          type: 'date',
+          minWidth: 140,
+          dateFormat: { dateStyle: 'medium' },
+          formatter: (_value, row) => this.orderDate(row.date),
+        },
         { key: 'email', label: this.t.email, type: 'copy', minWidth: 230 },
         { key: 'items', label: this.t.items, type: 'number', minWidth: 100 },
         {
@@ -323,6 +333,9 @@ export default Vue.extend({
     },
   },
   methods: {
+    columnShown(key: string): boolean {
+      return this.visibleColumnKeys === null || this.visibleColumnKeys.includes(key)
+    },
     toggleOrder(id: string) {
       if (!this.disabled)
         this.selected = this.selected.includes(id) ? this.selected.filter((key) => key !== id) : [...this.selected, id]
@@ -624,7 +637,8 @@ body {
   background: var(--sdt-tint-color);
 }
 .renderer-card .sdt-toolbar__content {
-  flex: 1 1 260px;
+  flex: 0 1 36%;
+  min-width: 260px;
 }
 .renderer-card .renderer-search {
   display: flex;
@@ -711,6 +725,19 @@ body {
   }
   .renderer-card .sdt-export {
     margin-inline-start: auto;
+  }
+}
+</style>
+
+<style>
+.renderer-status--processing,
+.renderer-status--pending,
+.renderer-status--cancelled {
+  background: var(--sdt-tint-color);
+}
+@media (max-width: 600px) {
+  .renderer-card .sdt-toolbar__content {
+    min-width: 0;
   }
 }
 </style>
