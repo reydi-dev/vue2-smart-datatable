@@ -35,19 +35,33 @@
       <div class="renderer-card-top">
         <div>
           <strong>{{ t.orders }}</strong
-          ><span class="renderer-total">{{ allRows.length }}</span>
+          ><span class="renderer-total">{{ orders.length }}</span>
+          <p class="renderer-subtitle">{{ t.subtitle }}</p>
         </div>
-        <label class="renderer-search"
-          ><span class="sdt-sr-only">{{ t.searchLabel }}</span
-          ><input v-model="query" type="search" :placeholder="t.search" @input="page = 1"
-        /></label>
       </div>
+      <nav class="renderer-tabs" :aria-label="t.status">
+        <button
+          v-for="tab in tabs"
+          :key="tab"
+          type="button"
+          :disabled="disabled"
+          :aria-pressed="status === tab"
+          @click="
+            status = tab
+            page = 1
+          "
+        >
+          {{ tabLabel(tab) }}<span>{{ tabCount(tab) }}</span>
+        </button>
+      </nav>
       <p v-if="selected.length" class="renderer-selected" role="status">
         {{ selected.length }} {{ t.selected }}
         <button type="button" @click="selected = []">{{ t.clearSelection }}</button>
       </p>
       <SmartDataTable
+        ref="table"
         v-model="selected"
+        :exporters="exporters"
         :items="allRows"
         :columns="columns"
         selectable
@@ -66,6 +80,72 @@
         :page-size-options="[8, 16]"
         @row-action="lastAction = `${$event.action.key}: ${$event.row.id}`"
       >
+        <template #toolbar-prepend>
+          <label class="renderer-search"
+            ><svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              aria-hidden="true"
+            >
+              <circle cx="10" cy="10" r="7" />
+              <path d="m15 15 6 6" /></svg
+            ><span class="sdt-sr-only">{{ t.searchLabel }}</span
+            ><input v-model="query" type="search" :disabled="disabled" :placeholder="t.search" @input="page = 1"
+          /></label>
+        </template>
+        <template #mobile-summary="{ row, rowIndex }">
+          <div class="renderer-order-summary">
+            <label class="sdt-selection-control"
+              ><input
+                class="sdt-checkbox"
+                type="checkbox"
+                :disabled="disabled"
+                :checked="selected.includes(row.id)"
+                :aria-label="`${messages.selectRow} ${rowIndex + 1}`"
+                @change="toggleOrder(row.id)"
+            /></label>
+            <strong class="renderer-order-id"
+              ><bdi>#{{ row.id }}</bdi></strong
+            >
+            <span class="renderer-status" :class="`renderer-status--${row.status}`"
+              ><i aria-hidden="true" />{{ statusLabel(row.status) }}</span
+            >
+            <div class="renderer-order-person">
+              <strong>{{ row.customer }}</strong
+              ><small>{{ orderDate(row.date) }}</small>
+            </div>
+            <strong class="renderer-order-amount"
+              ><bdi>{{ orderAmount(row.amount) }}</bdi></strong
+            >
+          </div>
+        </template>
+        <template #mobile-details="{ row, columns: detailColumns, rowIndex }">
+          <dl class="sdt-mobile__details">
+            <div
+              v-for="column in mobileColumns(detailColumns)"
+              :key="column.key"
+              :class="{ 'sdt-mobile__field--full': column.key === 'email' || column.key === 'description' }"
+            >
+              <dt>{{ column.label }}</dt>
+              <dd>
+                <SmartTableCell
+                  :row="row"
+                  :column="mobileDetail(column)"
+                  :row-key-value="row.id"
+                  :row-index="rowIndex"
+                  mobile
+                  :messages="messages"
+                  :icons="icons"
+                  :disabled="disabled"
+                />
+              </dd>
+            </div>
+          </dl>
+        </template>
         <template #cell="context"
           ><div v-if="context.column.key === 'customer'" class="renderer-person">
             <span class="renderer-avatar">{{ context.row.initials }}</span
@@ -108,6 +188,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import SmartDataTable from '@/components/SmartDataTable.vue'
+import { createCsvExporter } from '@/index'
 import SmartTableCell from '@/components/SmartTableCell.vue'
 import { defaultIcons, defaultMessages } from '@/core/messages'
 import { orders, copy, formatExtra } from '../design/data'
@@ -122,6 +203,10 @@ export default Vue.extend({
     disabled: false,
     busyFirst: false,
     query: '',
+    status: 'all' as 'all' | Order['status'],
+    orders,
+    tabs: ['all', 'completed', 'processing', 'pending', 'cancelled'] as Array<'all' | Order['status']>,
+    exporters: [createCsvExporter()],
     page: 1,
     pageSize: 8,
     selected: [] as string[],
@@ -136,6 +221,9 @@ export default Vue.extend({
       return this.locale === 'fa'
         ? {
             ...defaultMessages,
+            export: 'خروجی CSV',
+            filters: 'فیلترها',
+            columns: 'ستون‌ها',
             selectAll: 'انتخاب تمام ردیف‌های این صفحه',
             selectRow: 'انتخاب ردیف',
             moreDetails: 'جزئیات بیشتر',
@@ -156,7 +244,7 @@ export default Vue.extend({
             nextPage: 'صفحه بعد',
             invalidPage: 'بازه مجاز:',
           }
-        : defaultMessages
+        : { ...defaultMessages, export: 'Export CSV' }
     },
     columns(): DataTableColumn<Order>[] {
       return [
@@ -177,6 +265,7 @@ export default Vue.extend({
           align: 'end',
           minWidth: 125,
           sortable: true,
+          filterable: true,
           numberFormat: { style: 'currency', currency: 'USD' },
           mobile: { summary: true, order: 3 },
         },
@@ -215,7 +304,11 @@ export default Vue.extend({
     },
     allRows(): Order[] {
       const query = this.query.toLowerCase().trim()
-      return orders.filter((row) => `${row.id} ${row.customer} ${row.email}`.toLowerCase().includes(query))
+      return orders.filter(
+        (row) =>
+          (this.status === 'all' || row.status === this.status) &&
+          `${row.id} ${row.customer} ${row.email}`.toLowerCase().includes(query),
+      )
     },
     actions(): RowAction<Order>[] {
       return [
@@ -230,6 +323,35 @@ export default Vue.extend({
     },
   },
   methods: {
+    toggleOrder(id: string) {
+      if (!this.disabled)
+        this.selected = this.selected.includes(id) ? this.selected.filter((key) => key !== id) : [...this.selected, id]
+    },
+    tabLabel(tab: 'all' | Order['status']): string {
+      return tab === 'all' ? this.t.all : this.t[tab]
+    },
+    tabCount(tab: 'all' | Order['status']): number {
+      return tab === 'all' ? orders.length : orders.filter((row) => row.status === tab).length
+    },
+    orderDate(value: string): string {
+      return new Intl.DateTimeFormat(this.locale, { dateStyle: 'medium' }).format(new Date(value))
+    },
+    orderAmount(value: number): string {
+      return new Intl.NumberFormat(this.locale, { style: 'currency', currency: 'USD' }).format(value)
+    },
+    mobileColumns(columns: DataTableColumn<Order>[]): DataTableColumn<Order>[] {
+      return columns.filter((column) => column.key !== 'date')
+    },
+    mobileDetail(column: DataTableColumn<Order>): DataTableColumn<Order> {
+      if (column.key === 'email' || column.key === 'payment') return { ...column, type: 'text' }
+      if (column.key === 'priority')
+        return {
+          ...column,
+          type: 'text',
+          formatter: (_value, row) => (row.priority ? this.messages.trueValue : this.messages.falseValue),
+        }
+      return column
+    },
     statusLabel(status: Order['status']): string {
       return this.t[status]
     },
@@ -454,5 +576,141 @@ body {
   border-inline: 0;
   border-bottom: 0;
   border-radius: 0 0 var(--sdt-radius) var(--sdt-radius);
+}
+</style>
+
+<style>
+.renderer-card-top {
+  padding: 25px 24px 20px;
+}
+.renderer-card-top strong {
+  font-size: 20px;
+  letter-spacing: -0.4px;
+}
+.renderer-subtitle {
+  margin: 7px 0 0;
+  font-size: 12px;
+  color: var(--sdt-muted-color);
+}
+.renderer-tabs {
+  display: flex;
+  gap: 25px;
+  padding: 0 24px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--sdt-border-color);
+}
+.renderer-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  padding: 13px 0 15px;
+  background: none;
+  border: 0;
+  color: var(--sdt-muted-color);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.renderer-tabs button[aria-pressed='true'] {
+  color: var(--sdt-accent);
+  box-shadow: inset 0 -2px var(--sdt-accent);
+  font-weight: 650;
+}
+.renderer-tabs span {
+  padding: 2px 5px;
+  font-size: 10px;
+  border-radius: 5px;
+  background: var(--sdt-tint-color);
+}
+.renderer-card .sdt-toolbar__content {
+  flex: 1 1 260px;
+}
+.renderer-card .renderer-search {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  border: 1px solid var(--sdt-border-color);
+  border-radius: 7px;
+  padding: 0 11px;
+  color: var(--sdt-muted-color);
+}
+.renderer-card .renderer-search input {
+  width: 100%;
+  padding: 10px 0;
+  border: 0;
+  background: transparent;
+}
+.renderer-card .renderer-search:focus-within {
+  outline: 2px solid var(--sdt-accent);
+  outline-offset: 2px;
+}
+.renderer-card .renderer-search input:focus-visible {
+  outline: none;
+}
+.renderer-card .sdt-export > .sdt-control {
+  background: var(--sdt-accent);
+  color: var(--sdt-surface);
+  border-color: var(--sdt-accent);
+  font-weight: 600;
+}
+.renderer-card > .sdt-root {
+  border-top: 0;
+}
+.renderer-order-summary {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  gap: 10px 11px;
+  align-items: center;
+}
+.renderer-order-summary .sdt-selection-control {
+  min-width: 18px;
+  min-height: 30px;
+}
+.renderer-order-id {
+  font-size: 11px;
+  font-weight: 650;
+}
+.renderer-order-person {
+  grid-column: 2;
+}
+.renderer-order-person strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 550;
+}
+.renderer-order-person small {
+  display: block;
+  margin-top: 5px;
+  color: var(--sdt-muted-color);
+  font-size: 10px;
+}
+.renderer-order-amount {
+  justify-self: end;
+  font-size: 12px;
+  font-weight: 600;
+}
+.renderer-order-summary .renderer-status {
+  justify-self: end;
+}
+.renderer-status--completed {
+  background: color-mix(in srgb, var(--sdt-success-color) 6%, var(--sdt-surface));
+  border-color: color-mix(in srgb, var(--sdt-success-color) 18%, var(--sdt-surface));
+}
+@media (max-width: 600px) {
+  .renderer-card .sdt-toolbar {
+    column-gap: 8px;
+  }
+  .renderer-card .sdt-toolbar__content {
+    flex-basis: 100%;
+  }
+  .renderer-card .sdt-toolbar__actions {
+    width: 100%;
+  }
+  .renderer-card .sdt-export {
+    margin-inline-start: auto;
+  }
 }
 </style>

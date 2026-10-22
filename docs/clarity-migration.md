@@ -101,3 +101,11 @@ review remains unavailable under the previously reported origin restriction; no 
 104 unit and 4 distribution tests, type/lint/format checks, and package/demo builds passed during this pass. The
 Package Lab temporary consumer still uses its earlier installed tarball; use the source dev server's /renderers.html
 for the refined full-component order fixture and /design.html for the unchanged reference.
+
+The second visual pass addresses the maintainer's side-by-side screenshots: the order example now uses compact
+mobile-summary/mobile-details slots, places the date under the customer instead of repeating it in the details,
+and presents email/payment/priority as plain values on mobile. The caption/subtitle, status filters/counts, search
+icon, numeric filtering and native CSV exporter are wired to the full production component. These order-specific
+choices are application-owned examples, not inferred layouts or semantics added to the generic table. Type checking,
+lint/format and demo build passed; a DOM regression exercises compact summaries, selection across status tabs,
+mobile details and disabled selection. Visual acceptance remains pending; no browser review/pass is claimed.
