@@ -3,13 +3,13 @@
 Branch: `clarity-ui-migration`. This checklist follows the completed six implementation stages. It does not authorize
 publication, release tags, or deployment.
 
-| Step | Scope                                                                     | Status                                                             |
-| ---- | ------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| 1    | Final visual review against Clarity                                       | Agent review and corrections complete; maintainer approval pending |
-| 2    | Pack the final candidate and validate in Package Lab                      | Pending, after visual approval                                     |
-| 3    | Set the RC version, changelog, upgrade notes and inspect package contents | Pending                                                            |
-| 4    | Publish an explicitly approved RC under `next`                            | Pending explicit release approval                                  |
-| 5    | Review real-consumer feedback and approve stable release                  | Pending                                                            |
+| Step | Scope                                                                     | Status                                                           |
+| ---- | ------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| 1    | Final visual review against Clarity                                       | Approved by maintainer after source-demo visual review           |
+| 2    | Pack the final candidate and validate in Package Lab                      | Automated checks passed; fresh Package Lab manual review pending |
+| 3    | Set the RC version, changelog, upgrade notes and inspect package contents | Pending                                                          |
+| 4    | Publish an explicitly approved RC under `next`                            | Pending explicit release approval                                |
+| 5    | Review real-consumer feedback and approve stable release                  | Pending                                                          |
 
 ## Step 1 evidence
 
@@ -32,4 +32,21 @@ Source screenshots were saved as `release-step1-desktop-en.png`, `release-step1-
 `release-step1-mobile-fa-light.png`, and `release-step1-mobile-fa-dark.png` in the session visualization directory.
 They support review rather than claiming pixel-perfect parity. The reference's direct row-navigation arrow and the
 production example's labeled Inspect action are intentionally different representations of application-owned actions.
-Maintainer confirmation is required before moving to candidate packaging.
+The maintainer subsequently approved this appearance explicitly; step 1 is closed and candidate validation may proceed.
+
+## Step 2 evidence
+
+The approved source at `6daffc0` was rebuilt and packed locally, with only the step-1 approval documentation changed.
+The package version remains `0.2.0`; no version selection, tag, deployment or publication was performed.
+
+Fresh validation passed: package/declaration build, 105 unit tests, 4 distribution tests and the complete 14-test source-demo
+Chrome suite. Four isolated packed consumers passed on Vue 2.6.14 and 2.7.16, each with and without a Vuetify 2.6.15 host.
+Every consumer installation was reproduced with `npm ci`. These checks exercise DOM behavior, not four browser engines.
+
+The same tarball was installed in the existing temporary Package Lab copy; clean installation, type checking and production
+build passed. Installed JavaScript and CSS hashes match the candidate. The original Package Lab repository remains unchanged.
+The temporary server was restarted on the same origin, with Vite dependency re-optimization, for maintainer review.
+No browser automation was rerun against the previously blocked Lab origin. Its historical immediate resize-width failure
+remains unresolved by automation; a fresh manual resize/detail check of this candidate has been requested.
+Step 2 remains open until that manual response is recorded. See [consumer validation](consumer-validation.md) for hashes
+and scope. Step 3 (RC version and release documentation) has not started.

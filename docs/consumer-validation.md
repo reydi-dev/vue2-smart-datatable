@@ -59,6 +59,44 @@ A final local rerun of formatting, lint, 104 unit tests, package/declaration bui
 production demo build, and package dry-run passed. The previously passed browser/packed-consumer results above remain
 historical evidence; they were not rerun through another browser surface to bypass the origin restriction.
 
+## Release preparation step 2 — fresh approved candidate
+
+Validation date: 2026-10-22. Runtime source: `6daffc0` on `clarity-ui-migration`; the only source-tree change before packing
+was recording the maintainer's visual approval in the release checklist. This is a local `0.2.0` candidate, not a new
+published release or an RC version decision.
+
+The tarball was created at `/private/tmp/sdt-release-step2.LENXLK/vue2-smart-datatable-0.2.0.tgz`.
+Its SHA-256 is `c2c9c51f1d8b3b099ceeedd64746099200be680deb59802125e176751f90ebe3`.
+Temporary paths are session evidence and may be removed by an operating-system restart. Documentation was completed after
+packing; runtime files were not changed. Runtime SHA-256 values:
+
+- ESM: `3220a9ed87ac7b18439fdf369c4ffe048c2b7217ec675c7ed0ff69ed61207a84`.
+- CJS: `86a426f3e8c3d1949766175f49b0c4184d84cf6b7b07a30cdcf38c1fcd091f0d`.
+- CSS: `b1fe0c42b48df3514de5e5984ea92f3401796202d8a85b9be4e1ef4e8ee9e18c`.
+
+The package/declaration build, 105 unit tests, 4 distribution tests and all 14 source-demo Chrome browser tests passed.
+Four isolated consumers reproduced installation with `npm ci` and passed the existing packed DOM smoke fixture:
+
+| Vue    | Host                 | Result |
+| ------ | -------------------- | ------ |
+| 2.6.14 | No Vuetify installed | Passed |
+| 2.6.14 | Vuetify 2.6.15       | Passed |
+| 2.7.16 | No Vuetify installed | Passed |
+| 2.7.16 | Vuetify 2.6.15       | Passed |
+
+The fixture covers native controls, typed filters, selection, mobile switching, export and direct provider pagination.
+Local execution used Node 24.21.0; this does not establish a remote CI result or additional browser-engine coverage.
+
+The fresh tarball was also installed into `/private/tmp/sdt-clarity-review-eyj9_4dv/package-lab`, an isolated copy of Lab
+source `a2b66d8` using Vue 2.7.16 and Vuetify 2.6.16. `npm ci`, type checking and production build passed. The installed
+ESM, CJS and CSS hashes were checked against the candidate and matched. The original Lab working tree remains unchanged.
+The build retains its host's existing large-chunk warning and host-provided icon fonts; these are not package dependencies.
+
+The Lab server was restarted at its existing `http://127.0.0.1:4176` origin with forced dependency re-optimization.
+No Lab browser tests were rerun through another surface to bypass the saved origin restriction. The earlier 11-pass,
+1-failure Lab result and subsequent manual acceptance remain historical evidence. A new manual check of row selection,
+resize, expanded details and overflow has been requested for this updated CSS candidate; acceptance is pending.
+
 ## Compatibility limits
 
 Browser automation used installed Chrome. Safari/Firefox, obsolete browsers, and assistive-technology certification are
