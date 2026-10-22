@@ -174,3 +174,16 @@ Post-publication verification passed: the exact stable version was installed fro
 without Vuetify, followed by `npm ci` and the DOM smoke fixture (controls, filters, selection, mobile switching, export and
 direct provider jump). Its lockfile resolves to the registry tarball with the matching stable integrity. Stable
 publication and its registry-consumer verification are complete under the maintainer's recorded acceptance decision.
+
+## GitHub Release 0.3.0
+
+On 2026-10-23 (Asia/Tehran), the maintainer explicitly requested the GitHub Release follow-up. No existing `v0.3.0` tag
+or release was present. An annotated `v0.3.0` tag was created and pushed at stable publication commit
+`fc085da9796eb2e0623c085fcdcfe7ceceefd58b`; later demo and CI-fixture changes remain on `main` rather than changing this
+release's source identity. The stable npm artifact was not rebuilt or republished.
+
+[GitHub Release v0.3.0](https://github.com/reydi-dev/vue2-smart-datatable/releases/tag/v0.3.0) was published as a non-draft,
+non-prerelease and marked latest. Its notes include install instructions, Clarity features, live demo/API links, the
+migration guide and validation scope. The exact notes are retained in [releases/0.3.0.md](releases/0.3.0.md).
+The public GitHub latest-release response was verified to identify `v0.3.0` and contain the prepared notes unchanged.
+The tag's peeled commit was checked against `fc085da`. This step does not claim new manual functional acceptance.
