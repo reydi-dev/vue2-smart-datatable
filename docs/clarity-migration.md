@@ -22,8 +22,10 @@ the exploratory [design plan](ui-ux-redesign.md). No package publication, releas
    Clarity styles. Slots are retained; dense/sticky layouts, keyboard activation, and long/missing/mixed-direction content
    are covered. The [native renderer guide](native-renderers.md) records behavior and consumer CSS migration. A standalone
    `/renderers.html` entry exercises real components with 13 columns and no Vuetify imports.
-5. **Toolbar, filters, columns, export, and states — planned.** Replace remaining controls, preserve custom extension
-   points, complete localization and loading/error/no-results behavior, and review focus and keyboard navigation.
+5. **Toolbar, filters, columns, export, and states — complete.** Native controls, localized filter conditions, column
+   drafts and modal focus, export disclosure/progress/failure, and loading/error/no-results states now share Clarity styles.
+   Slots and provider/export contracts remain available. The main demo uses the full component without Vuetify imports,
+   with search through existing filters, Persian/RTL, and explicit themes. See the [control migration guide](native-controls.md).
 6. **Package and consumer validation — planned.** Remove the required Vuetify peer only after production code no longer
    depends on it. Update install/demo/API/migration documentation and validate packed consumers with and without Vuetify,
    Vue 2.6 compatibility, browser interactions, and API request behavior. Inspect Package Lab before modifying it.
@@ -65,3 +67,12 @@ fallbacks, native mixed selection, nested controls, guarded actions, dense rows,
 values, disabled-but-readable mobile details, and light/dark styling. Manual review covered 1280px desktop and 390px
 Persian mobile. A page-overflow issue from offscreen screen-reader placeholders was fixed and covered by the desktop
 browser test. Package Lab and independent Vue 2.6 validation remain pending stage 6. Next: stage 5 controls and states.
+
+Stage 5 validation passed: 104 unit tests, 14 Chrome browser tests, type checking, lint, formatting, package/declaration
+build, 3 distribution tests, demo production build, and `npm pack --dry-run`. New coverage verifies original boolean
+option types, numeric ranges and zero, scalar/multiple filter transitions, custom filter callbacks, column draft/fixed
+column behavior, modal Tab/Shift+Tab/Escape/focus restoration, export scope/download and guarded failures, no-results
+recovery, and disabled states. The complete main demo makes no font requests and has no Vuetify component markup.
+Manual review covered the main desktop view and Persian/RTL dark mobile column dialog at 390px. Native dialog focus
+cycling was tightened after a keyboard regression test exposed a boundary case. Package peer removal, independent
+Vue 2.6/Package Lab validation, older-browser compatibility, and final demo-fixture consolidation remain stage 6 work.

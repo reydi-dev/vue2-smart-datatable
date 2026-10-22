@@ -42,6 +42,10 @@ The package is developed with Vue 2.7 and also tested as a packed dependency in 
 
 Contributing to or building this repository requires Node.js 20 because the development and browser-test toolchain has a newer runtime floor than the distributed library.
 
+> Clarity migration: all built-in UI now uses native controls. The main demo runs without Vuetify imports; package peers
+> and the installation instructions below remain unchanged until final consumer validation. See the
+> [migration stages](docs/clarity-migration.md) and [native control guide](docs/native-controls.md).
+
 ## Install
 
 In a Vue 2 application that already uses Vuetify 2.6:

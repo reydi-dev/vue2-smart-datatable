@@ -186,6 +186,16 @@ export interface DataTableMessages {
   notProvided?: string
   moreDetails?: string
   openRow?: string
+  close?: string
+  clearFilter?: string
+  filterOperator?: string
+  filterValue?: string
+  filterFrom?: string
+  filterTo?: string
+  filterAny?: string
+  filterOperators?: Partial<Record<FilterOperator, string>>
+  noResults?: string
+  exportFailed?: string
   table?: string
 }
 

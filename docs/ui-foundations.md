@@ -1,8 +1,7 @@
 # Independent UI foundations (migration stage 3)
 
-Table-owned icons, viewport detection, and the shared Clarity style tokens no longer use Vuetify services. Other table
-controls still use Vuetify until later [migration stages](clarity-migration.md). Keep the existing required Vue/Vuetify
-installation during this intermediate release.
+Table-owned icons, viewport detection, and the shared Clarity style tokens no longer use Vuetify services. All built-in controls have also migrated in [stage 5](native-controls.md). Keep the existing required Vue/Vuetify
+installation until the final [package-validation stage](clarity-migration.md).
 
 ## Viewport and mobile breakpoint
 
@@ -42,8 +41,7 @@ to these bundled drawings:
 `chevron-right`, `dots-vertical`, `refresh`, `check-circle`, `close-circle`.
 
 For example, `mdi-download` and `download` render the same SVG with no external font. This applies to table-owned toolbar,
-cell, sort, action, retry, export, and pagination icons. Icons internal to remaining Vuetify controls still follow their
-own host configuration.
+cell, sort, action, retry, export, and pagination icons. Application-provided icons in custom slots remain host-owned.
 
 `DataTableIcon` accepts a string or an `SvgIconDefinition`. Existing SVG path strings also remain supported. Custom objects
 can contain one filled path or multiple paths with an optional view box; use `stroke: true` for a stroke drawing.
@@ -71,8 +69,7 @@ attributes, never as raw HTML.
 
 `theme="light"` and `theme="dark"` set the native foundation palette without a Vuetify theme service. Omitting the prop uses
 the light palette, with a compatibility bridge for an existing `.theme--dark` ancestor. An explicit light theme overrides
-that bridge. The theme affects native controls, desktop/mobile renderers, cells, row actions, and table-owned icons; remaining Vuetify components
-continue to inherit their host's theme until their migration is complete.
+that bridge. The theme affects all built-in controls, dialogs, desktop/mobile renderers, cells, row actions, and table-owned icons. Custom slot components keep their host configuration.
 
 All tokens and focus/disabled rules are scoped to `.sdt-root`. No stylesheet resets are applied to unrelated app controls.
 Customize tokens on the table root:

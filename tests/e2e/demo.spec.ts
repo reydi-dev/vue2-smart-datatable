@@ -24,7 +24,7 @@ test('production pagination jumps on Enter, rejects out-of-range pages, and work
 
 test('local and server demos render responsively', async ({ page }) => {
   await page.goto('/')
-  await expect(page.getByText('Smart Data Table v0.1.0')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Smart Data Table', exact: true })).toBeVisible()
   await expect(page.getByText('Person 1', { exact: true })).toBeVisible()
   await page.getByRole('button', { name: 'Server' }).click()
   await expect(page.getByText('Normalized server data')).toBeVisible()

@@ -49,13 +49,15 @@ For translated selection controls, override `messages.selectAll` and `messages.s
 Desktop/mobile renderers, selection, row actions, and cells now use native HTML. Optional `messages.table`,
 `messages.moreDetails`, `messages.openRow`, and `messages.notProvided` label the table region, mobile disclosure,
 mobile row activation, and missing values. See the [renderer migration guide](native-renderers.md) for native CSS
-classes, preserved slots, keyboard behavior, long-text presentation, and row-action color mapping. Toolbar and other
-unmigrated controls still require Vuetify at this stage.
+classes, preserved slots, keyboard behavior, long-text presentation, and row-action color mapping. Toolbar, filters,
+column/export controls, and states have also migrated; see the [native control guide](native-controls.md) for new optional
+message fields, filter value types, modal focus, export failure behavior, and the search integration pattern. The required
+Vuetify peer remains in package metadata until final consumer validation.
 
 ## UI foundations
 
 `theme` optionally accepts `'light'` or `'dark'` for the independent native-control palette. Omit it to preserve the legacy
-`.theme--dark` ancestor bridge. Remaining Vuetify controls still use the host theme in this intermediate migration stage.
+`.theme--dark` ancestor bridge. All built-in controls follow this palette, including the native column dialog.
 
 See [UI foundations](ui-foundations.md) for the numeric `mobileBreakpoint`, legacy alias ranges, SVG definitions and MDI
 compatibility, boolean-cell accessible labels, theme tokens, and the standalone verification page.
@@ -82,7 +84,8 @@ the allowed numeric range. Existing message objects retain English defaults for 
 Pagination form controls now use native HTML with scoped `.sdt-pagination__*` classes. The `--sdt-accent`,
 `--sdt-accent-soft`, `--sdt-surface`, `--sdt-text-color`, and `--sdt-error-color` CSS variables configure these controls
 alongside the existing border/muted/tint variables. Bundled inline SVG icons and RTL navigation direction are independent of Vuetify; custom MDI font names require a
-host-provided font stylesheet. The library as a whole still requires Vuetify for controls that have not yet migrated.
+host-provided font stylesheet. Production controls are now native; the required Vuetify package peer is retained until
+final consumer validation.
 
 ## Events
 

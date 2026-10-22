@@ -34,6 +34,7 @@
   --sdt-focus-width: 2px;
   --sdt-focus-offset: 3px;
   --sdt-disabled-opacity: 0.45;
+  color-scheme: light;
   position: relative;
   width: 100%;
 }
@@ -41,6 +42,7 @@
 // The ancestor selector is a compatibility bridge, not a dependency of explicit themes.
 .theme--dark .sdt-root:not([data-sdt-theme='light']),
 .sdt-root[data-sdt-theme='dark'] {
+  color-scheme: dark;
   --sdt-border-color: #42554b;
   --sdt-muted-color: #b3c4bb;
   --sdt-tint-color: #27372f;

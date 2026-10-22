@@ -1,0 +1,198 @@
+.sdt-root {
+  color: var(--sdt-text-color);
+  background: var(--sdt-surface);
+  font-size: var(--sdt-font-size);
+  border: 1px solid var(--sdt-border-color);
+  border-radius: var(--sdt-radius);
+  min-width: 0;
+}
+.sdt-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  min-height: var(--sdt-control-height);
+  border: 1px solid var(--sdt-border-color);
+  border-radius: var(--sdt-control-radius);
+  background: var(--sdt-surface);
+  color: var(--sdt-text-color);
+  font: inherit;
+  font-size: var(--sdt-font-size-small);
+  line-height: 1.5;
+  cursor: pointer;
+}
+.sdt-control:hover:not(:disabled),
+.sdt-control[aria-expanded='true'] {
+  color: var(--sdt-accent);
+  border-color: var(--sdt-accent);
+  background: var(--sdt-accent-soft);
+}
+.sdt-control--primary {
+  background: var(--sdt-accent);
+  color: var(--sdt-surface);
+}
+.sdt-toolbar {
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 16px;
+}
+.sdt-toolbar__content {
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.sdt-toolbar__actions {
+  gap: 8px;
+}
+.sdt-filters {
+  margin: 0;
+  padding: 20px;
+  background: var(--sdt-tint-color);
+  border-bottom: 1px solid var(--sdt-border-color);
+}
+.sdt-filters__grid {
+  align-items: start;
+  gap: 20px;
+}
+.sdt-filter {
+  gap: 8px;
+  padding: 12px;
+  background: var(--sdt-surface);
+  border: 1px solid var(--sdt-border-color);
+  border-radius: var(--sdt-control-radius);
+  min-width: 0;
+}
+.sdt-filter label {
+  display: grid;
+  gap: 6px;
+  font-size: var(--sdt-font-size-small);
+  color: var(--sdt-muted-color);
+}
+.sdt-filter input,
+.sdt-filter select,
+.sdt-search input {
+  width: 100%;
+  min-width: 0;
+  min-height: var(--sdt-control-height);
+  padding: 8px 10px;
+  border: 1px solid var(--sdt-border-color);
+  border-radius: var(--sdt-control-radius);
+  background: var(--sdt-surface);
+  color: var(--sdt-text-color);
+  font: inherit;
+}
+.sdt-filter select[multiple] {
+  min-height: 100px;
+}
+.sdt-filter__clear {
+  justify-self: end;
+}
+.sdt-filters footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 16px;
+}
+.sdt-export {
+  position: relative;
+}
+.sdt-export__panel {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + 8px);
+  z-index: 10;
+  width: max-content;
+  max-width: min(300px, 80vw);
+  display: grid;
+  padding: 6px;
+  background: var(--sdt-surface);
+  border: 1px solid var(--sdt-border-color);
+  border-radius: var(--sdt-control-radius);
+  box-shadow: 0 8px 24px #182c2420;
+}
+.sdt-export__panel button {
+  border: 0;
+  border-radius: 4px;
+  padding: 10px;
+  background: transparent;
+  color: var(--sdt-text-color);
+  font: inherit;
+  font-size: var(--sdt-font-size-small);
+  text-align: start;
+  cursor: pointer;
+}
+.sdt-export__panel button:hover {
+  background: var(--sdt-accent-soft);
+}
+.sdt-dialog {
+  width: min(480px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  margin: auto;
+  border: 1px solid var(--sdt-border-color);
+  border-radius: var(--sdt-radius);
+  color: var(--sdt-text-color);
+  background: var(--sdt-surface);
+  font: inherit;
+  box-shadow: 0 20px 80px #0003;
+}
+.sdt-dialog::backdrop {
+  background: #14241f66;
+}
+.sdt-dialog__body {
+  padding: 20px;
+}
+.sdt-dialog header,
+.sdt-dialog footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.sdt-dialog h2 {
+  font-size: 18px;
+  margin: 0;
+}
+.sdt-dialog__columns {
+  display: grid;
+  gap: 4px;
+  padding-block: 16px;
+}
+.sdt-choice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
+  cursor: pointer;
+}
+.sdt-dialog :where(button, input):focus-visible {
+  outline: var(--sdt-focus-width) solid var(--sdt-accent);
+  outline-offset: 3px;
+}
+.sdt-state {
+  flex-wrap: wrap;
+}
+.sdt-state--error {
+  color: var(--sdt-error-color);
+}
+.sdt-export-progress progress {
+  width: 100%;
+  height: 4px;
+  accent-color: var(--sdt-accent);
+  display: block;
+}
+@media (max-width: 600px) {
+  .sdt-toolbar,
+  .sdt-filters {
+    padding: 16px;
+  }
+  .sdt-toolbar__content {
+    width: 100%;
+  }
+  .sdt-toolbar__actions {
+    margin-inline-start: 0;
+  }
+  .sdt-filters__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

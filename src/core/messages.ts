@@ -3,6 +3,7 @@ import type { DataTableIcons, DataTableMessages } from '../types'
 export const defaultMessages = {
   loading: 'Loading data…',
   empty: 'No items to display',
+  noResults: 'No matching items',
   error: 'Unable to load data',
   retry: 'Retry',
   rowsPerPage: 'Rows per page',
@@ -33,6 +34,27 @@ export const defaultMessages = {
   moreDetails: 'More details',
   openRow: 'Open row',
   table: 'Data table',
+  close: 'Close',
+  clearFilter: 'Clear filter',
+  filterOperator: 'Condition',
+  filterValue: 'Value',
+  filterFrom: 'From',
+  filterTo: 'To',
+  filterAny: 'Any value',
+  exportFailed: 'Unable to export data',
+  filterOperators: {
+    contains: 'Contains',
+    startsWith: 'Starts with',
+    endsWith: 'Ends with',
+    eq: 'Equals',
+    neq: 'Does not equal',
+    gt: 'Greater than',
+    gte: 'At least',
+    lt: 'Less than',
+    lte: 'At most',
+    between: 'Between',
+    in: 'Is one of',
+  },
 } satisfies DataTableMessages
 
 export const defaultIcons: DataTableIcons = {

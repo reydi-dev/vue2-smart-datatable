@@ -2,12 +2,26 @@
   <div class="sdt-toolbar">
     <div class="sdt-toolbar__content"><slot /></div>
     <div class="sdt-toolbar__actions">
-      <v-btn v-if="hasFilters" text :disabled="disabled" @click="$emit('toggle-filters')"
-        ><SmartTableIcon :icon="icons.filter" :size="18" leading />{{ messages.filters }}</v-btn
+      <button
+        type="button"
+        class="sdt-control"
+        v-if="hasFilters"
+        :disabled="disabled"
+        :aria-expanded="filtersOpen ? 'true' : 'false'"
+        @click="!disabled && $emit('toggle-filters')"
       >
-      <v-btn v-if="columnVisibility" text :disabled="disabled" @click="$emit('columns')"
-        ><SmartTableIcon :icon="icons.columns" :size="18" leading />{{ messages.columns }}</v-btn
+        <SmartTableIcon :icon="icons.filter" :size="18" leading />{{ messages.filters }}
+      </button>
+      <button
+        type="button"
+        class="sdt-control"
+        v-if="columnVisibility"
+        :disabled="disabled"
+        aria-haspopup="dialog"
+        @click="!disabled && $emit('columns')"
       >
+        <SmartTableIcon :icon="icons.columns" :size="18" leading />{{ messages.columns }}
+      </button>
       <ExportMenu
         v-if="exporters.length"
         :exporters="exporters"
@@ -31,6 +45,7 @@ export default Vue.extend({
   components: { ExportMenu, SmartTableIcon },
   props: {
     hasFilters: Boolean,
+    filtersOpen: Boolean,
     columnVisibility: Boolean,
     exporters: { type: Array as () => ExporterAdapter[], default: () => [] },
     messages: { type: Object as () => DataTableMessages, required: true },

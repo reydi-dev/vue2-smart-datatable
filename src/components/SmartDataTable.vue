@@ -1,9 +1,10 @@
 <template>
-  <div class="sdt-root" :dir="direction" :data-sdt-theme="theme">
+  <div class="sdt-root" :dir="direction" :data-sdt-theme="theme" :aria-busy="isLoading || exporting ? 'true' : 'false'">
     <slot name="toolbar" :state="getState()">
       <SmartTableToolbar
         v-if="showToolbar"
         :has-filters="hasFilterableColumns"
+        :filters-open="filtersOpen"
         :column-visibility="columnVisibility"
         :exporters="exporters"
         :messages="resolvedMessages"
@@ -12,7 +13,7 @@
         :disabled="disabled"
         @toggle-filters="!disabled && (filtersOpen = !filtersOpen)"
         @columns="!disabled && (columnsDialog = true)"
-        @export="!disabled && exportData($event.exporter, $event.scope)"
+        @export="runExport($event.exporter, $event.scope)"
         ><slot name="toolbar-prepend" /><template #append><slot name="toolbar-append" /></template
       ></SmartTableToolbar>
     </slot>
@@ -30,21 +31,36 @@
       </template>
     </SmartTableFilters>
 
-    <v-alert v-if="internalError" type="error" text class="sdt-state">
+    <div v-if="internalError" role="alert" class="sdt-state sdt-state--error">
       <slot name="error" :error="internalError" :retry="refresh"
         >{{ resolvedMessages.error }}
-        <v-btn text small @click="refresh()"
-          ><SmartTableIcon :icon="resolvedIcons.retry" :size="16" leading />{{ resolvedMessages.retry }}</v-btn
-        ></slot
-      >
-    </v-alert>
-    <div v-else-if="isLoading" class="sdt-state">
-      <slot name="loading"
-        ><v-progress-circular indeterminate color="primary" /><span>{{ resolvedMessages.loading }}</span></slot
+        <button type="button" class="sdt-control" :disabled="disabled" @click="!disabled && refresh()">
+          <SmartTableIcon :icon="resolvedIcons.retry" :size="16" leading />{{ resolvedMessages.retry }}
+        </button></slot
       >
     </div>
-    <div v-else-if="displayRows.length === 0" class="sdt-state">
-      <slot name="empty">{{ resolvedMessages.empty }}</slot>
+    <div v-else-if="isLoading" class="sdt-state" role="status">
+      <slot name="loading"
+        ><span class="sdt-action__spinner" aria-hidden="true" /><span>{{ resolvedMessages.loading }}</span></slot
+      >
+    </div>
+    <div v-else-if="displayRows.length === 0" class="sdt-state" role="status">
+      <slot name="empty"
+        ><span>{{
+          Object.keys(withoutEmptyFilters(internalFilters)).length
+            ? resolvedMessages.noResults || resolvedMessages.empty
+            : resolvedMessages.empty
+        }}</span
+        ><button
+          v-if="Object.keys(withoutEmptyFilters(internalFilters)).length"
+          type="button"
+          class="sdt-control"
+          :disabled="disabled"
+          @click="!disabled && resetFilters()"
+        >
+          {{ resolvedMessages.clearFilters }}
+        </button></slot
+      >
     </div>
 
     <component
@@ -157,8 +173,16 @@
       @apply="!disabled && setVisibleColumns($event)"
       @reset="!disabled && resetColumnVisibility()"
     />
+    <div v-if="exportFailed" role="alert" class="sdt-state sdt-state--error">
+      {{ resolvedMessages.exportFailed || 'Unable to export data'
+      }}<button type="button" class="sdt-control" @click="exportFailed = false">
+        {{ resolvedMessages.close || 'Close' }}
+      </button>
+    </div>
     <div v-if="exporting" class="sdt-export-progress">
-      <slot name="export-progress" :percent="exportProgress"><v-progress-linear :value="exportProgress" /></slot>
+      <slot name="export-progress" :percent="exportProgress"
+        ><progress :value="exportProgress" max="100" :aria-label="resolvedMessages.export"
+      /></slot>
     </div>
   </div>
 </template>
@@ -288,6 +312,7 @@ export default Vue.extend({
       columnsDialog: false,
       exporting: false,
       exportProgress: 0,
+      exportFailed: false,
       requestId: 0,
       activeController: null as AbortController | null,
       loadTimer: null as ReturnType<typeof setTimeout> | null,
@@ -451,6 +476,7 @@ export default Vue.extend({
     this.cancelPendingLoad()
   },
   methods: {
+    withoutEmptyFilters,
     cancelPendingLoad(emitLoadingChange = false) {
       if (this.loadTimer) clearTimeout(this.loadTimer)
       this.loadTimer = null
@@ -622,6 +648,15 @@ export default Vue.extend({
       if (!this.dataProvider) throw new Error('dataProvider is required for server exports')
       const request = { ...this.request('export'), page, itemsPerPage }
       return normalizeProviderResponse(await this.dataProvider(request), request, this.normalizeResponse)
+    },
+    async runExport(exporterKey: string, scope: ExportScope) {
+      if (this.disabled || this.exporting) return
+      this.exportFailed = false
+      try {
+        await this.exportData(exporterKey, scope)
+      } catch {
+        this.exportFailed = true
+      }
     },
     async exportData(exporterKey: string, scope: ExportScope = 'current'): Promise<void> {
       const exporter = this.exporters.find((item) => item.key === exporterKey)
