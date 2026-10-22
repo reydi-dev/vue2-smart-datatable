@@ -41,3 +41,10 @@ The Pages-base production build passed; the output was inspected to contain exac
 `/vue2-smart-datatable/assets/` paths. Development HTML entries remain excluded. The default desktop page was also
 reviewed in the in-app browser and a screenshot saved as `public-demo-desktop.png` in the session visualization folder.
 No library runtime source or npm version changed in this consolidation. Remote CI/deployment is verified separately.
+
+The first remote CI run (`39862100025`) exposed a Node 18 fixture issue: strict comparison rejected Vue's reactive
+selection array despite the expected selected value `[1]`. The selection assertion now normalizes with `Array.from`
+before comparing keys; it continues to fail for wrong selection values/order. The original fixture failure was reproduced
+locally on Node 18.20.8, and all four existing isolated Vue/host consumers then passed with the corrected fixture on that
+runtime. This changes a compatibility-test assertion, not library selection behavior. Deployment remains gated by the
+subsequent full remote CI run.
