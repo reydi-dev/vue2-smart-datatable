@@ -1,9 +1,9 @@
 {
   "name": "vue2-smart-datatable",
-  "version": "0.3.0-rc.1",
+  "version": "0.3.0",
   "publishConfig": {
     "access": "public",
-    "tag": "next"
+    "tag": "latest"
   },
   "description": "A TypeScript-ready, UI-framework-independent data table for Vue 2.6+ with server-side pagination, filtering, mobile layouts, RTL, and CSV export.",
   "author": {

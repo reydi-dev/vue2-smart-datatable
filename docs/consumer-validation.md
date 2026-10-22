@@ -112,6 +112,24 @@ jump). Its lockfile resolves to `https://registry.npmjs.org/vue2-smart-datatable
 with the matching integrity. Earlier four-way consumer and manual Lab results retain their documented scope; no new
 Package Lab browser validation is claimed. The original consumer repositories remain unchanged.
 
+## Published Clarity stable — 0.3.0
+
+Publication date: 2026-10-23 (Asia/Tehran). The maintainer explicitly chose stable `0.3.0` publication. Runtime JavaScript,
+CSS and all distributed declarations match `0.3.0-rc.1` byte-for-byte; release notes, metadata and upgrade documentation
+were updated. Package/declaration build, 4 distribution tests, lint/format checks and a pre-publication packed smoke test
+passed. See [release readiness](release-readiness.md) for the full artifact inspection and acceptance decision.
+
+The registry integrity matches the inspected tarball:
+`sha512-PhkJimnBVGNdt5XTC+WxF5IiImTYNzduUTs3uEl33Oc0nZKSk/2owdVEaMuAYtSj86juE0VgXVBLcbQ6feiE+A==`.
+SHA-1: `5ac530d6bf37c168366a3c6afacd2873d47b6a13`. `latest` is `0.3.0`; `next` remains `0.3.0-rc.1`.
+
+The exact published stable version was installed into the isolated Vue 2.7.16 consumer without Vuetify. Clean `npm ci`
+and the existing DOM smoke fixture passed controls, filters, selection, mobile, export and direct provider jumps. Its
+lockfile resolves to the npm registry tarball and matching integrity. The earlier browser/four-way consumer evidence
+retains its historical scope; the unreported manual functional checklist and old immediate-width failure are not claimed
+as passing tests. No new Lab browser run or production-application acceptance is claimed. Original consumer repositories
+were not modified, and the hosted demo was not deployed as part of this publication.
+
 ## Compatibility limits
 
 Browser automation used installed Chrome. Safari/Firefox, obsolete browsers, and assistive-technology certification are

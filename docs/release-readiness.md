@@ -3,13 +3,13 @@
 Branch: `clarity-ui-migration`. This checklist follows the completed six implementation stages. It does not authorize
 publication, release tags, or deployment.
 
-| Step | Scope                                                                     | Status                                                       |
-| ---- | ------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| 1    | Final visual review against Clarity                                       | Approved by maintainer after source-demo visual review       |
-| 2    | Pack the final candidate and validate in Package Lab                      | Completed: automated checks and maintainer manual acceptance |
-| 3    | Set the RC version, changelog, upgrade notes and inspect package contents | Completed: 0.3.0-rc.1 packed and inspected                   |
-| 4    | Publish an explicitly approved RC under `next`                            | Completed: published under next and registry consumer passed |
-| 5    | Review real-consumer feedback and approve stable release                  | In progress: Package Lab RC acceptance pending               |
+| Step | Scope                                                                     | Status                                                                      |
+| ---- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| 1    | Final visual review against Clarity                                       | Approved by maintainer after source-demo visual review                      |
+| 2    | Pack the final candidate and validate in Package Lab                      | Completed: automated checks and maintainer manual acceptance                |
+| 3    | Set the RC version, changelog, upgrade notes and inspect package contents | Completed: 0.3.0-rc.1 packed and inspected                                  |
+| 4    | Publish an explicitly approved RC under `next`                            | Completed: published under next and registry consumer passed                |
+| 5    | Review real-consumer feedback and approve stable release                  | Stable publication authorized; see decision and remaining unreported checks |
 
 ## Step 1 evidence
 
@@ -134,3 +134,43 @@ package was published. The original Lab repository remains unchanged. Consumer t
 passed. See [RC acceptance](rc-acceptance.md) for the reproducible preparation script and review scope.
 The maintainer subsequently approved the consumer-route appearance explicitly on 2026-10-23. Visual acceptance is
 complete; remaining functional acceptance results are pending. Step 5 stays open and stable publication is not authorized.
+
+## Stable 0.3.0 preparation
+
+On 2026-10-23 (Asia/Tehran), the maintainer explicitly requested stable `0.3.0` publication rather than moving to `1.0.0`.
+This later instruction authorizes preparing and publishing the stable artifact; the previously requested additional manual
+functional results remain unreported and are not recorded as passes. Consumer appearance was approved, and historical
+unit/browser/packed-consumer and manual resize evidence retains its original scope and limitations.
+
+Stable metadata and migration/release notes are prepared; `publishConfig.tag` is now `latest`. The stable artifact must
+be built and inspected against the approved RC, including declarations. Publication uses that reviewed tarball, followed
+by registry integrity/tag verification and clean consumer installation. No unrelated runtime changes, git push, release
+tag or hosted-demo deployment are included in this authorization.
+
+## Stable 0.3.0 publication evidence
+
+Published on 2026-10-23 (Asia/Tehran) using the maintainer's explicit instruction. Build/declaration generation, 4
+distribution tests, lint and formatting passed. All distributed JavaScript, CSS and declaration files were compared
+byte-for-byte with the approved RC and matched. Package exports resolve to included files; source, tests, examples,
+node_modules and demo build output are absent. The final tarball passed the isolated Vue 2.7.16 native-consumer smoke
+fixture before publication. The full unit/browser/four-way results remain earlier evidence; no new Lab browser run or
+unreported manual functional pass is claimed.
+
+Artifact: `vue2-smart-datatable-0.3.0.tgz`, retained with `package-manifest.json` in the session visualization directory's
+`stable-release/` folder. It contains 51 files, 82,814 compressed bytes. The exact inspected artifact was published with
+`--tag latest --access public`; registry processing initially returned E404 until the version became available.
+
+- SHA-256: `850ea11e85ede6e6f65131ea4a691976718ce4290c594ec6e059f12be4abbf65`.
+- Registry SHA-1: `5ac530d6bf37c168366a3c6afacd2873d47b6a13`.
+- Registry integrity: `sha512-PhkJimnBVGNdt5XTC+WxF5IiImTYNzduUTs3uEl33Oc0nZKSk/2owdVEaMuAYtSj86juE0VgXVBLcbQ6feiE+A==`.
+
+Registry integrity matches the reviewed tarball. `latest` is `0.3.0`; `next` remains `0.3.0-rc.1`.
+No git release tag, push, hosted-demo deployment or modification of the original Lab repository was performed.
+This final evidence was written after packing; the published archive contains the preparation decision rather than its
+own final integrity report. Earlier checklist snapshots in this document are historical; this section records the
+maintainer's subsequent stable-publication decision. Remaining manual checks stay unreported in `rc-acceptance.md`.
+
+Post-publication verification passed: the exact stable version was installed from npm in the isolated Vue 2.7.16 consumer
+without Vuetify, followed by `npm ci` and the DOM smoke fixture (controls, filters, selection, mobile switching, export and
+direct provider jump). Its lockfile resolves to the registry tarball with the matching stable integrity. Stable
+publication and its registry-consumer verification are complete under the maintainer's recorded acceptance decision.

@@ -2,7 +2,7 @@
 
 Candidate: `vue2-smart-datatable@0.3.0-rc.1` from npm. Review started 2026-10-23 (Asia/Tehran).
 The maintainer selected Package Lab as the acceptance consumer for now. This is a test-bench review, not evidence of
-production use in another application. Stable publication requires the review results and separate explicit approval.
+production use in another application. The remaining review results are tracked below; the subsequent explicit stable-publication decision is recorded at the end.
 
 ## Prepared environment
 
@@ -77,3 +77,16 @@ visual acceptance of the registry consumer composition, not an automated browser
 functional scenario has passed. Visual comparison is closed. The remaining behavior checks (search/status tabs, selection,
 column visibility, CSV and the generic provider/recovery scenarios above) remain pending explicit results. Earlier
 manual resize acceptance remains recorded; it does not establish a fresh pass for every RTL/theme combination.
+
+## Stable publication decision
+
+On 2026-10-23 the maintainer explicitly requested publishing `0.3.0` after discussing and retaining the pre-1.0
+versioning policy. This authorizes the stable release despite the additional functional checklist above lacking explicit
+results. Those items remain unreported, not passed. Earlier automated/consumer checks, manually accepted resize and
+consumer visual approval remain the available evidence; no new production-application or Lab browser result is claimed.
+The earlier automated width failure and browser-support limits remain documented. Prepare and inspect the stable artifact
+against the RC before using that authorization; this decision does not authorize unrelated runtime changes.
+
+Stable `0.3.0` was subsequently published under `latest` on the same date. Its distributed runtime and declarations match
+the accepted RC byte-for-byte; see [release readiness](release-readiness.md) for artifact and registry verification.
+The outstanding checklist rows are retained as follow-up coverage, not a statement that release publication is pending.

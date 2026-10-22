@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0 - 2026-10-23
+
+- Promoted Clarity to stable with runtime JavaScript, CSS and declarations unchanged from `0.3.0-rc.1`.
+- See the [upgrade guide](docs/clarity-upgrade.md) before upgrading from the Vuetify-based `0.2.x` release.
+
 ## 0.3.0-rc.1 - 2026-10-23
 
 - Replaced built-in Vuetify UI with native Clarity desktop/mobile renderers, filters, column dialog, export controls, and states. Vue is now the only peer dependency; no icon font is required.
@@ -7,7 +12,7 @@
 - Retained public slots/provider/export contracts and legacy breakpoint/icon aliases. **Migration required:** consumer CSS and DOM selectors targeting Vuetify internals, Vuetify palette names and icon-registry aliases need updating. Custom Vuetify breakpoint settings are no longer read; pass an explicit threshold. The built-in column chooser requires native modal dialog support or a host polyfill. See the [upgrade guide](docs/clarity-upgrade.md).
 - Refreshed the main demo and kept development labs outside its default production build. Extended packed-consumer coverage to Vue 2.6/2.7 with and without a Vuetify host.
 
-Published as a prerelease under `next`; stable `latest` remains `0.2.0`.
+Originally published as a prerelease under `next`; superseded by stable `0.3.0`.
 
 ## 0.2.0 - 2026-10-21
 

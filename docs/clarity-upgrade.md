@@ -1,19 +1,16 @@
-# Upgrading to Clarity
+# Upgrading to Clarity 0.3.0
 
-The published candidate is `0.3.0-rc.1`, upgrading the `0.2.0` line to Clarity. It was published under `next` on
-2026-10-23; the hosted demo has not been redeployed.
+Clarity `0.3.0` upgrades the `0.2.0` line with runtime output unchanged from `0.3.0-rc.1`.
 This is a pre-1.0 minor release with UI integration changes: review the checklist below even when your data/provider
-contracts are unchanged. Existing published versions retain their previous requirements.
+contracts are unchanged. The hosted demo is deployed separately.
 
-To inspect a local build before publication, install its tarball in a disposable consumer:
+Install the exact stable version in a disposable consumer before upgrading your application:
 
 ```sh
-npm install /absolute/path/to/vue2-smart-datatable-0.3.0-rc.1.tgz
+npm install vue2-smart-datatable@0.3.0
 ```
 
-Install the published prerelease with `npm install vue2-smart-datatable@0.3.0-rc.1`.
-Do not use the unqualified package name to test this candidate: it follows stable `latest` (`0.2.0`). At publication,
-`next` points to Clarity `0.3.0-rc.1`; using the exact version keeps your test reproducible if that tag moves later.
+Use exact versions when reproducing an RC or stable issue; npm tags can move.
 
 ## Installation
 
