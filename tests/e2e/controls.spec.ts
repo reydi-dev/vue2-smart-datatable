@@ -7,7 +7,7 @@ test('the complete main demo runs without Vuetify or fonts and supports search, 
   page.on('request', (request) => {
     if (/\.(woff2?|ttf)(\?|$)/.test(request.url())) fonts.push(request.url())
   })
-  await page.goto('/')
+  await page.goto('/#data')
   await expect(page.locator('.v-application,.v-btn,.v-input,.mdi')).toHaveCount(0)
   await page.getByRole('searchbox', { name: 'Search by name' }).fill('Person 67')
   await expect(page.locator('tbody tr')).toHaveCount(1)
@@ -41,7 +41,7 @@ test('the complete main demo runs without Vuetify or fonts and supports search, 
 })
 
 test('native numeric ranges and typed multi-select filters work with keyboard access', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/#data')
   await page.getByRole('button', { name: 'Filters', exact: true }).click()
   await page.getByRole('combobox', { name: 'Age · Condition', exact: true }).selectOption('between')
   await page.getByRole('spinbutton', { name: 'Age · From', exact: true }).fill('20')
@@ -56,7 +56,7 @@ test('native numeric ranges and typed multi-select filters work with keyboard ac
 
 test('Persian mobile dark controls and modal remain usable without page overflow', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto('/')
+  await page.goto('/#data')
   await page.getByRole('combobox', { name: 'Language', exact: true }).selectOption('fa')
   await page.getByRole('combobox', { name: 'پوسته', exact: true }).selectOption('dark')
   await expect(page.locator('.sdt-root')).toHaveAttribute('dir', 'rtl')

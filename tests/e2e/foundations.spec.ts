@@ -48,7 +48,7 @@ test('independent breakpoint detection follows live viewport and threshold chang
 })
 
 test('the real table changes renderers on resize and retains selection', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/#data')
   await expect(page.locator('.sdt-desktop')).toBeVisible()
   const selection = page.getByRole('checkbox', { name: 'Select row 1', exact: true })
   await selection.focus()

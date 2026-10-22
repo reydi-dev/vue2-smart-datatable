@@ -15,8 +15,8 @@ assert.equal(metadata.dependencies['vue2-smart-datatable'], '0.3.0-rc.1')
 assert.notEqual(lab, resolve(repo, '../vue2-package-lab'), 'Use a disposable copy, not the original Lab repository')
 const output = resolve(lab, 'src/clarity-orders')
 mkdirSync(output, { recursive: true })
-let page = readFileSync(resolve(repo, 'examples/renderers/RendererLab.vue'), 'utf8')
-page = page.replace('href="./index.html"', 'href="/local"')
+let page = readFileSync(resolve(repo, 'examples/orders/OrdersDemo.vue'), 'utf8')
+// The public example's source link is valid in the consumer as well.
 page = page.replace(
   /import SmartDataTable from '@\/components\/SmartDataTable.vue'\nimport \{ createCsvExporter \} from '@\/index'\nimport SmartTableCell from '@\/components\/SmartTableCell.vue'\nimport \{ defaultIcons, defaultMessages \} from '@\/core\/messages'/,
   "import { SmartDataTable, createCsvExporter } from 'vue2-smart-datatable'",
@@ -69,7 +69,7 @@ assert(
     !page.includes('defaultMessages'),
 )
 writeFileSync(resolve(output, 'ClarityOrders.vue'), page)
-writeFileSync(resolve(output, 'data.ts'), readFileSync(resolve(repo, 'examples/design/data.ts'), 'utf8'))
+writeFileSync(resolve(output, 'data.ts'), readFileSync(resolve(repo, 'examples/orders/data.ts'), 'utf8'))
 const routerPath = resolve(lab, 'src/router.ts')
 let router = readFileSync(routerPath, 'utf8')
 if (!router.includes("path: '/clarity-orders'")) {

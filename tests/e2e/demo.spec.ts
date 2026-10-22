@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 test('production pagination jumps on Enter, rejects out-of-range pages, and works on mobile', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/#data')
   const target = page.getByRole('textbox', { name: 'Go to page', exact: true })
   await target.fill('۳')
   await expect(page.getByText('Person 1', { exact: true })).toBeVisible()
@@ -23,7 +23,7 @@ test('production pagination jumps on Enter, rejects out-of-range pages, and work
 })
 
 test('local and server demos render responsively', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/#data')
   await expect(page.getByRole('heading', { name: 'Smart Data Table', exact: true })).toBeVisible()
   await expect(page.getByText('Person 1', { exact: true })).toBeVisible()
   await page.getByRole('button', { name: 'Server' }).click()
@@ -35,7 +35,7 @@ test('local and server demos render responsively', async ({ page }) => {
 })
 
 test('sorting and row selection have keyboard-accessible names and state', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/#data')
 
   const nameHeader = page.getByRole('columnheader', { name: 'Name' })
   const sortButton = nameHeader.getByRole('button', { name: 'Name' })
@@ -62,7 +62,7 @@ test('sorting and row selection have keyboard-accessible names and state', async
 })
 
 test('server filters update the visible rows and total', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/#data')
   await page.getByRole('button', { name: 'Server' }).click()
   await expect(page.locator('.sdt-desktop tbody tr')).toHaveCount(25)
 
@@ -76,7 +76,7 @@ test('server filters update the visible rows and total', async ({ page }) => {
 
 test('custom email cell remains available in mobile details', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 800 })
-  await page.goto('/')
+  await page.goto('/#data')
   await page.locator('.sdt-mobile__disclosure > summary').first().click()
   await expect(page.getByRole('link', { name: 'person1@example.com' })).toBeVisible()
 })

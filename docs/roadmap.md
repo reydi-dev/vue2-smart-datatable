@@ -1,6 +1,6 @@
 # Roadmap
 
-The current package targets Vue 2.6+ and does not require a UI framework. The package version in `package.json` is `0.2.0`;
+The current package targets Vue 2.6+ and does not require a UI framework. Clarity `0.3.0` is published on npm;
 the `0.1.0` checklist below is retained as historical release context.
 
 ## Clarity UI migration

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { it, expect } from 'vitest'
-import RendererLab from '../../examples/renderers/RendererLab.vue'
+import RendererLab from '../../examples/orders/OrdersDemo.vue'
 
 it('uses production slots for compact order summaries, retained selection and working status tabs', async () => {
   const previous = window.innerWidth

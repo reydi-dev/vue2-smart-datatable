@@ -99,7 +99,7 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. The default demo build contains one public entry. Development-only labs can be built with `npm run build:demo:labs` for regression testing. The [live demo](https://reydi-dev.github.io/vue2-smart-datatable/) shows the last deployed example with local data, a mock server provider, and mobile and RTL layouts.
+Open the local URL printed by Vite. The public entry opens the approved order example; use its navigation to switch to the local/API example (`#data`). Both use the real table with mobile and RTL controls. The default build emits one HTML entry, and development labs are excluded. See the [demo guide](docs/demo.md) for routes and build/deployment details. The [live demo](https://reydi-dev.github.io/vue2-smart-datatable/) shows the last successfully deployed build.
 
 ### Vite apps using Vuetify 2
 

@@ -6,7 +6,9 @@
         <h1>{{ t.orders }}</h1>
         <span>{{ t.subtitle }}</span>
       </div>
-      <a href="./index.html">{{ locale === 'fa' ? 'دموی اصلی' : 'Table demo' }}</a>
+      <a href="https://github.com/reydi-dev/vue2-smart-datatable" target="_blank" rel="noopener noreferrer">{{
+        locale === 'fa' ? 'کد پروژه' : 'View source'
+      }}</a>
     </header>
     <div class="renderer-controls">
       <label
@@ -192,8 +194,8 @@ import SmartDataTable from '@/components/SmartDataTable.vue'
 import { createCsvExporter } from '@/index'
 import SmartTableCell from '@/components/SmartTableCell.vue'
 import { defaultIcons, defaultMessages } from '@/core/messages'
-import { orders, copy, formatExtra } from '../design/data'
-import type { Order } from '../design/data'
+import { orders, copy, formatExtra } from './data'
+import type { Order } from './data'
 import type { DataTableColumn, DataTableMessages, RowAction } from '@/types'
 export default Vue.extend({
   components: { SmartDataTable, SmartTableCell },

@@ -458,8 +458,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import LabIcon from './LabIcon.vue'
-import { orders as standardOrders, largeOrders, copy, extraColumns, formatExtra } from './data'
-import type { Order, OrderStatus, ExtraColumn } from './data'
+import { orders as standardOrders, largeOrders, copy, extraColumns, formatExtra } from '../orders/data'
+import type { Order, OrderStatus, ExtraColumn } from '../orders/data'
 import { parsePageInput } from '../../src/core/pagination'
 
 type SortKey = 'id' | 'customer' | 'amount'

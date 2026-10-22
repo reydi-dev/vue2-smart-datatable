@@ -56,7 +56,8 @@ required peer/UI setup and styles is not a complete rollback.
 
 ## Demos and verification
 
-The public demo has one entry using the real table and a local/server mode switch. Design/foundation/renderer pages are
+The public demo has one entry: the approved orders composition is the default, and `#data` opens the local/API example.
+Both mount the real table. See the [demo guide](demo.md). Design/foundation/renderer pages are
 retained only as development fixtures: `npm run dev` serves them directly, and `npm run build:demo:labs` packages them for
 browser regression tests. The default `npm run build:demo` includes only the main page and its assets.
 

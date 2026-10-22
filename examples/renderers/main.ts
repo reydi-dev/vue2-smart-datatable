@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import RendererLab from './RendererLab.vue'
+import OrdersDemo from '../orders/OrdersDemo.vue'
 import '@/styles/index.scss'
 
-new Vue({ render: (h) => h(RendererLab) }).$mount('#app')
+new Vue({ render: (h) => h(OrdersDemo) }).$mount('#app')
