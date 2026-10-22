@@ -9,7 +9,7 @@ publication, release tags, or deployment.
 | 2    | Pack the final candidate and validate in Package Lab                      | Completed: automated checks and maintainer manual acceptance |
 | 3    | Set the RC version, changelog, upgrade notes and inspect package contents | Completed: 0.3.0-rc.1 packed and inspected                   |
 | 4    | Publish an explicitly approved RC under `next`                            | Completed: published under next and registry consumer passed |
-| 5    | Review real-consumer feedback and approve stable release                  | Pending                                                      |
+| 5    | Review real-consumer feedback and approve stable release                  | In progress: Package Lab RC acceptance pending               |
 
 ## Step 1 evidence
 
@@ -112,3 +112,14 @@ resolves to the registry tarball (not the local file) with the verified integrit
 installation and the DOM smoke fixture passed native controls, filters, selection, mobile switching, export and direct
 provider pagination. This is not a new Lab browser run. Step 4 is complete; step 5 (real-application feedback and explicit
 stable-release approval) remains pending.
+
+## Step 5 consumer feedback
+
+The maintainer chose Package Lab as the acceptance consumer for now. The isolated Lab copy now installs the exact
+published RC from npm with matching integrity; clean installation, type checking and production build passed.
+The same local origin was restarted for review. Temporary version labels now identify the RC correctly; the original
+Lab working tree remains unchanged. No new Lab browser automation or production-application feedback is claimed.
+
+The [RC acceptance checklist](rc-acceptance.md) tracks local/provider behavior, error recovery, persistence/export and
+mobile/RTL review. Its results and stable-release approval are pending. Starting step 5 does not authorize stable
+publication; an accepted RC must still be prepared and reviewed as a concrete stable artifact before that approval.
