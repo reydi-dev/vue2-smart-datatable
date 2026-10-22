@@ -41,7 +41,7 @@ The package is developed with Vue 2.7 and also tested as a packed dependency in 
 
 Contributing to or building this repository requires Node.js 20 because the development and browser-test toolchain has a newer runtime floor than the distributed library.
 
-> This branch contains the Clarity redesign. It has not been published by this migration; npm and the hosted demo may still serve the previous release. See the [upgrade guide](docs/clarity-upgrade.md).
+> This branch prepares the unpublished Clarity candidate `0.3.0-rc.1`. The unqualified npm install and hosted demo still follow their published/deployed releases. To test this candidate, use its local tarball as described in the [upgrade guide](docs/clarity-upgrade.md).
 
 ## Install
 

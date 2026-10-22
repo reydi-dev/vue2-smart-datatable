@@ -1,7 +1,18 @@
 # Upgrading to Clarity
 
-These changes are in the migration branch; they do not publish an npm version or deploy the hosted demo. Test the local
-packed candidate before rolling it into an application. Existing published versions retain their previous requirements.
+The local candidate is `0.3.0-rc.1`, upgrading the `0.2.0` line to Clarity. It has not been published or deployed.
+This is a pre-1.0 minor release with UI integration changes: review the checklist below even when your data/provider
+contracts are unchanged. Existing published versions retain their previous requirements.
+
+Before publication, install the locally packed candidate in a disposable consumer:
+
+```sh
+npm install /absolute/path/to/vue2-smart-datatable-0.3.0-rc.1.tgz
+```
+
+After an explicitly approved publication, install the exact prerelease with `npm install vue2-smart-datatable@0.3.0-rc.1`.
+Do not use the unqualified package name to test this candidate: it follows the stable `latest` tag. The `next` tag will
+only identify Clarity after publication; it currently may identify an older prerelease.
 
 ## Installation
 
@@ -33,6 +44,17 @@ Enter, accepting Latin/Persian/Arabic digits; typing does not issue intermediate
   supports it. Keyboard behavior is covered in Chrome; Safari/Firefox and screen-reader certification are not claimed.
 - Translate optional condition/value/range/close/no-results/export-failure messages alongside application-owned column,
   action, and option labels. Native multi-select follows browser/platform keyboard conventions.
+
+## Consumer acceptance and rollback
+
+Verify local and server data, one committed page jump, custom slots/actions, column persistence and CSV export in your
+application. Check light/dark and RTL, keyboard focus, and retained selection when resizing into mobile details. Verify
+any host-supplied font icons and dialog support in your supported browsers. A generic consumer will use the default
+table layout; the order example's status tabs and compact summaries are application-owned slots, not automatic defaults.
+
+Keep the consumer's previous package manifest, lockfile and table-specific styles in version control. To roll back, restore
+those files and the matching Vuetify setup, then run `npm ci`. Reinstalling only the old package without restoring its
+required peer/UI setup and styles is not a complete rollback.
 
 ## Demos and verification
 

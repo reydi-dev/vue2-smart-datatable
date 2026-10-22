@@ -7,7 +7,7 @@ publication, release tags, or deployment.
 | ---- | ------------------------------------------------------------------------- | ------------------------------------------------------------ |
 | 1    | Final visual review against Clarity                                       | Approved by maintainer after source-demo visual review       |
 | 2    | Pack the final candidate and validate in Package Lab                      | Completed: automated checks and maintainer manual acceptance |
-| 3    | Set the RC version, changelog, upgrade notes and inspect package contents | Pending                                                      |
+| 3    | Set the RC version, changelog, upgrade notes and inspect package contents | Completed: 0.3.0-rc.1 packed and inspected                   |
 | 4    | Publish an explicitly approved RC under `next`                            | Pending explicit release approval                            |
 | 5    | Review real-consumer feedback and approve stable release                  | Pending                                                      |
 
@@ -50,5 +50,45 @@ No browser automation was rerun against the previously blocked Lab origin. Its h
 remains unresolved by automation. The maintainer refreshed the updated candidate, selected a row, narrowed the window,
 waited for the layout to settle and opened its details. They explicitly confirmed retained selection and no clipping or
 horizontal scrolling. This is maintainer-reported manual acceptance, not an automated pass. Step 2 is complete on that
-basis. See [consumer validation](consumer-validation.md) for hashes and scope. Step 3 (RC version and release documentation)
-has not started.
+basis. See [consumer validation](consumer-validation.md) for hashes and scope. The validated step-2 tarball remains the
+historical `0.2.0` artifact; step 3 assigns the new RC identity separately.
+
+## Step 3 release candidate
+
+Prepared version: `0.3.0-rc.1`, targeting a future stable `0.3.0`. This pre-1.0 minor advances the `0.2.0` line because
+Clarity changes UI integration (consumer CSS/DOM selectors, color/icon conventions and breakpoint configuration), even
+though the provider/state/slot contracts are retained. The changelog identifies the candidate as unpublished, and the
+upgrade guide covers local installation, migration checks, browser limits and a complete consumer rollback.
+
+A read-only npm registry check before preparation reported `latest: 0.2.0` and `next: 0.1.0-rc.1`; `0.3.0-rc.1` was not
+among published versions. These are point-in-time observations, not claims that tags cannot change before publication.
+Package and lockfile versions match. `publishConfig.tag` is `next` for this prerelease, to avoid an accidental default
+promotion to `latest`; stable release preparation must review that setting again.
+
+Publication, git tags, pushing and demo deployment have not been performed. Step 4 requires explicit approval of the
+actual candidate and a fresh registry/version check. The intended npm operation is `npm publish <reviewed-tarball> --tag next`,
+using the exact reviewed file rather than a freshly packed working tree. After any approved publication, verify registry
+integrity and `next`/`latest` tags, then install the exact published RC into an isolated consumer. Any runtime changes
+require another candidate validation; retain the documented Lab manual-acceptance limitation.
+
+### Candidate inspection results
+
+Package/declaration build, all 4 distribution tests, lint and formatting passed. The exact RC tarball also passed the
+packed DOM smoke fixture in the existing isolated Vue 2.7.16 consumer without Vuetify. Its ESM, CJS and CSS files are
+byte-for-byte identical to the step-2 accepted candidate; the full unit/browser/four-way consumer results remain step-2
+evidence rather than new reruns. No Lab browser rerun is claimed.
+
+The reviewed tarball contains 50 files (78,372 bytes compressed; 283,670 bytes unpacked). ESM/CJS, CSS, declarations,
+README, changelog, license and migration documentation are present; all package export targets resolve within the tarball.
+Source, tests, examples, node_modules, development demo output and source maps are absent.
+
+Artifact: `vue2-smart-datatable-0.3.0-rc.1.tgz`, saved with `package-manifest.json` under the session visualization directory's
+`release-candidate/` folder (outside the Git working tree).
+
+- SHA-256: `504b777dbe6891b787ff8c680e9d4a9c9deff4b064c224dfc0cccbb359097b78`.
+- npm integrity: `sha512-JWdOrTpaYmJrLNl8wyDppFcS5cHzvhU/i/7+xAwj17eL7sqjrcp1SOErFmTFxvvdSNsgaavQvPOpgEfs3I8Xpw==`.
+
+This report was completed after packing; the tarball includes the preparation plan rather than its own final hash report.
+Do not silently repack and publish a different artifact. If this file is lost, regenerate and inspect a candidate, record
+its new integrity and obtain approval of that concrete file before publishing. Step 3 is complete; step 4 remains pending
+explicit publication approval. No git release tag was created.
