@@ -44,3 +44,34 @@ The test-bench results are pending. No production-application feedback has been 
 - Obtain explicit approval of that concrete stable release before publishing under `latest`.
 
 No stable publication, tag, push or hosted-demo deployment is authorized by starting this review.
+
+## Approved order composition in the registry consumer
+
+Following maintainer feedback that `/local` still shows the generic Lab composition, the disposable Lab now includes
+`http://127.0.0.1:4176/clarity-orders`. This route presents the approved order composition without the Lab's surrounding
+intro/status cards and navigation drawer. Vuetify remains registered in the consumer and its global CSS remains loaded;
+this route is a composition comparison, not evidence of all host-shell behavior. `/local`, `/server` and `/scenarios`
+remain available for the generic functional acceptance groups above.
+
+The reproducible preparation script is `tests/compatibility/package-lab/prepare-orders.mjs`:
+
+```sh
+node tests/compatibility/package-lab/prepare-orders.mjs /absolute/path/to/disposable-package-lab
+```
+
+It requires an existing Lab copy pinned to registry RC `0.3.0-rc.1` and rejects the original sibling Lab path.
+It copies the approved example's data, styles and application-owned composition. Unlike the source fixture, it imports
+only public package exports: `SmartDataTable`, `createCsvExporter` and types. Named customer/status cell slots retain the
+package's default desktop rendering for other columns. The approved plain mobile details are formatted in the consumer's
+own slot; no private cell component, source alias or default-message/icon module is imported. App-owned message overrides
+are partial, allowing the installed package to provide its defaults. No source copy of the table or library CSS replaces
+the npm dependency. The route and navigation entry are added only to the disposable Lab; rerunning the script is idempotent.
+
+Validation: the consumer's TypeScript checks and Vite production build passed with the new route (43 modules,
+including a separate order-page chunk). Repository lint passed. The original Lab repository remains clean. The existing
+host chunk-size warning remains. Direct visual review at the restricted origin was not performed, and no screenshot or
+browser pass is claimed. Source-demo visual approval does not establish this new consumer route's visual acceptance.
+
+Pending comparison: open `/clarity-orders`, compare the order card with `/renderers.html`, then check English/Persian,
+light/dark, narrow-screen details, search, status tabs, selection, column visibility and CSV. Record discrepancies before
+closing step 5. The generic Lab's host navigation/resize acceptance remains a separate checklist item above.

@@ -123,3 +123,13 @@ Lab working tree remains unchanged. No new Lab browser automation or production-
 The [RC acceptance checklist](rc-acceptance.md) tracks local/provider behavior, error recovery, persistence/export and
 mobile/RTL review. Its results and stable-release approval are pending. Starting step 5 does not authorize stable
 publication; an accepted RC must still be prepared and reviewed as a concrete stable artifact before that approval.
+
+### Step 5 order comparison follow-up
+
+The maintainer reported that the generic `/local` page still appeared different from the approved order example.
+The disposable Lab now has a dedicated `/clarity-orders` route mounting the same application-owned order composition
+against the registry RC using only public exports/slots. The source fixture's private cell/default imports are replaced
+with named public cell slots and plain consumer-owned mobile detail formatting. No library runtime changed and no new
+package was published. The original Lab repository remains unchanged. Consumer type checking/build and repository lint
+passed. See [RC acceptance](rc-acceptance.md) for the reproducible preparation script and review scope.
+Consumer-route visual approval and the remaining functional acceptance groups are pending; step 5 stays open.
