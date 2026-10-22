@@ -1,5 +1,5 @@
 <template>
-  <div class="sdt-root" :dir="direction">
+  <div class="sdt-root" :dir="direction" :data-sdt-theme="theme">
     <slot name="toolbar" :state="getState()">
       <SmartTableToolbar
         v-if="showToolbar"
@@ -34,8 +34,7 @@
       <slot name="error" :error="internalError" :retry="refresh"
         >{{ resolvedMessages.error }}
         <v-btn text small @click="refresh()"
-          ><v-icon left small>{{ resolvedIcons.retry }}</v-icon
-          >{{ resolvedMessages.retry }}</v-btn
+          ><SmartTableIcon :icon="resolvedIcons.retry" :size="16" leading />{{ resolvedMessages.retry }}</v-btn
         ></slot
       >
     </v-alert>
@@ -90,9 +89,11 @@
             @click="setSortFromColumn(context.column)"
           >
             {{ context.column.label }}
-            <v-icon v-if="internalSort && internalSort.columnKey === context.column.key" x-small>
-              {{ internalSort.direction === 'asc' ? resolvedIcons.sortAsc : resolvedIcons.sortDesc }}
-            </v-icon>
+            <SmartTableIcon
+              v-if="internalSort && internalSort.columnKey === context.column.key"
+              :icon="internalSort.direction === 'asc' ? resolvedIcons.sortAsc : resolvedIcons.sortDesc"
+              :size="14"
+            />
           </button>
           <span v-else>{{ context.column.label }}</span>
         </template>
@@ -123,8 +124,9 @@
           :disabled="disabled || context.disabled"
           :loading="context.loading"
           @click="context.trigger($event)"
-          ><v-icon v-if="context.action.icon" left small>{{ context.action.icon }}</v-icon
-          >{{ context.action.label }}</v-btn
+          ><SmartTableIcon v-if="context.action.icon" :icon="context.action.icon" :size="16" leading />{{
+            context.action.label
+          }}</v-btn
         >
       </template>
       <template v-if="$scopedSlots['mobile-summary']" #mobile-summary="context"
@@ -168,6 +170,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import SmartTableIcon from './SmartTableIcon.vue'
 import SmartTableDesktop from './SmartTableDesktop.vue'
 import SmartTableMobile from './SmartTableMobile.vue'
 import SmartTableToolbar from './SmartTableToolbar.vue'
@@ -181,6 +184,7 @@ import { processLocalData } from '../core/local-data'
 import { normalizeProviderResponse } from '../core/provider'
 import { toggleKey, togglePageKeys } from '../core/selection'
 import { withoutEmptyFilters } from '../core/filters'
+import { isMobileBreakpoint, matchesMobileBreakpoint, observeViewportWidth } from '../core/responsive'
 import type {
   CellContext,
   DataMode,
@@ -189,6 +193,8 @@ import type {
   DataRow,
   DataTableColumn,
   DataTableIcons,
+  DataTableIcon,
+  DataTableTheme,
   DataTableMessages,
   DataTableState,
   Direction,
@@ -202,7 +208,7 @@ import type {
   RowKey,
   RowKeyGetter,
   SortState,
-  VuetifyBreakpoint,
+  MobileBreakpoint,
 } from '../types'
 
 type RequestReason = DataProviderRequest['reason']
@@ -210,6 +216,7 @@ type RequestReason = DataProviderRequest['reason']
 export default Vue.extend({
   name: 'SmartDataTable',
   components: {
+    SmartTableIcon,
     SmartTableDesktop,
     SmartTableMobile,
     SmartTableToolbar,
@@ -242,8 +249,16 @@ export default Vue.extend({
     exportFileName: { type: String, default: 'export' },
     messages: { type: Object as () => Partial<DataTableMessages>, default: () => ({}) },
     direction: { type: String as () => Direction, default: 'ltr' },
+    theme: {
+      type: String as () => DataTableTheme | undefined,
+      validator: (value: string) => ['light', 'dark'].includes(value),
+    },
     icons: { type: Object as () => Partial<DataTableIcons>, default: () => ({}) },
-    mobileBreakpoint: { type: String as () => VuetifyBreakpoint, default: 'smAndDown' },
+    mobileBreakpoint: {
+      type: [Number, String] as unknown as () => MobileBreakpoint,
+      default: 960,
+      validator: isMobileBreakpoint,
+    },
     mobileSummaryLimit: { type: Number, default: 3 },
     filterDebounce: { type: Number, default: 250 },
     autoLoad: { type: Boolean, default: true },
@@ -258,6 +273,8 @@ export default Vue.extend({
   },
   data() {
     return {
+      viewportWidth: null as number | null,
+      stopViewportObservation: null as (() => void) | null,
       internalPage: Math.max(1, this.page),
       internalItemsPerPage: this.itemsPerPage,
       internalSort: this.sort as SortState | null,
@@ -312,7 +329,7 @@ export default Vue.extend({
     resolvedIcons(): DataTableIcons {
       return { ...defaultIcons, ...this.icons }
     },
-    paginationIcons(): { previous: string; next: string } {
+    paginationIcons(): { previous: DataTableIcon; next: DataTableIcon } {
       return this.direction === 'rtl'
         ? { previous: this.resolvedIcons.next, next: this.resolvedIcons.previous }
         : { previous: this.resolvedIcons.previous, next: this.resolvedIcons.next }
@@ -327,7 +344,7 @@ export default Vue.extend({
       return this.loading || this.internalLoading
     },
     isMobile(): boolean {
-      return Boolean((this as any).$vuetify.breakpoint[this.mobileBreakpoint])
+      return this.viewportWidth !== null && matchesMobileBreakpoint(this.viewportWidth, this.mobileBreakpoint)
     },
   },
   watch: {
@@ -414,6 +431,9 @@ export default Vue.extend({
     },
   },
   async mounted() {
+    this.stopViewportObservation = observeViewportWidth((width) => {
+      this.viewportWidth = width
+    })
     this.internalVisibleColumns = this.visibleColumns
       ? this.validVisibleColumns(this.visibleColumns)
       : this.defaultVisibleColumns
@@ -430,6 +450,7 @@ export default Vue.extend({
     else if (this.autoLoad) await this.load('initial')
   },
   beforeDestroy() {
+    this.stopViewportObservation?.()
     this.cancelPendingLoad()
   },
   methods: {

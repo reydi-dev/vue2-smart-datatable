@@ -1,10 +1,20 @@
 <template>
   <div class="sdt-cell" :class="cellClass" :title="tooltipText" @click="emitCellClick">
     <template v-if="column.type === 'boolean'">
-      <v-icon :color="value ? 'success' : 'error'" small>{{ value ? 'mdi-check-circle' : 'mdi-close-circle' }}</v-icon>
+      <SmartTableIcon
+        :icon="value ? 'mdi-check-circle' : 'mdi-close-circle'"
+        :size="16"
+        :tone="value ? 'success' : 'error'"
+        :label="value ? messages.trueValue || 'True' : messages.falseValue || 'False'"
+      />
     </template>
     <v-chip v-else-if="column.type === 'chip'" small outlined>{{ textValue }}</v-chip>
-    <v-icon v-else-if="column.type === 'icon'" small>{{ textValue }}</v-icon>
+    <SmartTableIcon
+      v-else-if="column.type === 'icon'"
+      :icon="displayIcon"
+      :size="16"
+      :label="column.formatter ? formattedText : column.label"
+    />
     <v-avatar v-else-if="column.type === 'image' && imageUrl" size="36">
       <img :src="imageUrl" :alt="column.label" />
     </v-avatar>
@@ -26,7 +36,7 @@
       :disabled="disabled"
       @click.stop="copy"
     >
-      <v-icon small>{{ icons.copy }}</v-icon>
+      <SmartTableIcon :icon="icons.copy" :size="16" />
       <span class="sdt-cell__copy-value">{{ formattedText }}</span>
     </button>
     <div v-else-if="column.type === 'expandable-text'" class="sdt-cell__expandable">
@@ -37,7 +47,7 @@
         :disabled="disabled"
         @click.stop="expanded = !expanded"
       >
-        <v-icon small>{{ expanded ? icons.collapse : icons.expand }}</v-icon>
+        <SmartTableIcon :icon="expanded ? icons.collapse : icons.expand" :size="16" />
       </button>
       <span v-if="expanded">{{ formattedText }}</span>
     </div>
@@ -47,12 +57,22 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import SmartTableIcon from './SmartTableIcon.vue'
 import { formatColumnValue, resolveCellClass, resolveColumnValue } from '../core/columns'
 import { sanitizeUrl } from '../core/urls'
-import type { CellContext, DataRow, DataTableColumn, DataTableIcons, DataTableMessages, RowKey } from '../types'
+import type {
+  CellContext,
+  DataTableIcon,
+  DataRow,
+  DataTableColumn,
+  DataTableIcons,
+  DataTableMessages,
+  RowKey,
+} from '../types'
 
 export default Vue.extend({
   name: 'SmartTableCell',
+  components: { SmartTableIcon },
   props: {
     column: { type: Object as () => DataTableColumn, required: true },
     row: { type: Object as () => DataRow, required: true },
@@ -65,6 +85,11 @@ export default Vue.extend({
   },
   data: () => ({ expanded: false }),
   computed: {
+    displayIcon(): DataTableIcon {
+      return this.value && typeof this.value === 'object' && 'path' in this.value
+        ? (this.value as DataTableIcon)
+        : this.textValue
+    },
     value(): unknown {
       return resolveColumnValue(this.column, this.row)
     },

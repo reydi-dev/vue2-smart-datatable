@@ -1,25 +1,5 @@
-.sdt-root {
-  --sdt-border-color: rgba(0, 0, 0, 0.12);
-  --sdt-muted-color: rgba(0, 0, 0, 0.6);
-  --sdt-tint-color: rgba(0, 0, 0, 0.025);
-  --sdt-accent: #087c63;
-  --sdt-accent-soft: #edf7f2;
-  --sdt-surface: #fff;
-  --sdt-text-color: #24312e;
-  --sdt-error-color: #a52b36;
-  position: relative;
-  width: 100%;
-}
-.theme--dark .sdt-root {
-  --sdt-border-color: rgba(255, 255, 255, 0.2);
-  --sdt-muted-color: rgba(255, 255, 255, 0.7);
-  --sdt-tint-color: rgba(255, 255, 255, 0.06);
-  --sdt-accent: #83d6bb;
-  --sdt-accent-soft: #253d34;
-  --sdt-surface: #202b26;
-  --sdt-text-color: #edf5f0;
-  --sdt-error-color: #ffb2b9;
-}
+@use './foundations';
+
 .sdt-toolbar {
   display: flex;
   align-items: center;
@@ -109,11 +89,11 @@
 .sdt-desktop thead th {
   background: var(--sdt-tint-color);
   color: var(--sdt-muted-color) !important;
-  font-size: 0.75rem;
+  font-size: var(--sdt-font-size-small);
   letter-spacing: 0.02em;
 }
 .sdt-desktop tbody tr:focus-visible {
-  outline: 2px solid currentColor;
+  outline: var(--sdt-focus-width) solid var(--sdt-accent);
   outline-offset: -2px;
 }
 .sdt-pagination {
@@ -123,10 +103,10 @@
   justify-content: flex-end;
   gap: 16px;
   min-height: 64px;
-  padding: 16px 20px;
+  padding: var(--sdt-space-4) var(--sdt-space-5);
   border-top: 1px solid var(--sdt-border-color);
   color: var(--sdt-muted-color);
-  font-size: 0.75rem;
+  font-size: var(--sdt-font-size-small);
 }
 .sdt-pagination__size {
   display: flex;
@@ -137,10 +117,10 @@
 .sdt-pagination select,
 .sdt-pagination input,
 .sdt-pagination__button {
-  min-height: 36px;
+  min-height: var(--sdt-control-height);
   padding: 6px 10px;
   border: 1px solid var(--sdt-border-color);
-  border-radius: 6px;
+  border-radius: var(--sdt-control-radius);
   background: var(--sdt-surface);
   color: var(--sdt-text-color);
   font: inherit;
@@ -150,11 +130,11 @@
   cursor: pointer;
 }
 .sdt-pagination :is(select, input, button):focus-visible {
-  outline: 2px solid var(--sdt-accent);
-  outline-offset: 3px;
+  outline: var(--sdt-focus-width) solid var(--sdt-accent);
+  outline-offset: var(--sdt-focus-offset);
 }
 .sdt-pagination :is(select, input, button):disabled {
-  opacity: 0.45;
+  opacity: var(--sdt-disabled-opacity);
   cursor: default;
 }
 .sdt-pagination__button:hover:not(:disabled) {
@@ -189,7 +169,7 @@
 .sdt-pagination__arrow {
   display: inline-grid;
   place-items: center;
-  min-width: 36px;
+  min-width: var(--sdt-control-height);
   padding: 4px;
 }
 .sdt-pagination__page {

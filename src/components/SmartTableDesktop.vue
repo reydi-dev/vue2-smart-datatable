@@ -37,9 +37,11 @@
                 @click="!disabled && $emit('sort', column)"
               >
                 {{ column.label }}
-                <v-icon v-if="sort && sort.columnKey === column.key" x-small>{{
-                  sort.direction === 'asc' ? icons.sortAsc : icons.sortDesc
-                }}</v-icon>
+                <SmartTableIcon
+                  v-if="sort && sort.columnKey === column.key"
+                  :icon="sort.direction === 'asc' ? icons.sortAsc : icons.sortDesc"
+                  :size="14"
+                />
               </button>
               <span v-else>{{ column.label }}</span>
             </slot>
@@ -108,8 +110,9 @@
                     :disabled="disabled || actionDisabled(action, row)"
                     :loading="actionLoading(action, row)"
                     @click="triggerAction(action, row, $event)"
-                    ><v-icon v-if="action.icon" left small>{{ action.icon }}</v-icon
-                    >{{ action.label }}</v-btn
+                    ><SmartTableIcon v-if="action.icon" :icon="action.icon" :size="16" leading />{{
+                      action.label
+                    }}</v-btn
                   >
                 </slot>
               </template>
@@ -123,6 +126,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import SmartTableIcon from './SmartTableIcon.vue'
 import SmartTableCell from './SmartTableCell.vue'
 import type {
   DataRow,
@@ -136,7 +140,7 @@ import type {
 
 export default Vue.extend({
   name: 'SmartTableDesktop',
-  components: { SmartTableCell },
+  components: { SmartTableCell, SmartTableIcon },
   props: {
     rows: { type: Array as () => DataRow[], required: true },
     columns: { type: Array as () => DataTableColumn[], required: true },

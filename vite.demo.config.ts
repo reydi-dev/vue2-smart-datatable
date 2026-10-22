@@ -23,6 +23,7 @@ export default defineConfig({
       input: {
         demo: resolve(__dirname, 'examples/index.html'),
         design: resolve(__dirname, 'examples/design.html'),
+        foundations: resolve(__dirname, 'examples/foundations.html'),
       },
     },
     outDir: resolve(__dirname, 'dist-demo'),

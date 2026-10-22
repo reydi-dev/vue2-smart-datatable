@@ -1,0 +1,70 @@
+import { expect, test } from '@playwright/test'
+
+test('standalone foundations render SVG and native controls without icon fonts, with explicit themes and keyboard focus', async ({
+  page,
+}) => {
+  const fontRequests: string[] = []
+  page.on('request', (request) => {
+    if (/\.(?:woff2?|ttf|otf)(?:\?|$)/i.test(request.url())) fontRequests.push(request.url())
+  })
+  await page.goto('/foundations.html')
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(1280)
+  await expect(page.locator('.sdt-root svg')).toHaveCount(10)
+  await expect(page.locator('.v-icon, .mdi, .theme--dark')).toHaveCount(0)
+  await expect(page.getByRole('button', { name: 'Disabled action' })).toBeDisabled()
+  await expect(page.getByRole('button', { name: 'Disabled action' })).toHaveCSS('opacity', '0.45')
+  await page.getByRole('combobox', { name: 'Theme', exact: true }).selectOption('dark')
+  await expect(page.locator('.sdt-root')).toHaveAttribute('data-sdt-theme', 'dark')
+  await expect(page.locator('.sdt-pagination input')).toHaveCSS('background-color', 'rgb(32, 43, 38)')
+  const target = page.getByRole('textbox', { name: 'Go to page', exact: true })
+  await target.focus()
+  await page.keyboard.press('3')
+  await expect(target).toHaveCSS('outline-style', 'solid')
+  await expect(target).toHaveCSS('outline-color', 'rgb(131, 214, 187)')
+  await target.fill('30')
+  await target.press('Enter')
+  await expect(page.locator('.sdt-pagination__page')).toHaveText('30 of 40')
+  await page.getByRole('combobox', { name: 'Direction', exact: true }).selectOption('rtl')
+  await expect(page.locator('.sdt-root')).toHaveAttribute('dir', 'rtl')
+  await page.getByRole('combobox', { name: 'Theme', exact: true }).selectOption('light')
+  await expect(target).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+  expect(fontRequests).toEqual([])
+})
+
+test('independent breakpoint detection follows live viewport and threshold changes', async ({ page }) => {
+  await page.setViewportSize({ width: 800, height: 800 })
+  await page.goto('/foundations.html')
+  await expect(page.getByTestId('viewport-mode')).toHaveText('Mobile')
+  await page.getByRole('combobox', { name: 'Mobile threshold', exact: true }).selectOption('600')
+  await expect(page.getByTestId('viewport-mode')).toHaveText('Desktop')
+  await page.setViewportSize({ width: 599, height: 800 })
+  await expect(page.getByTestId('viewport-mode')).toHaveText('Mobile')
+  await page.setViewportSize({ width: 600, height: 800 })
+  await expect(page.getByTestId('viewport-mode')).toHaveText('Desktop')
+  await page.setViewportSize({ width: 390, height: 800 })
+  await expect(page.getByTestId('viewport-mode')).toHaveText('Mobile')
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390)
+  await expect(page.getByRole('button', { name: 'Go', exact: true })).toBeVisible()
+})
+
+test('the real table changes renderers on resize and retains selection', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('.sdt-desktop')).toBeVisible()
+  const selection = page.getByRole('checkbox', { name: 'Select row 1', exact: true })
+  await selection.focus()
+  await page.keyboard.press('Space')
+  await expect(page.getByTestId('selection')).toHaveText('Selected: 1')
+  await page.setViewportSize({ width: 959, height: 800 })
+  await expect(page.locator('.sdt-mobile')).toBeVisible()
+  await expect(page.getByRole('checkbox', { name: 'Select row 1', exact: true })).toHaveAttribute(
+    'aria-checked',
+    'true',
+  )
+  await page.setViewportSize({ width: 960, height: 800 })
+  await expect(page.locator('.sdt-desktop')).toBeVisible()
+  await expect(page.getByRole('checkbox', { name: 'Select row 1', exact: true })).toHaveAttribute(
+    'aria-checked',
+    'true',
+  )
+  await expect(page.locator('.sdt-pagination .v-icon')).toHaveCount(0)
+})

@@ -3,12 +3,10 @@
     <div class="sdt-toolbar__content"><slot /></div>
     <div class="sdt-toolbar__actions">
       <v-btn v-if="hasFilters" text :disabled="disabled" @click="$emit('toggle-filters')"
-        ><v-icon left>{{ icons.filter }}</v-icon
-        >{{ messages.filters }}</v-btn
+        ><SmartTableIcon :icon="icons.filter" :size="18" leading />{{ messages.filters }}</v-btn
       >
       <v-btn v-if="columnVisibility" text :disabled="disabled" @click="$emit('columns')"
-        ><v-icon left>{{ icons.columns }}</v-icon
-        >{{ messages.columns }}</v-btn
+        ><SmartTableIcon :icon="icons.columns" :size="18" leading />{{ messages.columns }}</v-btn
       >
       <ExportMenu
         v-if="exporters.length"
@@ -25,11 +23,12 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import SmartTableIcon from './SmartTableIcon.vue'
 import ExportMenu from './ExportMenu.vue'
 import type { DataTableIcons, DataTableMessages, ExporterAdapter } from '../types'
 export default Vue.extend({
   name: 'SmartTableToolbar',
-  components: { ExportMenu },
+  components: { ExportMenu, SmartTableIcon },
   props: {
     hasFilters: Boolean,
     columnVisibility: Boolean,

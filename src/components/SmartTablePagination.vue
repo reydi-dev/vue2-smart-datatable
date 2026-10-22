@@ -17,7 +17,7 @@
         :aria-label="labels.previousPage"
         @click="navigate(currentPage - 1)"
       >
-        <v-icon aria-hidden="true">{{ previousIcon }}</v-icon>
+        <SmartTableIcon :icon="previousIcon" :size="18" />
       </button>
       <span class="sdt-pagination__page">{{ currentPage }} {{ labels.of }} {{ pageCount }}</span>
       <button
@@ -27,7 +27,7 @@
         :aria-label="labels.nextPage"
         @click="navigate(currentPage + 1)"
       >
-        <v-icon aria-hidden="true">{{ nextIcon }}</v-icon>
+        <SmartTableIcon :icon="nextIcon" :size="18" />
       </button>
     </div>
     <form class="sdt-pagination__jump" novalidate @submit.prevent="submitPage">
@@ -54,22 +54,24 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import SmartTableIcon from './SmartTableIcon.vue'
 import { defaultMessages } from '../core/messages'
 import { parsePageInput } from '../core/pagination'
-import type { DataTableMessages } from '../types'
+import type { DataTableIcon, DataTableMessages } from '../types'
 
 let paginationId = 0
 
 export default Vue.extend({
   name: 'SmartTablePagination',
+  components: { SmartTableIcon },
   props: {
     page: { type: Number, required: true },
     itemsPerPage: { type: Number, required: true },
     total: { type: Number, required: true },
     pageSizeOptions: { type: Array as () => number[], required: true },
     messages: { type: Object as () => DataTableMessages, required: true },
-    previousIcon: String,
-    nextIcon: String,
+    previousIcon: { type: [String, Object] as unknown as () => DataTableIcon, default: 'mdi-chevron-left' },
+    nextIcon: { type: [String, Object] as unknown as () => DataTableIcon, default: 'mdi-chevron-right' },
     disabled: Boolean,
   },
   data() {

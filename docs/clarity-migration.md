@@ -1,6 +1,6 @@
 # Clarity implementation stages
 
-Work branch: `codex/clarity-ui-migration`.
+Work branch: `clarity-ui-migration`.
 
 The maintainer selected Clarity and approved the prototype's direct page navigation and expanded mobile examples.
 Implementation proceeds in independently reviewable commits. This checklist tracks library migration separately from
@@ -13,9 +13,11 @@ the exploratory [design plan](ui-ux-redesign.md). No package publication, releas
 2. **Production pagination — complete.** Transferred the approved page count and explicit page-jump form to the real
    table. Pagination uses native form controls with localized labels and validation. A provider integration test verifies
    that a committed jump requests only the target page. Existing props/events, icon overrides, and RTL arrows are retained;
-   icons still use Vuetify until stage 3. The prototype and library share the localized page-input parser.
-3. **Independent UI foundations — planned.** Establish scoped Clarity tokens, a consistent focus/disabled system,
-   independent icon rendering, and responsive detection. Document migration for Vuetify breakpoint and icon assumptions.
+   icons were retained in this stage and are replaced by inline SVG in stage 3. The prototype and library share the localized page-input parser.
+3. **Independent UI foundations — complete.** Table-owned icons use local SVG with explicit custom definitions and a
+   legacy host-font fallback. Viewport observation replaces `$vuetify.breakpoint`, with numeric cutoffs and documented
+   legacy aliases. Scoped Clarity tokens define explicit palettes, focus, disabled states, and future renderer geometry.
+   The [UI foundations guide](ui-foundations.md) documents migration and a standalone page without Vuetify imports.
 4. **Desktop, mobile, and cells — planned.** Transfer the table and mobile disclosures to native markup, preserve slots,
    support dense layouts and long/missing/mixed-direction content, and verify row/action/selection behavior.
 5. **Toolbar, filters, columns, export, and states — planned.** Replace remaining controls, preserve custom extension
@@ -46,3 +48,10 @@ Chrome, package build and declaration generation, 3 distribution tests, and `npm
 Enter submission, rejected out-of-range input, mobile navigation, and the existing demo's behavior. The bundled Playwright
 Chromium was unavailable locally; the repository's existing browser-channel option was used instead of downloading it.
 Package Lab and the independent Vue 2.6 consumer have not been revalidated in this stage.
+
+Stage 3 validation passed: 83 unit tests, 8 Chrome browser tests, package/declaration build, 3 distribution tests, and the
+multi-entry demo build. Tests exercise bundled/custom SVG icons without a Vuetify instance, safe handling of icon values,
+legacy viewport boundaries, SSR-safe observation and listener cleanup, live renderer changes with retained selection,
+native-control themes/focus, and a standalone entry that makes no icon-font requests. Mobile/desktop layout checks also
+cover unintended page overflow. Type checking, lint, and formatting passed. Independent Vue 2.6 and Package Lab validation
+remain scheduled for the final consumer-validation stage; this step does not remove the Vuetify peer dependency.

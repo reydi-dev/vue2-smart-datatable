@@ -90,8 +90,7 @@
                   :loading="actionLoading(action, row)"
                   @click="triggerAction(action, row, $event)"
                 >
-                  <v-icon v-if="action.icon" left small>{{ action.icon }}</v-icon
-                  >{{ action.label }}
+                  <SmartTableIcon v-if="action.icon" :icon="action.icon" :size="16" leading />{{ action.label }}
                 </v-btn>
               </slot>
             </template>
@@ -104,12 +103,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import SmartTableIcon from './SmartTableIcon.vue'
 import SmartTableCell from './SmartTableCell.vue'
 import type { DataRow, DataTableColumn, DataTableIcons, DataTableMessages, RowAction, RowKey } from '../types'
 
 export default Vue.extend({
   name: 'SmartTableMobile',
-  components: { SmartTableCell },
+  components: { SmartTableCell, SmartTableIcon },
   props: {
     rows: { type: Array as () => DataRow[], required: true },
     columns: { type: Array as () => DataTableColumn[], required: true },

@@ -3,7 +3,19 @@ export type RowKey = string | number
 export type RowKeyGetter<Row extends DataRow = DataRow> = (row: Row) => RowKey
 export type DataMode = 'local' | 'server'
 export type Direction = 'ltr' | 'rtl'
-export type VuetifyBreakpoint = 'xsOnly' | 'smAndDown' | 'mdAndDown' | 'mdAndUp' | 'lgAndUp'
+export type LegacyMobileBreakpoint = 'xsOnly' | 'smAndDown' | 'mdAndDown' | 'mdAndUp' | 'lgAndUp'
+/** @deprecated Use MobileBreakpoint with a numeric pixel threshold. */
+export type VuetifyBreakpoint = LegacyMobileBreakpoint
+export type MobileBreakpoint = number | LegacyMobileBreakpoint
+export type DataTableTheme = 'light' | 'dark'
+
+export interface SvgIconDefinition {
+  path: string | readonly string[]
+  viewBox?: string
+  /** Stroke drawings use no fill; filled paths are the default. */
+  stroke?: boolean
+}
+export type DataTableIcon = string | SvgIconDefinition
 export type ExportScope = 'current' | 'all'
 
 export type CellType =
@@ -105,7 +117,7 @@ export type ResponseNormalizer<Row extends DataRow = DataRow> = (
 export interface RowAction<Row extends DataRow = DataRow> {
   key: string
   label: string
-  icon?: string
+  icon?: DataTableIcon
   color?: string
   position?: 'leading' | 'trailing' | 'menu'
   visible?: boolean | ((row: Row) => boolean)
@@ -169,21 +181,23 @@ export interface DataTableMessages {
   goToPage?: string
   go?: string
   invalidPage?: string
+  trueValue?: string
+  falseValue?: string
 }
 
 export interface DataTableIcons {
-  sortAsc: string
-  sortDesc: string
-  filter: string
-  columns: string
-  export: string
-  copy: string
-  expand: string
-  collapse: string
-  previous: string
-  next: string
-  actions: string
-  retry: string
+  sortAsc: DataTableIcon
+  sortDesc: DataTableIcon
+  filter: DataTableIcon
+  columns: DataTableIcon
+  export: DataTableIcon
+  copy: DataTableIcon
+  expand: DataTableIcon
+  collapse: DataTableIcon
+  previous: DataTableIcon
+  next: DataTableIcon
+  actions: DataTableIcon
+  retry: DataTableIcon
 }
 
 export interface DataTableState {

@@ -2,8 +2,7 @@
   <v-menu offset-y>
     <template #activator="{ on, attrs }"
       ><v-btn text v-bind="attrs" :loading="loading" :disabled="disabled" v-on="on"
-        ><v-icon left>{{ icon }}</v-icon
-        >{{ messages.export }}</v-btn
+        ><SmartTableIcon :icon="icon" :size="18" leading />{{ messages.export }}</v-btn
       ></template
     >
     <v-list dense
@@ -23,13 +22,15 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import type { DataTableMessages, ExporterAdapter } from '../types'
+import SmartTableIcon from './SmartTableIcon.vue'
+import type { DataTableIcon, DataTableMessages, ExporterAdapter } from '../types'
 export default Vue.extend({
   name: 'ExportMenu',
+  components: { SmartTableIcon },
   props: {
     exporters: { type: Array as () => ExporterAdapter[], required: true },
     messages: { type: Object as () => DataTableMessages, required: true },
-    icon: String,
+    icon: { type: [String, Object] as unknown as () => DataTableIcon, default: '' },
     loading: Boolean,
     disabled: Boolean,
   },

@@ -33,6 +33,7 @@
             </div>
             <div class="demo-controls mb-4">
               <a href="./design.html">Explore the UI/UX design lab</a>
+              <a href="./foundations.html">Preview independent UI foundations</a>
               <v-btn-toggle v-model="mode" mandatory>
                 <v-btn value="local">Local</v-btn>
                 <v-btn value="server">Server</v-btn>

@@ -27,6 +27,8 @@ export const defaultMessages = {
   goToPage: 'Go to page',
   go: 'Go',
   invalidPage: 'Enter a whole page number in this range:',
+  trueValue: 'True',
+  falseValue: 'False',
 } satisfies DataTableMessages
 
 export const defaultIcons: DataTableIcons = {

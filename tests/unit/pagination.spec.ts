@@ -13,7 +13,6 @@ function pagination(props = {}) {
       messages: defaultMessages,
       ...props,
     },
-    stubs: ['v-icon'],
   })
 }
 

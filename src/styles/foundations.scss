@@ -1,0 +1,87 @@
+// Shared, scoped Clarity foundations. Remaining component markup migrates in later stages.
+.sdt-root,
+.sdt-root *,
+.sdt-root *::before,
+.sdt-root *::after {
+  box-sizing: border-box;
+}
+
+.sdt-root {
+  --sdt-border-color: #e3e9e6;
+  --sdt-muted-color: #697773;
+  --sdt-tint-color: #f8faf9;
+  --sdt-accent: #087c63;
+  --sdt-accent-soft: #edf7f2;
+  --sdt-surface: #fff;
+  --sdt-text-color: #24312e;
+  --sdt-error-color: #a52b36;
+  --sdt-success-color: #26734f;
+  --sdt-font-size: 0.875rem;
+  --sdt-font-size-small: 0.75rem;
+  --sdt-space-1: 4px;
+  --sdt-space-2: 8px;
+  --sdt-space-3: 12px;
+  --sdt-space-4: 16px;
+  --sdt-space-5: 20px;
+  --sdt-space-6: 24px;
+  --sdt-radius: 14px;
+  --sdt-control-radius: 6px;
+  --sdt-control-height: 36px;
+  --sdt-row-height: 77px;
+  --sdt-row-height-compact: 61px;
+  --sdt-focus-width: 2px;
+  --sdt-focus-offset: 3px;
+  --sdt-disabled-opacity: 0.45;
+  position: relative;
+  width: 100%;
+}
+
+// The ancestor selector is a compatibility bridge, not a dependency of explicit themes.
+.theme--dark .sdt-root:not([data-sdt-theme='light']),
+.sdt-root[data-sdt-theme='dark'] {
+  --sdt-border-color: #42554b;
+  --sdt-muted-color: #b3c4bb;
+  --sdt-tint-color: #27372f;
+  --sdt-accent: #83d6bb;
+  --sdt-accent-soft: #253d34;
+  --sdt-surface: #202b26;
+  --sdt-text-color: #edf5f0;
+  --sdt-error-color: #ffb2b9;
+  --sdt-success-color: #83d6bb;
+}
+
+.sdt-root :where(button, a, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: var(--sdt-focus-width) solid var(--sdt-accent);
+  outline-offset: var(--sdt-focus-offset);
+}
+.sdt-root :where(button, input, select, textarea):disabled {
+  opacity: var(--sdt-disabled-opacity);
+  cursor: default;
+}
+
+.sdt-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: var(--sdt-icon-size, 18px);
+  height: var(--sdt-icon-size, 18px);
+  font-size: var(--sdt-icon-size, 18px);
+  line-height: 1;
+  vertical-align: middle;
+  color: inherit;
+}
+.sdt-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.sdt-icon--leading {
+  margin-inline-end: var(--sdt-space-2, 8px);
+}
+.sdt-icon--success {
+  color: var(--sdt-success-color, #26734f);
+}
+.sdt-icon--error {
+  color: var(--sdt-error-color, #a52b36);
+}

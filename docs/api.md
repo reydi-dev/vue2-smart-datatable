@@ -4,46 +4,55 @@
 
 ## Props
 
-| Prop                            | Type / default                  | Purpose                                                                                                             |
-| ------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `columns`                       | `DataTableColumn[]` (required)  | Stable column schema.                                                                                               |
-| `mode`                          | `'local' \| 'server'`; `local`  | Selects the data pipeline.                                                                                          |
-| `items`                         | `Row[]`; `[]`                   | Input rows in local mode.                                                                                           |
-| `dataProvider`                  | `DataProvider`                  | Required in server mode.                                                                                            |
-| `normalizeResponse`             | `ResponseNormalizer`            | Converts a provider result to `{ items, total, meta? }`.                                                            |
-| `providerContext`               | `unknown`                       | Consumer-owned context forwarded to the provider.                                                                   |
-| `rowKey`                        | string or getter; `id`          | Resolves a stable string/number key.                                                                                |
-| `page`                          | number; `1`                     | Current one-based page.                                                                                             |
-| `itemsPerPage`                  | number; `25`                    | Current page size.                                                                                                  |
-| `pageSizeOptions`               | number array; `[10,25,50,100]`  | Allowed sizes.                                                                                                      |
-| `sort`                          | `SortState \| null`             | Single-column sorting state.                                                                                        |
-| `filters`                       | `FilterState`; `{}`             | Canonical filter clauses keyed by column key.                                                                       |
-| `value`                         | `RowKey[]`; `[]`                | Vue 2 `v-model` selection.                                                                                          |
-| `selectable`                    | boolean; `false`                | Enables row/page selection.                                                                                         |
-| `actions`                       | `RowAction[]`; `[]`             | Visible, disabled, and loading row actions.                                                                         |
-| `visibleColumns`                | string array                    | Controlled visible column keys.                                                                                     |
-| `columnVisibility`              | boolean; `true`                 | Enables the visibility dialog.                                                                                      |
-| `persistenceAdapter`            | `PersistenceAdapter`            | Optional visibility persistence.                                                                                    |
-| `persistenceKey`                | string                          | Required when persistence is used.                                                                                  |
-| `exporters`                     | `ExporterAdapter[]`; `[]`       | Enables export UI when non-empty.                                                                                   |
-| `exportFileName`                | string; `export`                | File-name stem passed to exporters.                                                                                 |
-| `messages`                      | partial messages                | Overrides default English strings.                                                                                  |
-| `direction`                     | `'ltr' \| 'rtl'`; `ltr`         | Applies direction only to the component root.                                                                       |
-| `icons`                         | partial icon map                | Overrides Vuetify icon names.                                                                                       |
-| `mobileBreakpoint`              | Vuetify breakpoint; `smAndDown` | Selects the mobile renderer.                                                                                        |
-| `mobileSummaryLimit`            | number; `3`                     | Default summary column count.                                                                                       |
-| `filterDebounce`                | number; `250`                   | Server-filter delay in milliseconds.                                                                                |
-| `autoLoad`                      | boolean; `true`                 | Loads server data on mount or when switching to server mode. Set `false` to call `refresh()` for the first load.    |
-| `loading`                       | boolean; `false`                | Adds consumer-controlled loading state.                                                                             |
-| `disabled`                      | boolean; `false`                | Disables built-in state-changing controls, links, copy buttons, and row/cell actions; ref methods remain available. |
-| `dense`, `fixedHeader`          | boolean; `false`                | Display options.                                                                                                    |
-| `height`                        | string or number                | Desktop table height.                                                                                               |
-| `showToolbar`, `showPagination` | boolean; `true`                 | Enables built-in controls.                                                                                          |
-| `rowClass`                      | function                        | Returns Vue-compatible classes for a row.                                                                           |
+| Prop                            | Type / default                 | Purpose                                                                                                             |
+| ------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `columns`                       | `DataTableColumn[]` (required) | Stable column schema.                                                                                               |
+| `mode`                          | `'local' \| 'server'`; `local` | Selects the data pipeline.                                                                                          |
+| `items`                         | `Row[]`; `[]`                  | Input rows in local mode.                                                                                           |
+| `dataProvider`                  | `DataProvider`                 | Required in server mode.                                                                                            |
+| `normalizeResponse`             | `ResponseNormalizer`           | Converts a provider result to `{ items, total, meta? }`.                                                            |
+| `providerContext`               | `unknown`                      | Consumer-owned context forwarded to the provider.                                                                   |
+| `rowKey`                        | string or getter; `id`         | Resolves a stable string/number key.                                                                                |
+| `page`                          | number; `1`                    | Current one-based page.                                                                                             |
+| `itemsPerPage`                  | number; `25`                   | Current page size.                                                                                                  |
+| `pageSizeOptions`               | number array; `[10,25,50,100]` | Allowed sizes.                                                                                                      |
+| `sort`                          | `SortState \| null`            | Single-column sorting state.                                                                                        |
+| `filters`                       | `FilterState`; `{}`            | Canonical filter clauses keyed by column key.                                                                       |
+| `value`                         | `RowKey[]`; `[]`               | Vue 2 `v-model` selection.                                                                                          |
+| `selectable`                    | boolean; `false`               | Enables row/page selection.                                                                                         |
+| `actions`                       | `RowAction[]`; `[]`            | Visible, disabled, and loading row actions.                                                                         |
+| `visibleColumns`                | string array                   | Controlled visible column keys.                                                                                     |
+| `columnVisibility`              | boolean; `true`                | Enables the visibility dialog.                                                                                      |
+| `persistenceAdapter`            | `PersistenceAdapter`           | Optional visibility persistence.                                                                                    |
+| `persistenceKey`                | string                         | Required when persistence is used.                                                                                  |
+| `exporters`                     | `ExporterAdapter[]`; `[]`      | Enables export UI when non-empty.                                                                                   |
+| `exportFileName`                | string; `export`               | File-name stem passed to exporters.                                                                                 |
+| `messages`                      | partial messages               | Overrides default English strings.                                                                                  |
+| `direction`                     | `'ltr' \| 'rtl'`; `ltr`        | Applies direction only to the component root.                                                                       |
+| `theme`                         | `'light' \| 'dark'`; unset     | Selects the independent foundation palette; unset preserves the legacy dark-theme bridge.                           |
+| `icons`                         | partial icon map               | Overrides bundled SVG icons or supplies SVG definitions; see UI foundations.                                        |
+| `mobileBreakpoint`              | number or legacy alias; `960`  | Selects the mobile renderer using an independent viewport threshold.                                                |
+| `mobileSummaryLimit`            | number; `3`                    | Default summary column count.                                                                                       |
+| `filterDebounce`                | number; `250`                  | Server-filter delay in milliseconds.                                                                                |
+| `autoLoad`                      | boolean; `true`                | Loads server data on mount or when switching to server mode. Set `false` to call `refresh()` for the first load.    |
+| `loading`                       | boolean; `false`               | Adds consumer-controlled loading state.                                                                             |
+| `disabled`                      | boolean; `false`               | Disables built-in state-changing controls, links, copy buttons, and row/cell actions; ref methods remain available. |
+| `dense`, `fixedHeader`          | boolean; `false`               | Display options.                                                                                                    |
+| `height`                        | string or number               | Desktop table height.                                                                                               |
+| `showToolbar`, `showPagination` | boolean; `true`                | Enables built-in controls.                                                                                          |
+| `rowClass`                      | function                       | Returns Vue-compatible classes for a row.                                                                           |
 
 Controlled props take precedence over persisted/default values. Interactions update internal optimistic state and emit the matching event so a parent can synchronize its source of truth.
 
 For translated selection controls, override `messages.selectAll` and `messages.selectRow`. The latter is a label prefix followed by the row's position on the current page (for example, `Select row 1`).
+
+## UI foundations
+
+`theme` optionally accepts `'light'` or `'dark'` for the independent native-control palette. Omit it to preserve the legacy
+`.theme--dark` ancestor bridge. Remaining Vuetify controls still use the host theme in this intermediate migration stage.
+
+See [UI foundations](ui-foundations.md) for the numeric `mobileBreakpoint`, legacy alias ranges, SVG definitions and MDI
+compatibility, boolean-cell accessible labels, theme tokens, and the standalone verification page.
 
 ## Pagination
 
@@ -66,8 +75,8 @@ the allowed numeric range. Existing message objects retain English defaults for 
 
 Pagination form controls now use native HTML with scoped `.sdt-pagination__*` classes. The `--sdt-accent`,
 `--sdt-accent-soft`, `--sdt-surface`, `--sdt-text-color`, and `--sdt-error-color` CSS variables configure these controls
-alongside the existing border/muted/tint variables. Vuetify icon overrides and RTL navigation direction remain supported
-in this intermediate migration stage; the library as a whole still requires Vuetify.
+alongside the existing border/muted/tint variables. Bundled inline SVG icons and RTL navigation direction are independent of Vuetify; custom MDI font names require a
+host-provided font stylesheet. The library as a whole still requires Vuetify for controls that have not yet migrated.
 
 ## Events
 
