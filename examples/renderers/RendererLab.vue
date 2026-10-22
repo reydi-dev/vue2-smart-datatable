@@ -46,26 +46,24 @@
         {{ selected.length }} {{ t.selected }}
         <button type="button" @click="selected = []">{{ t.clearSelection }}</button>
       </p>
-      <component
-        v-if="result.items.length"
-        :is="mobile ? 'SmartTableMobile' : 'SmartTableDesktop'"
-        :rows="result.items"
+      <SmartDataTable
+        v-model="selected"
+        :items="allRows"
         :columns="columns"
-        :row-key-of="rowKeyOf"
-        :selected-keys="selected"
         selectable
         :disabled="disabled"
         :dense="dense"
+        :theme="theme"
+        :direction="locale === 'fa' ? 'rtl' : 'ltr'"
         fixed-header
         :height="470"
-        :summary-limit="4"
+        :mobile-summary-limit="4"
         :messages="messages"
         :icons="icons"
         :actions="actions"
-        :sort="sort"
-        @sort="setSort"
-        @select-row="selectRow"
-        @select-page="selectPage"
+        :page.sync="page"
+        :items-per-page.sync="pageSize"
+        :page-size-options="[8, 16]"
         @row-action="lastAction = `${$event.action.key}: ${$event.row.id}`"
       >
         <template #cell="context"
@@ -78,6 +76,12 @@
               ></span
             >
           </div>
+          <span
+            v-else-if="context.column.key === 'status'"
+            class="renderer-status"
+            :class="`renderer-status--${context.row.status}`"
+            ><i aria-hidden="true" />{{ statusLabel(context.row.status) }}</span
+          >
           <SmartTableCell
             v-else
             :row="context.row"
@@ -89,19 +93,7 @@
             :icons="icons"
             :disabled="disabled"
         /></template>
-      </component>
-      <p v-else class="renderer-empty">{{ t.noResults }}</p>
-      <SmartTablePagination
-        :page.sync="page"
-        :items-per-page="pageSize"
-        :total="result.total"
-        :page-size-options="[8, 16]"
-        :messages="messages"
-        :disabled="disabled"
-        :previous-icon="locale === 'fa' ? icons.next : icons.previous"
-        :next-icon="locale === 'fa' ? icons.previous : icons.next"
-        @update:items-per-page="setPageSize"
-      />
+      </SmartDataTable>
     </section>
     <p class="renderer-footnote" data-testid="renderer-action">
       {{
@@ -115,40 +107,30 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import SmartTableDesktop from '@/components/SmartTableDesktop.vue'
-import SmartTableMobile from '@/components/SmartTableMobile.vue'
+import SmartDataTable from '@/components/SmartDataTable.vue'
 import SmartTableCell from '@/components/SmartTableCell.vue'
-import SmartTablePagination from '@/components/SmartTablePagination.vue'
 import { defaultIcons, defaultMessages } from '@/core/messages'
-import { observeViewportWidth } from '@/core/responsive'
-import { processLocalData } from '@/core/local-data'
 import { orders, copy, formatExtra } from '../design/data'
 import type { Order } from '../design/data'
-import type { DataTableColumn, DataTableMessages, SortState, RowAction } from '@/types'
+import type { DataTableColumn, DataTableMessages, RowAction } from '@/types'
 export default Vue.extend({
-  components: { SmartTableDesktop, SmartTableMobile, SmartTableCell, SmartTablePagination },
+  components: { SmartDataTable, SmartTableCell },
   data: () => ({
     locale: 'en' as 'en' | 'fa',
-    theme: 'light',
+    theme: 'light' as 'light' | 'dark',
     dense: false,
     disabled: false,
     busyFirst: false,
-    width: null as number | null,
-    stopObserving: null as (() => void) | null,
     query: '',
     page: 1,
     pageSize: 8,
     selected: [] as string[],
-    sort: null as SortState | null,
     icons: defaultIcons,
     lastAction: '',
   }),
   computed: {
     t() {
       return copy[this.locale]
-    },
-    mobile(): boolean {
-      return this.width !== null && this.width < 960
     },
     messages(): DataTableMessages {
       return this.locale === 'fa'
@@ -235,9 +217,6 @@ export default Vue.extend({
       const query = this.query.toLowerCase().trim()
       return orders.filter((row) => `${row.id} ${row.customer} ${row.email}`.toLowerCase().includes(query))
     },
-    result(): { items: Order[]; total: number } {
-      return processLocalData(this.allRows, this.columns, {}, this.sort, this.page, this.pageSize)
-    },
     actions(): RowAction<Order>[] {
       return [
         {
@@ -250,39 +229,9 @@ export default Vue.extend({
       ]
     },
   },
-  mounted() {
-    this.stopObserving = observeViewportWidth((width) => {
-      this.width = width
-    })
-  },
-  beforeDestroy() {
-    this.stopObserving?.()
-  },
   methods: {
-    rowKeyOf(row: Order) {
-      return row.id
-    },
-    selectRow({ row, selected }: { row: Order; selected: boolean }) {
-      this.selected = selected
-        ? Array.from(new Set([...this.selected, row.id]))
-        : this.selected.filter((id) => id !== row.id)
-    },
-    selectPage(selected: boolean) {
-      const keys = this.result.items.map((row) => row.id)
-      this.selected = selected
-        ? Array.from(new Set([...this.selected, ...keys]))
-        : this.selected.filter((id) => !keys.includes(id))
-    },
-    setSort(column: DataTableColumn) {
-      this.sort = {
-        columnKey: column.key,
-        direction: this.sort?.columnKey === column.key && this.sort.direction === 'asc' ? 'desc' : 'asc',
-      }
-      this.page = 1
-    },
-    setPageSize(size: number) {
-      this.pageSize = size
-      this.page = 1
+    statusLabel(status: Order['status']): string {
+      return this.t[status]
     },
   },
 })
@@ -467,5 +416,43 @@ body {
   .renderer-header a {
     white-space: nowrap;
   }
+}
+</style>
+
+<style>
+.renderer-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border: 1px solid var(--sdt-border-color);
+  border-radius: 5px;
+  background: var(--sdt-tint-color);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.renderer-status i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+.renderer-status--completed {
+  color: var(--sdt-success-color);
+}
+.renderer-status--processing {
+  color: var(--sdt-info-color);
+}
+.renderer-status--pending {
+  color: var(--sdt-warning-color);
+}
+.renderer-status--cancelled {
+  color: var(--sdt-error-color);
+}
+.renderer-card > .sdt-root {
+  border-inline: 0;
+  border-bottom: 0;
+  border-radius: 0 0 var(--sdt-radius) var(--sdt-radius);
 }
 </style>

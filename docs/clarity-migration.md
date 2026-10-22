@@ -87,3 +87,17 @@ The additional immediate resize-width assertion failed; no automated rerun is cl
 accepted the stable local mobile layout manually, with retained selection and no clipping/horizontal scroll. All six
 migration stages are complete under this explicitly documented manual-acceptance exception. Visual refinement against
 the original design remains a separate follow-up; completion here does not claim pixel-perfect design parity or a release.
+
+## Visual refinement after the six migration stages
+
+The first refinement commit aligns shared table heading spacing and sort color, removes duplicate icon margins, and
+reduces mobile border nesting to a contiguous list with lighter disclosure/detail spacing. The order comparison fixture
+now mounts the complete production SmartDataTable rather than separately orchestrated renderers/pagination. It uses the
+same order data as the approved design and application-owned status/person slots; status semantics are not inferred by
+the generic library. Redundant fixture sorting/selection/viewport orchestration was removed.
+
+This is a first visual pass awaiting maintainer comparison, not a claim of pixel-perfect design parity. Direct browser
+review remains unavailable under the previously reported origin restriction; no new browser-test pass is claimed.
+104 unit and 4 distribution tests, type/lint/format checks, and package/demo builds passed during this pass. The
+Package Lab temporary consumer still uses its earlier installed tarball; use the source dev server's /renderers.html
+for the refined full-component order fixture and /design.html for the unchanged reference.
