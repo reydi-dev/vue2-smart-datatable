@@ -14,7 +14,7 @@ Describe what changed and why.
 
 ## Compatibility and security
 
-- [ ] The change remains compatible with Vue 2.7 and Vuetify 2.6
+- [ ] The change remains compatible with supported Vue 2 releases and does not add a required UI framework
 - [ ] No application-specific API, permission, routing, or state dependency was introduced
 - [ ] User-controlled text and URLs are handled safely
 - [ ] Public API or documentation changes are described

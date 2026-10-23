@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">Smart Data Table for Vue 2</title>
+  <desc id="desc">Clarity data table preview with TypeScript, server-side data, responsive layouts, and RTL support.</desc>
+  <rect width="1280" height="640" fill="#f3f7f5"/>
+  <circle cx="1190" cy="82" r="210" fill="#e4f4ed"/>
+  <circle cx="72" cy="604" r="180" fill="#eaf1ff"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="74" y="104" fill="#087f68" font-size="18" font-weight="700" letter-spacing="3">CLARITY / VUE 2</text>
+    <text x="74" y="172" fill="#26352f" font-size="47" font-weight="700">Smart Data Table</text>
+    <text x="74" y="220" fill="#53665e" font-size="23">A production-ready table for maintained Vue 2 apps.</text>
+
+    <g font-size="16" font-weight="600">
+      <rect x="74" y="260" width="142" height="42" rx="21" fill="#ffffff" stroke="#d5e1dc"/>
+      <text x="145" y="287" fill="#26352f" text-anchor="middle">TypeScript</text>
+      <rect x="228" y="260" width="168" height="42" rx="21" fill="#ffffff" stroke="#d5e1dc"/>
+      <text x="312" y="287" fill="#26352f" text-anchor="middle">Server-side</text>
+      <rect x="408" y="260" width="150" height="42" rx="21" fill="#ffffff" stroke="#d5e1dc"/>
+      <text x="483" y="287" fill="#26352f" text-anchor="middle">Mobile + RTL</text>
+    </g>
+
+    <rect x="74" y="350" width="1132" height="232" rx="20" fill="#ffffff" stroke="#d5e1dc"/>
+    <text x="104" y="400" fill="#26352f" font-size="27" font-weight="700">Orders</text>
+    <text x="104" y="428" fill="#6a7b74" font-size="15">Track, filter, and manage customer orders.</text>
+
+    <rect x="760" y="379" width="128" height="42" rx="8" fill="#ffffff" stroke="#d5e1dc"/>
+    <text x="824" y="406" fill="#26352f" font-size="14" font-weight="600" text-anchor="middle">Filters</text>
+    <rect x="900" y="379" width="128" height="42" rx="8" fill="#ffffff" stroke="#d5e1dc"/>
+    <text x="964" y="406" fill="#26352f" font-size="14" font-weight="600" text-anchor="middle">Columns</text>
+    <rect x="1034" y="379" width="142" height="42" rx="8" fill="#087f68"/>
+    <text x="1105" y="406" fill="#ffffff" font-size="13" font-weight="600" text-anchor="middle">Export CSV</text>
+
+    <rect x="75" y="452" width="1130" height="45" fill="#f6f9f7"/>
+    <text x="104" y="481" fill="#6a7b74" font-size="14">Order</text>
+    <text x="300" y="481" fill="#6a7b74" font-size="14">Customer</text>
+    <text x="620" y="481" fill="#6a7b74" font-size="14">Status</text>
+    <text x="866" y="481" fill="#6a7b74" font-size="14">Amount</text>
+    <text x="1042" y="481" fill="#6a7b74" font-size="14">Date</text>
+
+    <text x="104" y="541" fill="#26352f" font-size="15" font-weight="600">ORD-1048</text>
+    <circle cx="316" cy="535" r="18" fill="#eaf6f1"/>
+    <text x="316" y="540" fill="#087f68" font-size="10" font-weight="700" text-anchor="middle">OR</text>
+    <text x="348" y="532" fill="#26352f" font-size="15" font-weight="600">Olivia Rhye</text>
+    <text x="348" y="553" fill="#6a7b74" font-size="12">olivia@acme.design</text>
+    <rect x="620" y="516" width="118" height="32" rx="7" fill="#edf8f1" stroke="#d5e1dc"/>
+    <circle cx="635" cy="532" r="3" fill="#22794e"/>
+    <text x="647" y="537" fill="#22794e" font-size="13">Completed</text>
+    <text x="914" y="541" fill="#26352f" font-size="15" font-weight="600" text-anchor="end">$240.00</text>
+    <text x="1042" y="541" fill="#53665e" font-size="14">Oct 23, 2026</text>
+  </g>
+</svg>
