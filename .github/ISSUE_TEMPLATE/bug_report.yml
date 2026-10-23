@@ -10,15 +10,15 @@ body:
     id: version
     attributes:
       label: Package version or commit
-      placeholder: 0.1.0-rc.1 or a commit SHA
+      placeholder: 0.3.0 or a commit SHA
     validations:
       required: true
   - type: input
     id: environment
     attributes:
       label: Environment
-      description: Include Vue, Vuetify, browser, and Node.js versions where relevant.
-      placeholder: Vue 2.7.16, Vuetify 2.6.15, Chrome 151, Node.js 20
+      description: Include Vue, browser, Node.js, package manager, and any optional host UI framework when relevant.
+      placeholder: Vue 2.7.16, Chrome 151, Node.js 20, npm 10
     validations:
       required: true
   - type: textarea

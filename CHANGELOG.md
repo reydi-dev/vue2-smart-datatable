@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Expanded npm search keywords for common Vue 2 table and datatable queries.
+
 ## 0.3.0 - 2026-10-23
 
 - Promoted Clarity to stable with runtime JavaScript, CSS and declarations unchanged from `0.3.0-rc.1`.
