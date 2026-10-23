@@ -24,11 +24,21 @@
     <text x="104" y="428" fill="#6a7b74" font-size="15">Track, filter, and manage customer orders.</text>
 
     <rect x="760" y="379" width="128" height="42" rx="8" fill="#ffffff" stroke="#d5e1dc"/>
-    <text x="824" y="406" fill="#26352f" font-size="14" font-weight="600" text-anchor="middle">Filters</text>
+    <g fill="none" stroke="#53665e" stroke-linecap="round" stroke-width="2">
+      <path d="M782 391h18M786 400h10M790 409h2"/>
+    </g>
+    <text x="808" y="406" fill="#26352f" font-size="14" font-weight="600">Filters</text>
     <rect x="900" y="379" width="128" height="42" rx="8" fill="#ffffff" stroke="#d5e1dc"/>
-    <text x="964" y="406" fill="#26352f" font-size="14" font-weight="600" text-anchor="middle">Columns</text>
+    <g fill="none" stroke="#53665e" stroke-width="2">
+      <rect x="918" y="391" width="17" height="17" rx="2"/>
+      <path d="M923.5 391v17M929.5 391v17"/>
+    </g>
+    <text x="943" y="406" fill="#26352f" font-size="14" font-weight="600">Columns</text>
     <rect x="1034" y="379" width="142" height="42" rx="8" fill="#087f68"/>
-    <text x="1105" y="406" fill="#ffffff" font-size="13" font-weight="600" text-anchor="middle">Export CSV</text>
+    <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <path d="M1053 390v12M1048 398l5 5 5-5M1047 408h12"/>
+    </g>
+    <text x="1069" y="406" fill="#ffffff" font-size="13" font-weight="600">Export CSV</text>
 
     <rect x="75" y="452" width="1130" height="45" fill="#f6f9f7"/>
     <text x="104" y="481" fill="#6a7b74" font-size="14">Order</text>
