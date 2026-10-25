@@ -1,8 +1,11 @@
 # Changelog
 
-## Unreleased
+## 0.3.1 - 2026-10-25
 
+- Include the updated README desktop/mobile illustration, demo GIF, and integration examples in the npm release.
+- Show the filtering/search GIF directly without requiring readers to expand a section.
 - Expanded npm search keywords for common Vue 2 table and datatable queries.
+- No changes to the library runtime or public API.
 
 ## 0.3.0 - 2026-10-23
 

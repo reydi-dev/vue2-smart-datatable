@@ -13,14 +13,11 @@ A TypeScript-ready data table for Vue 2.6+ with server-side pagination, filterin
 
 The vector illustration above uses the order demo’s sample data and application-owned slots; it is not a pixel-exact browser export. Try the live demo for mobile cards, Persian/RTL and light/dark themes; status tabs and compact order summaries are example customizations.
 
-<details>
-<summary>See status filtering and search in action — 8-second GIF</summary>
+### Filtering and search in action
 
 ![Captured demo states: all orders, Processing filter, all orders again, then a search for Lana](https://raw.githubusercontent.com/reydi-dev/vue2-smart-datatable/main/docs/assets/clarity-demo.gif)
 
 Captured from the live demo with synthetic sample orders. [Open the interactive example](https://reydi-dev.github.io/vue2-smart-datatable/).
-
-</details>
 
 ## Install
 
